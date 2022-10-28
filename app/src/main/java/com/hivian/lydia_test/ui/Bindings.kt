@@ -20,11 +20,6 @@ fun ImageView.setImageUrl(url: String) {
         .into(this)
 }
 
-@BindingAdapter("firstNameText", "lastNameText")
-fun TextView.setNameText(firstNameText: String, lastNameText: String) {
-    text = "$firstNameText $lastNameText"
-}
-
 @BindingAdapter("errorMessage")
 fun TextView.setErrorMessage(networkState: NetworkState) {
     (networkState as? NetworkState.Error)?.let {

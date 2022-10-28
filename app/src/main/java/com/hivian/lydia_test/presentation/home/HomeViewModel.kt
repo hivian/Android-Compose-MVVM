@@ -1,23 +1,20 @@
 package com.hivian.lydia_test.presentation.home
 
-import android.app.Application
 import androidx.lifecycle.*
 import com.hivian.lydia_test.R
 import com.hivian.lydia_test.business.Mapper
 import com.hivian.lydia_test.ui.NetworkState
 import com.hivian.lydia_test.business.model.domain.RandomUserDomain
-import com.hivian.lydia_test.business.remote.getRetrofitApiLayer
 import com.hivian.lydia_test.business.repository.RandomUsersRepository
 import com.hivian.lydia_test.core.SingleLiveData
-import com.hivian.lydia_test.core.localization.ILocalizationService
+import com.hivian.lydia_test.core.services.localization.ILocalizationService
 import com.hivian.lydia_test.core.IScrollMoreDelegate
 import com.hivian.lydia_test.core.Resource
 import com.talentsoft.android.toolkit.core.IoC
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class HomeViewModel(application: Application): AndroidViewModel(application),
-    IScrollMoreDelegate {
+class HomeViewModel: ViewModel(), IScrollMoreDelegate {
 
     companion object {
         const val RESULT_COUNT = 20
@@ -28,19 +25,11 @@ class HomeViewModel(application: Application): AndroidViewModel(application),
     private val localizationService: ILocalizationService
         get() = IoC.resolve()
 
-    //endregion
-
-    //region - Private Members
-
     private var pageCount = 1
 
-    private val randomUsersRepository = RandomUsersRepository(getApplication(), getRetrofitApiLayer())
+    private val randomUsersRepository = RandomUsersRepository()
 
     private var isLoadingMore: Boolean = false
-
-    //endregion
-
-    //region - Public Properties
 
     var title : String = localizationService.localizedString(R.string.home_fragment_title)
 
@@ -62,25 +51,13 @@ class HomeViewModel(application: Application): AndroidViewModel(application),
             it.isEmpty() && networkState.value is NetworkState.Error
         }
 
-    //endregion
-
-    //region - Initialization
-
     init {
         fetchRandomUsers()
     }
 
-    //endregion
-
-    //region - Public Methods
-
     fun openRandomUserDetail(randomUser: RandomUserDomain) {
         clickEvent.value = HomeListViewEvent.OpenDetailView(randomUser)
     }
-
-    //endregion
-
-    //region - Private Methods
 
     private fun fetchRandomUsers() = viewModelScope.launch {
         networkState.value = NetworkState.Loading
@@ -90,8 +67,6 @@ class HomeViewModel(application: Application): AndroidViewModel(application),
             is Resource.Error -> networkState.value = NetworkState.Error(resultList.message)
         }
     }
-
-    //endregion
 
     override fun loadMore() {
         if (isLoadingMore) return

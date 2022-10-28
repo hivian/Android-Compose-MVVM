@@ -1,4 +1,4 @@
-package com.hivian.lydia_test.core.localization
+package com.hivian.lydia_test.core.services.localization
 
 import android.content.Context
 import androidx.annotation.StringRes

@@ -56,8 +56,7 @@
                 android:textSize="16sp"
                 android:textColor="#22282b"
                 android:ellipsize="end"
-                app:firstNameText="@{article.firstName}"
-                app:lastNameText="@{article.lastName}" />
+                android:text="@{article.fullName}" />
 
             <TextView
                 android:id="@+id/tv_email"

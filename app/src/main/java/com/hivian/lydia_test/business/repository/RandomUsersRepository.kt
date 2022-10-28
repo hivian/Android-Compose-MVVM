@@ -1,22 +1,26 @@
 package com.hivian.lydia_test.business.repository
 
-import android.app.Application
 import androidx.lifecycle.LiveData
-import com.hivian.lydia_test.core.IRestClient
-import com.hivian.lydia_test.business.db.RandomUsersDatabase
 import com.hivian.lydia_test.business.model.dto.RandomUserDTO
 import com.hivian.lydia_test.core.BaseRepository
 import com.hivian.lydia_test.core.Resource
+import com.hivian.lydia_test.core.services.database.IDatabaseService
+import com.hivian.lydia_test.core.services.networking.IHttpClient
+import com.talentsoft.android.toolkit.core.IoC
 
-class RandomUsersRepository(application: Application, private val restClient: IRestClient<RandomUserDTO>): BaseRepository() {
+class RandomUsersRepository: BaseRepository() {
 
-    private val randomsUsersDao = RandomUsersDatabase.getInstance(application).randomUsersDao()
+    private val database: IDatabaseService
+        get() = IoC.resolve()
 
-    val randomsUsersLocal: LiveData<List<RandomUserDTO>> = randomsUsersDao.getAllRandomUsers()
+    private val httpClient: IHttpClient
+        get() = IoC.resolve()
+
+    val randomsUsersLocal: LiveData<List<RandomUserDTO>> = database.fetchAllUsers()
 
     suspend fun fetchRandomUsers(page: Int, results: Int): Resource<List<RandomUserDTO>> {
         val safeCall = safeApiCall {
-            restClient.fetchRandomUsers(page, results)
+            httpClient.fetchRandomUsers(page, results)
         }
         if (safeCall is Resource.Success)
             saveRandomUsers(safeCall.data)
@@ -24,7 +28,7 @@ class RandomUsersRepository(application: Application, private val restClient: IR
     }
 
     private suspend fun saveRandomUsers(randomUserList: List<RandomUserDTO>) {
-        randomsUsersDao.upsert(randomUserList)
+        database.upsertUsers(randomUserList)
     }
 
 }

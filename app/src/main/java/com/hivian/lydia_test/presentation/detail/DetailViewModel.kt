@@ -4,20 +4,24 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.hivian.lydia_test.R
 import com.hivian.lydia_test.business.model.domain.RandomUserDomain
-import com.hivian.lydia_test.core.localization.ILocalizationService
+import com.hivian.lydia_test.core.services.localization.ILocalizationService
 import com.talentsoft.android.toolkit.core.IoC
 
 class DetailViewModel(randomUser: RandomUserDomain): ViewModel() {
 
-    //region - Dependency Injection
-
     private val localizationService: ILocalizationService
         get() = IoC.resolve()
 
-    //endregion
+    val title = MutableLiveData(localizationService.localizedString(R.string.detail_fragment_title))
 
-    val title: String = localizationService.localizedString(R.string.detail_fragment_title)
+    val picture = MutableLiveData(randomUser.picture)
 
-    val data = MutableLiveData(randomUser)
+    val name = MutableLiveData(randomUser.fullName)
+
+    val email = MutableLiveData(randomUser.email)
+
+    val cell = MutableLiveData(randomUser.cell)
+
+    val phone = MutableLiveData(randomUser.phone)
 
 }

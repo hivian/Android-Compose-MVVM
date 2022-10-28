@@ -22,4 +22,9 @@ data class RandomUserDomain(
 
     val picture: String
 
-): Parcelable
+): Parcelable {
+
+    val fullName : String
+        get() = "$firstName $lastName"
+
+}
