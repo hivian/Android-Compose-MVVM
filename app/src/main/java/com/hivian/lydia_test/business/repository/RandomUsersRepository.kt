@@ -2,13 +2,13 @@ package com.hivian.lydia_test.business.repository
 
 import androidx.lifecycle.LiveData
 import com.hivian.lydia_test.business.model.dto.RandomUserDTO
-import com.hivian.lydia_test.core.BaseRepository
-import com.hivian.lydia_test.core.Resource
+import com.hivian.lydia_test.core.services.base.RepositoryBase
+import com.hivian.lydia_test.core.services.networking.Resource
 import com.hivian.lydia_test.core.services.database.IDatabaseService
 import com.hivian.lydia_test.core.services.networking.IHttpClient
 import com.talentsoft.android.toolkit.core.IoC
 
-class RandomUsersRepository: BaseRepository() {
+class RandomUsersRepository: RepositoryBase() {
 
     private val database: IDatabaseService
         get() = IoC.resolve()

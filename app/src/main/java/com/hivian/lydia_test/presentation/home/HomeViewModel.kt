@@ -6,23 +6,25 @@ import com.hivian.lydia_test.business.Mapper
 import com.hivian.lydia_test.ui.NetworkState
 import com.hivian.lydia_test.business.model.domain.RandomUserDomain
 import com.hivian.lydia_test.business.repository.RandomUsersRepository
-import com.hivian.lydia_test.core.SingleLiveData
 import com.hivian.lydia_test.core.services.localization.ILocalizationService
 import com.hivian.lydia_test.core.IScrollMoreDelegate
-import com.hivian.lydia_test.core.Resource
+import com.hivian.lydia_test.core.services.base.ViewModelBase
+import com.hivian.lydia_test.core.services.networking.Resource
+import com.hivian.lydia_test.core.services.navigation.INavigationService
 import com.talentsoft.android.toolkit.core.IoC
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class HomeViewModel: ViewModel(), IScrollMoreDelegate {
+class HomeViewModel: ViewModelBase(), IScrollMoreDelegate {
 
     companion object {
         const val RESULT_COUNT = 20
     }
 
-    //region - Dependency Injection
-
     private val localizationService: ILocalizationService
+        get() = IoC.resolve()
+
+    private val navigationService: INavigationService
         get() = IoC.resolve()
 
     private var pageCount = 1
@@ -44,8 +46,6 @@ class HomeViewModel: ViewModel(), IScrollMoreDelegate {
 
     val networkState = MutableLiveData<NetworkState>()
 
-    val clickEvent = SingleLiveData<HomeListViewEvent>()
-
     var displayErrorMessage: LiveData<Boolean> =
         Transformations.map(data) {
             it.isEmpty() && networkState.value is NetworkState.Error
@@ -56,7 +56,7 @@ class HomeViewModel: ViewModel(), IScrollMoreDelegate {
     }
 
     fun openRandomUserDetail(randomUser: RandomUserDomain) {
-        clickEvent.value = HomeListViewEvent.OpenDetailView(randomUser)
+        navigationService.openRandomUserDetail(randomUser)
     }
 
     private fun fetchRandomUsers() = viewModelScope.launch {

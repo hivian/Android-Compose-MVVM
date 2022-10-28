@@ -1,4 +1,4 @@
-package com.hivian.lydia_test.core
+package com.hivian.lydia_test.core.services.networking
 
 sealed class Resource<out T: Any> {
 
