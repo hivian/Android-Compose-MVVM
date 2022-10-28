@@ -9,8 +9,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.hivian.lydia_test.R
 import com.hivian.lydia_test.business.model.domain.RandomUserDomain
-import com.hivian.common.InfiniteScrollListener
-import com.hivian.common.observe
+import com.hivian.lydia_test.core.observe
+import com.hivian.lydia_test.core.InfiniteScrollListener
 import com.hivian.lydia_test.databinding.FragmentHomeBinding
 import com.hivian.lydia_test.presentation.home.HomeListViewEvent
 import com.hivian.lydia_test.presentation.home.HomeViewModel
@@ -48,7 +48,7 @@ class HomeFragment : Fragment() {
         with(binding.randomUsersList) {
             adapter = viewAdapter
             addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
-            addOnScrollListener(com.hivian.common.InfiniteScrollListener(homeViewModel))
+            addOnScrollListener(InfiniteScrollListener(homeViewModel))
         }
 
     }

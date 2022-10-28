@@ -1,4 +1,4 @@
-package com.hivian.common.servicelocator
+package com.hivian.lydia_test.core.servicelocator
 
 import kotlin.reflect.KClass
 

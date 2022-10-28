@@ -1,7 +1,9 @@
 package com.hivian.lydia_test
 
 import android.app.Application
-import com.hivian.common.Common
+import com.hivian.lydia_test.core.localization.ILocalizationService
+import com.hivian.lydia_test.core.localization.LocalizationService
+import com.talentsoft.android.toolkit.core.IoC
 import timber.log.Timber
 
 class App: Application() {
@@ -13,7 +15,7 @@ class App: Application() {
             Timber.plant(Timber.DebugTree())
         }
 
-        Common.initialize(this)
+        IoC.registerSingleton<ILocalizationService> { LocalizationService(this) }
     }
 
 }

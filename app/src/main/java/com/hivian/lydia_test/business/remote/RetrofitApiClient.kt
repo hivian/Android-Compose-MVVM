@@ -8,11 +8,15 @@ import java.util.concurrent.TimeUnit
 
 class RetrofitApiClient {
 
+    companion object {
+        private const val BASE_URL = "https://randomuser.me/"
+    }
+
     private val okHttpClient by lazy { OkHttpClient() }
 
     private val retrofit: Retrofit by lazy {
         val builder = Retrofit.Builder()
-                .baseUrl("https://randomuser.me/")
+                .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
 
         val loggingInterceptor = HttpLoggingInterceptor().apply {

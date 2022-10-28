@@ -8,14 +8,16 @@ import com.hivian.lydia_test.ui.NetworkState
 import com.hivian.lydia_test.business.model.domain.RandomUserDomain
 import com.hivian.lydia_test.business.remote.getRetrofitApiLayer
 import com.hivian.lydia_test.business.repository.RandomUsersRepository
-import com.hivian.common.SingleLiveData
-import com.hivian.common.localization.ILocalizationService
+import com.hivian.lydia_test.core.SingleLiveData
+import com.hivian.lydia_test.core.localization.ILocalizationService
+import com.hivian.lydia_test.core.IScrollMoreDelegate
+import com.hivian.lydia_test.core.Resource
 import com.talentsoft.android.toolkit.core.IoC
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class HomeViewModel(application: Application): AndroidViewModel(application),
-    com.hivian.common.IScrollMoreDelegate {
+    IScrollMoreDelegate {
 
     companion object {
         const val RESULT_COUNT = 20
@@ -84,8 +86,8 @@ class HomeViewModel(application: Application): AndroidViewModel(application),
         networkState.value = NetworkState.Loading
 
         when (val resultList = randomUsersRepository.fetchRandomUsers(pageCount, RESULT_COUNT)) {
-            is com.hivian.common.Resource.Success -> networkState.value = NetworkState.Success
-            is com.hivian.common.Resource.Error -> networkState.value = NetworkState.Error(resultList.message)
+            is Resource.Success -> networkState.value = NetworkState.Success
+            is Resource.Error -> networkState.value = NetworkState.Error(resultList.message)
         }
     }
 
@@ -97,7 +99,7 @@ class HomeViewModel(application: Application): AndroidViewModel(application),
         isLoadingMore = true
         viewModelScope.launch(Dispatchers.Main) {
             val resultList = randomUsersRepository.fetchRandomUsers(++pageCount, RESULT_COUNT)
-            if (resultList is com.hivian.common.Resource.Error) {
+            if (resultList is Resource.Error) {
                 pageCount--
             }
 

@@ -1,7 +1,7 @@
 package com.hivian.lydia_test.business.remote
 
 import com.hivian.lydia_test.business.model.dto.RandomUserDTO
-import com.hivian.common.IRestClient
+import com.hivian.lydia_test.core.IRestClient
 
 
 class HttpRetrofit(private val service: ApiService): IRestClient<RandomUserDTO> {

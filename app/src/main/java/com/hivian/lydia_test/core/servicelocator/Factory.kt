@@ -1,4 +1,4 @@
-package com.hivian.common.servicelocator
+package com.hivian.lydia_test.core.servicelocator
 
 internal class Factory<out T> constructor(private val initializer: () -> T) : Lazy<T> {
 

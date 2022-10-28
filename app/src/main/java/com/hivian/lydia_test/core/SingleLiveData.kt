@@ -1,4 +1,4 @@
-package com.hivian.common
+package com.hivian.lydia_test.core
 
 import androidx.annotation.MainThread
 import androidx.lifecycle.LifecycleOwner
