@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.hivian.lydia_test.presentation.home.HomeViewModel" />
+    </data>
+
+    <RelativeLayout
+        tools:context=".ui.home.HomeFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/toolbar_home"
+            layout="@layout/app_bar_layout"
+            app:title="@{viewModel.title}"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/random_users_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar_home"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/random_user_item" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            visible="@{viewModel.networkState.loading}" >
+
+            <androidx.core.widget.ContentLoadingProgressBar
+                android:id="@+id/loadingBar"
+                style="@style/Widget.AppCompat.ProgressBar"
+                android:background="@color/white"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:indeterminateOnly="true"
+                android:layout_gravity="center" />
+
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center"
+            visible="@{viewModel.displayErrorMessage}"
+            errorMessage="@{viewModel.networkState}" />
+
+    </RelativeLayout>
+
+</layout>

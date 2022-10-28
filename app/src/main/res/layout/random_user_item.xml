@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="article"
+            type="com.hivian.lydia_test.business.model.domain.RandomUserDomain" />
+        <variable
+            name="viewModel"
+            type="com.hivian.lydia_test.presentation.home.HomeViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:foreground="?attr/selectableItemBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> viewModel.openRandomUserDetail(article)}"
+        android:layout_margin="4dp" >
+
+        <RelativeLayout
+            android:id="@+id/rl_start"
+            android:layout_width="66dp"
+            android:layout_height="66dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" >
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_picture"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:civ_border_color="#85939d"
+                android:layout_margin="8dp"
+                app:civ_border_width="1dp"
+                app:imageUrl="@{article.picture}" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_center"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/rl_start"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="#22282b"
+                android:ellipsize="end"
+                app:firstNameText="@{article.firstName}"
+                app:lastNameText="@{article.lastName}" />
+
+            <TextView
+                android:id="@+id/tv_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:text="@{article.email}"
+                android:textSize="14sp"
+                android:textColor="#85939d"/>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
