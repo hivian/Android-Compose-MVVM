@@ -21,7 +21,7 @@ interface RandomUsersDao {
     suspend fun deleteAll()
 
     @Query("SELECT * FROM random_user_entity")
-    fun getAllRandomUsers() : LiveData<List<RandomUserDTO>>
+    suspend fun getAllRandomUsers() : List<RandomUserDTO>
 
     @Query("SELECT * FROM random_user_entity WHERE localId = :id")
     suspend fun getRandomUserById(id : Int) : RandomUserDTO

@@ -42,6 +42,34 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/random_user_item" />
 
+        <LinearLayout
+            visible="@{viewModel.displayErrorMessage}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:layout_gravity="center"
+                android:text="@{viewModel.errorMessage}"
+                tools:text="@string/error_message" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_gravity="center"
+                android:onClick="@{() -> viewModel.refresh()}"
+                android:text="@{viewModel.retryMessage}"
+                tools:text="@string/retry_message" />
+
+        </LinearLayout>
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -58,16 +86,6 @@
                 android:layout_gravity="center" />
 
         </FrameLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textSize="18sp"
-            android:textColor="@color/black"
-            android:background="@color/white"
-            android:gravity="center"
-            android:text="@{viewModel.errorMessage}"
-            visible="@{viewModel.displayErrorMessage}" />
 
     </RelativeLayout>
 

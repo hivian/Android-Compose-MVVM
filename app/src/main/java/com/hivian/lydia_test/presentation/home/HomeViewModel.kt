@@ -5,11 +5,12 @@ import com.hivian.lydia_test.R
 import com.hivian.lydia_test.core.models.Mapper
 import com.hivian.lydia_test.presentation.ViewModelVisualState
 import com.hivian.lydia_test.core.models.domain.RandomUserDomain
-import com.hivian.lydia_test.core.services.application.RandomUsersService
 import com.hivian.lydia_test.core.services.localization.ILocalizationService
 import com.hivian.lydia_test.core.application.IScrollMoreDelegate
 import com.hivian.lydia_test.core.base.ViewModelBase
-import com.hivian.lydia_test.core.services.networking.HttpResult
+import com.hivian.lydia_test.core.models.dto.RandomUserDTO
+import com.hivian.lydia_test.core.services.application.IRandomUsersService
+import com.hivian.lydia_test.core.services.networking.ServiceResult
 import com.hivian.lydia_test.core.services.navigation.INavigationService
 import com.talentsoft.android.toolkit.core.IoC
 import kotlinx.coroutines.Dispatchers
@@ -27,26 +28,20 @@ class HomeViewModel: ViewModelBase(), IScrollMoreDelegate {
     private val navigationService: INavigationService
         get() = IoC.resolve()
 
-    private var pageCount = 1
+    private val randomUsersService: IRandomUsersService
+        get() = IoC.resolve()
 
-    private val randomUsersRepository = RandomUsersService()
+    private var pageCount = 1
 
     private var isLoadingMore: Boolean = false
 
     var title : String = localizationService.localizedString(R.string.home_fragment_title)
 
-    var data : LiveData<List<RandomUserDomain>> =
-        Transformations.map(randomUsersRepository.randomsUsersLocal) {
-            if (it.isNotEmpty()) {
-                pageCount = it.count() / RESULT_COUNT
-            }
+    var data = MutableLiveData<List<RandomUserDomain>>()
 
-            Mapper.mapDTOToDomain(it)
-        }
-
-    var displayErrorMessage: LiveData<Boolean> = Transformations.map(data) {
-            it.isEmpty() && viewModelVisualState.value is ViewModelVisualState.Error
-        }
+    var displayErrorMessage: LiveData<Boolean> = Transformations.map(viewModelVisualState) {
+        data.value.isNullOrEmpty() && viewModelVisualState.value is ViewModelVisualState.Error
+    }
 
     val errorMessage : LiveData<String> = Transformations.map(viewModelVisualState) {
         when (it) {
@@ -54,6 +49,8 @@ class HomeViewModel: ViewModelBase(), IScrollMoreDelegate {
             else -> null
         }
     }
+
+    val retryMessage: String = localizationService.localizedString(R.string.retry_message)
 
     init {
         fetchRandomUsers()
@@ -63,12 +60,19 @@ class HomeViewModel: ViewModelBase(), IScrollMoreDelegate {
         navigationService.openRandomUserDetail(randomUser)
     }
 
+    fun refresh() {
+        fetchRandomUsers()
+    }
+
     private fun fetchRandomUsers() = viewModelScope.launch {
         viewModelVisualState.value = ViewModelVisualState.Loading
 
-        when (val result = randomUsersRepository.fetchRandomUsers(pageCount, RESULT_COUNT)) {
-            is HttpResult.Success -> viewModelVisualState.value = ViewModelVisualState.Success
-            is HttpResult.Error -> viewModelVisualState.value = ViewModelVisualState.Error(result.toVisualStateError())
+        when (val result = randomUsersService.fetchRandomUsers(pageCount, RESULT_COUNT)) {
+            is ServiceResult.Success -> {
+                updateData(result.data)
+                viewModelVisualState.value = ViewModelVisualState.Success
+            }
+            is ServiceResult.Error -> viewModelVisualState.value = ViewModelVisualState.Error(result.toVisualStateError())
         }
     }
 
@@ -77,12 +81,26 @@ class HomeViewModel: ViewModelBase(), IScrollMoreDelegate {
 
         isLoadingMore = true
         viewModelScope.launch(Dispatchers.Main) {
-            val resultList = randomUsersRepository.fetchRandomUsers(++pageCount, RESULT_COUNT)
-            if (resultList is HttpResult.Error) {
+            val resultList = randomUsersService.fetchRandomUsers(++pageCount, RESULT_COUNT)
+
+            if (resultList is ServiceResult.Error) {
                 pageCount--
+            }
+
+            if (resultList is ServiceResult.Success) {
+                updateData(resultList.data)
             }
 
             isLoadingMore = false
         }
     }
+
+    private fun updateData(users: List<RandomUserDTO>) {
+        if (users.isNotEmpty()) {
+            pageCount = users.count() / RESULT_COUNT
+        }
+
+        data.value = Mapper.mapDTOToDomain(users)
+    }
+
 }

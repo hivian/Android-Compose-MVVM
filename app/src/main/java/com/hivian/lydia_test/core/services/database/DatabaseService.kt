@@ -8,11 +8,9 @@ import com.hivian.lydia_test.core.models.dto.RandomUserDTO
 
 class DatabaseService(applicationContext: Context): IDatabaseService {
 
-    private var database = RandomUsersDatabase.getInstance(
-        applicationContext,
-    )
+    private var database = RandomUsersDatabase.getInstance(applicationContext)
 
-    override fun fetchAllUsers(): LiveData<List<RandomUserDTO>> {
+    override suspend fun fetchUsers(): List<RandomUserDTO> {
         return database.randomUsersDao().getAllRandomUsers()
     }
 

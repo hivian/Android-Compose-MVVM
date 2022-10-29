@@ -40,20 +40,20 @@ class RetrofitHttpClient(baseUrl: String): IHttpClient {
 
     private val retrofitService: ApiService = retrofit.create(ApiService::class.java)
 
-    override suspend fun fetchRandomUsers(page: Int, results: Int): HttpResult<List<RandomUserDTO>> {
+    override suspend fun fetchRandomUsers(page: Int, results: Int): ServiceResult<List<RandomUserDTO>> {
         return safeApiCall {
             retrofitService.fetchRandomUsers(page = page, results = results).results
         }
     }
 
-    private suspend fun <T : Any> safeApiCall(call: suspend () -> T) : HttpResult<T> {
+    private suspend fun <T : Any> safeApiCall(call: suspend () -> T) : ServiceResult<T> {
         return try {
             val response = call.invoke()
-            HttpResult.Success(
+            ServiceResult.Success(
                 response
             )
         } catch (exception: Exception) {
-            HttpResult.Error(ResourceErrorType.UNKNOWN)
+            ServiceResult.Error(ResourceErrorType.UNKNOWN)
         }
     }
 

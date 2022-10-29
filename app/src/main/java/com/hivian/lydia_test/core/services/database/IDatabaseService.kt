@@ -5,7 +5,7 @@ import com.hivian.lydia_test.core.models.dto.RandomUserDTO
 
 interface IDatabaseService {
 
-    fun fetchAllUsers(): LiveData<List<RandomUserDTO>>
+    suspend fun fetchUsers(): List<RandomUserDTO>
 
     suspend fun upsertUsers(users : List<RandomUserDTO>)
 
