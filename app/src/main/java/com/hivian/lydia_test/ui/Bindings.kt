@@ -5,6 +5,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.hivian.lydia_test.presentation.ViewModelVisualState
 
 @set:BindingAdapter("visible")
 var View.visible
@@ -18,11 +19,4 @@ fun ImageView.setImageUrl(url: String) {
     Glide.with(context)
         .load(url)
         .into(this)
-}
-
-@BindingAdapter("errorMessage")
-fun TextView.setErrorMessage(networkState: NetworkState) {
-    (networkState as? NetworkState.Error)?.let {
-        text = it.message
-    }
 }

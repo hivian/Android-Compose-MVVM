@@ -3,12 +3,12 @@ package com.hivian.lydia_test.presentation.home
 import androidx.lifecycle.*
 import com.hivian.lydia_test.R
 import com.hivian.lydia_test.business.Mapper
-import com.hivian.lydia_test.ui.NetworkState
+import com.hivian.lydia_test.presentation.ViewModelVisualState
 import com.hivian.lydia_test.business.model.domain.RandomUserDomain
 import com.hivian.lydia_test.business.repository.RandomUsersRepository
 import com.hivian.lydia_test.core.services.localization.ILocalizationService
 import com.hivian.lydia_test.core.IScrollMoreDelegate
-import com.hivian.lydia_test.core.services.base.ViewModelBase
+import com.hivian.lydia_test.core.base.ViewModelBase
 import com.hivian.lydia_test.core.services.networking.Resource
 import com.hivian.lydia_test.core.services.navigation.INavigationService
 import com.talentsoft.android.toolkit.core.IoC
@@ -44,12 +44,15 @@ class HomeViewModel: ViewModelBase(), IScrollMoreDelegate {
             Mapper.mapDTOToDomain(it)
         }
 
-    val networkState = MutableLiveData<NetworkState>()
-
     var displayErrorMessage: LiveData<Boolean> =
         Transformations.map(data) {
-            it.isEmpty() && networkState.value is NetworkState.Error
+            it.isEmpty() && viewModelVisualState.value is ViewModelVisualState.Error
         }
+
+    val errorMessage : String? = when (viewModelVisualState.value) {
+        is ViewModelVisualState.Error -> "Network error"
+        else -> null
+    }
 
     init {
         fetchRandomUsers()
@@ -60,11 +63,11 @@ class HomeViewModel: ViewModelBase(), IScrollMoreDelegate {
     }
 
     private fun fetchRandomUsers() = viewModelScope.launch {
-        networkState.value = NetworkState.Loading
+        viewModelVisualState.value = ViewModelVisualState.Loading
 
-        when (val resultList = randomUsersRepository.fetchRandomUsers(pageCount, RESULT_COUNT)) {
-            is Resource.Success -> networkState.value = NetworkState.Success
-            is Resource.Error -> networkState.value = NetworkState.Error(resultList.message)
+        when (val result = randomUsersRepository.fetchRandomUsers(pageCount, RESULT_COUNT)) {
+            is Resource.Success -> viewModelVisualState.value = ViewModelVisualState.Success
+            is Resource.Error -> viewModelVisualState.value = ViewModelVisualState.Error(result.toVisualStateError())
         }
     }
 

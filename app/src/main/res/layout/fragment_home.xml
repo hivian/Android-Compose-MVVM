@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
-            visible="@{viewModel.networkState.loading}" >
+            visible="@{viewModel.viewModelVisualState.loading}" >
 
             <androidx.core.widget.ContentLoadingProgressBar
                 android:id="@+id/loadingBar"
@@ -55,8 +55,8 @@
             android:textColor="@color/black"
             android:background="@color/white"
             android:gravity="center"
-            visible="@{viewModel.displayErrorMessage}"
-            errorMessage="@{viewModel.networkState}" />
+            android:text="@{viewModel.errorMessage}"
+            visible="@{viewModel.displayErrorMessage}" />
 
     </RelativeLayout>
 

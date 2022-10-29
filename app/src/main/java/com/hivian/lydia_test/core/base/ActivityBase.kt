@@ -1,4 +1,4 @@
-package com.hivian.lydia_test.core.services.base
+package com.hivian.lydia_test.core.base
 
 import android.os.Bundle
 import androidx.annotation.LayoutRes

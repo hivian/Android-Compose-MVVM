@@ -1,15 +1,13 @@
 package com.hivian.lydia_test.ui.fragments
 
 import android.os.Bundle
-import android.view.*
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.hivian.lydia_test.R
 import com.hivian.lydia_test.business.model.domain.RandomUserDomain
 import com.hivian.lydia_test.core.services.extensions.observe
 import com.hivian.lydia_test.core.InfiniteScrollListener
-import com.hivian.lydia_test.core.services.base.FragmentBase
+import com.hivian.lydia_test.core.base.FragmentBase
 import com.hivian.lydia_test.databinding.FragmentHomeBinding
 import com.hivian.lydia_test.presentation.home.HomeViewModel
 import com.hivian.lydia_test.ui.list.RandomUsersListAdapter

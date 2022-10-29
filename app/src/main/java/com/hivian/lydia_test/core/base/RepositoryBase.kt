@@ -1,7 +1,7 @@
-package com.hivian.lydia_test.core.services.base
+package com.hivian.lydia_test.core.base
 
-import com.github.ajalt.timberkt.e
 import com.hivian.lydia_test.core.services.networking.Resource
+import com.hivian.lydia_test.core.services.networking.ResourceErrorType
 
 open class RepositoryBase {
 
@@ -12,8 +12,7 @@ open class RepositoryBase {
                 response
             )
         } catch (exception: Exception) {
-            e { "Network error: $exception" }
-            Resource.Error("Network error")
+            Resource.Error(ResourceErrorType.UNKNOWN)
         }
     }
 
