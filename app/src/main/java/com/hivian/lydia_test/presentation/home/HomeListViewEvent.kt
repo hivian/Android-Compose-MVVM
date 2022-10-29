@@ -1,6 +1,6 @@
 package com.hivian.lydia_test.presentation.home
 
-import com.hivian.lydia_test.business.model.domain.RandomUserDomain
+import com.hivian.lydia_test.core.models.domain.RandomUserDomain
 
 sealed class HomeListViewEvent {
 

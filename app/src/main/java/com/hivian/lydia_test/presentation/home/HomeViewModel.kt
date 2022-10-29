@@ -2,14 +2,14 @@ package com.hivian.lydia_test.presentation.home
 
 import androidx.lifecycle.*
 import com.hivian.lydia_test.R
-import com.hivian.lydia_test.business.Mapper
+import com.hivian.lydia_test.core.models.Mapper
 import com.hivian.lydia_test.presentation.ViewModelVisualState
-import com.hivian.lydia_test.business.model.domain.RandomUserDomain
-import com.hivian.lydia_test.business.repository.RandomUsersRepository
+import com.hivian.lydia_test.core.models.domain.RandomUserDomain
+import com.hivian.lydia_test.core.services.application.RandomUsersService
 import com.hivian.lydia_test.core.services.localization.ILocalizationService
-import com.hivian.lydia_test.core.IScrollMoreDelegate
+import com.hivian.lydia_test.core.application.IScrollMoreDelegate
 import com.hivian.lydia_test.core.base.ViewModelBase
-import com.hivian.lydia_test.core.services.networking.Resource
+import com.hivian.lydia_test.core.services.networking.HttpResult
 import com.hivian.lydia_test.core.services.navigation.INavigationService
 import com.talentsoft.android.toolkit.core.IoC
 import kotlinx.coroutines.Dispatchers
@@ -29,7 +29,7 @@ class HomeViewModel: ViewModelBase(), IScrollMoreDelegate {
 
     private var pageCount = 1
 
-    private val randomUsersRepository = RandomUsersRepository()
+    private val randomUsersRepository = RandomUsersService()
 
     private var isLoadingMore: Boolean = false
 
@@ -44,14 +44,15 @@ class HomeViewModel: ViewModelBase(), IScrollMoreDelegate {
             Mapper.mapDTOToDomain(it)
         }
 
-    var displayErrorMessage: LiveData<Boolean> =
-        Transformations.map(data) {
+    var displayErrorMessage: LiveData<Boolean> = Transformations.map(data) {
             it.isEmpty() && viewModelVisualState.value is ViewModelVisualState.Error
         }
 
-    val errorMessage : String? = when (viewModelVisualState.value) {
-        is ViewModelVisualState.Error -> "Network error"
-        else -> null
+    val errorMessage : LiveData<String> = Transformations.map(viewModelVisualState) {
+        when (it) {
+            is ViewModelVisualState.Error -> localizationService.localizedString(R.string.error_message)
+            else -> null
+        }
     }
 
     init {
@@ -66,8 +67,8 @@ class HomeViewModel: ViewModelBase(), IScrollMoreDelegate {
         viewModelVisualState.value = ViewModelVisualState.Loading
 
         when (val result = randomUsersRepository.fetchRandomUsers(pageCount, RESULT_COUNT)) {
-            is Resource.Success -> viewModelVisualState.value = ViewModelVisualState.Success
-            is Resource.Error -> viewModelVisualState.value = ViewModelVisualState.Error(result.toVisualStateError())
+            is HttpResult.Success -> viewModelVisualState.value = ViewModelVisualState.Success
+            is HttpResult.Error -> viewModelVisualState.value = ViewModelVisualState.Error(result.toVisualStateError())
         }
     }
 
@@ -77,7 +78,7 @@ class HomeViewModel: ViewModelBase(), IScrollMoreDelegate {
         isLoadingMore = true
         viewModelScope.launch(Dispatchers.Main) {
             val resultList = randomUsersRepository.fetchRandomUsers(++pageCount, RESULT_COUNT)
-            if (resultList is Resource.Error) {
+            if (resultList is HttpResult.Error) {
                 pageCount--
             }
 

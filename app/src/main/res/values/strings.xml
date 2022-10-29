@@ -11,5 +11,6 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
     <string name="home_fragment_title">Random Users</string>
-    <string name="detail_fragment_title">User Detail</string>
+
+    <string name="error_message">Error fetching users</string>
 </resources>

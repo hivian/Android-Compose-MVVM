@@ -1,4 +1,4 @@
-package com.hivian.lydia_test.core.services.extensions
+package com.hivian.lydia_test.core.extensions
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken

@@ -1,4 +1,4 @@
-package com.hivian.lydia_test.business.model.domain
+package com.hivian.lydia_test.core.models.domain
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

@@ -1,4 +1,4 @@
-package com.hivian.lydia_test.business.model.dto
+package com.hivian.lydia_test.core.models.dto
 
 data class Name(
 

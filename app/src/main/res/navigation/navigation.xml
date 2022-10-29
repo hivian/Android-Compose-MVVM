@@ -22,6 +22,6 @@
         android:label="DetailFragment" >
         <argument
             android:name="randomUser"
-            app:argType="com.hivian.lydia_test.business.model.domain.RandomUserDomain" />
+            app:argType="com.hivian.lydia_test.core.models.domain.RandomUserDomain" />
     </fragment>
 </navigation>

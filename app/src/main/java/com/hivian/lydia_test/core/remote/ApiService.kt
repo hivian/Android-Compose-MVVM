@@ -1,6 +1,6 @@
-package com.hivian.lydia_test.business.remote
+package com.hivian.lydia_test.core.remote
 
-import com.hivian.lydia_test.business.model.dto.Results
+import com.hivian.lydia_test.core.models.dto.Results
 import retrofit2.http.GET
 import retrofit2.http.Query
 

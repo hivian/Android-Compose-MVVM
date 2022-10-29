@@ -14,16 +14,27 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/toolbar_home"
-            layout="@layout/app_bar_layout"
-            app:title="@{viewModel.title}"/>
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/Theme.Lydiatest.AppBarOverlay">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:title="@{viewModel.title}"
+                app:popupTheme="@style/Theme.Lydiatest.PopupOverlay" />
+
+        </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/random_users_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/toolbar_home"
+            android:layout_below="@id/toolbar_layout"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

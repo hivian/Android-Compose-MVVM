@@ -1,4 +1,4 @@
-package com.hivian.lydia_test.business.model.dto
+package com.hivian.lydia_test.core.models.dto
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

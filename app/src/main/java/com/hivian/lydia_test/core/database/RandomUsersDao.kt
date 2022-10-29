@@ -1,9 +1,9 @@
-package com.hivian.lydia_test.business.db
+package com.hivian.lydia_test.core.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.hivian.lydia_test.business.model.dto.Name
-import com.hivian.lydia_test.business.model.dto.RandomUserDTO
+import com.hivian.lydia_test.core.models.dto.Name
+import com.hivian.lydia_test.core.models.dto.RandomUserDTO
 
 @Dao
 interface RandomUsersDao {

@@ -2,11 +2,11 @@ package com.hivian.lydia_test.core.services.networking
 
 import com.hivian.lydia_test.presentation.VisualStateErrorType
 
-sealed class Resource<out T: Any> {
+sealed class HttpResult<out T: Any> {
 
-    data class Success<out T : Any>(val data: T) : Resource<T>()
+    data class Success<out T : Any>(val data: T) : HttpResult<T>()
 
-    data class Error(val errorType: ResourceErrorType) : Resource<Nothing>() {
+    data class Error(val errorType: ResourceErrorType) : HttpResult<Nothing>() {
 
         fun toVisualStateError() = when (errorType) {
             ResourceErrorType.UNKNOWN -> VisualStateErrorType.UNKNOWN

@@ -1,4 +1,4 @@
-package com.hivian.lydia_test.business.remote
+package com.hivian.lydia_test.core.remote
 
 import okhttp3.Interceptor
 import okhttp3.Response

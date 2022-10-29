@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
-import com.hivian.lydia_test.business.model.domain.RandomUserDomain
+import com.hivian.lydia_test.core.models.domain.RandomUserDomain
 import com.hivian.lydia_test.ui.fragments.HomeFragmentDirections
 
 internal class NavigationService: INavigationService {
@@ -13,6 +13,8 @@ internal class NavigationService: INavigationService {
 
     private val mainNavController: NavController?
         get() = navigationActivity?.supportFragmentManager?.primaryNavigationFragment?.view?.findNavController()
+
+    override fun navigateBack(): Boolean = mainNavController?.navigateUp() ?: false
 
     override fun openRandomUserDetail(randomUser: RandomUserDomain) {
         navigateTo(HomeFragmentDirections.actionHomeFragmentToDetailFragment(randomUser))

@@ -5,7 +5,7 @@
     <data>
         <variable
             name="article"
-            type="com.hivian.lydia_test.business.model.domain.RandomUserDomain" />
+            type="com.hivian.lydia_test.core.models.domain.RandomUserDomain" />
         <variable
             name="viewModel"
             type="com.hivian.lydia_test.presentation.home.HomeViewModel" />

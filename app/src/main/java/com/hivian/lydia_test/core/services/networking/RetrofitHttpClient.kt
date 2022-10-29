@@ -1,8 +1,8 @@
 package com.hivian.lydia_test.core.services.networking
 
-import com.hivian.lydia_test.business.model.dto.RandomUserDTO
-import com.hivian.lydia_test.business.remote.ApiService
-import com.hivian.lydia_test.business.remote.AuthInterceptor
+import com.hivian.lydia_test.core.models.dto.RandomUserDTO
+import com.hivian.lydia_test.core.remote.ApiService
+import com.hivian.lydia_test.core.remote.AuthInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -40,7 +40,21 @@ class RetrofitHttpClient(baseUrl: String): IHttpClient {
 
     private val retrofitService: ApiService = retrofit.create(ApiService::class.java)
 
-    override suspend fun fetchRandomUsers(page: Int, results: Int): List<RandomUserDTO> =
-        retrofitService.fetchRandomUsers(page = page, results = results).results
+    override suspend fun fetchRandomUsers(page: Int, results: Int): HttpResult<List<RandomUserDTO>> {
+        return safeApiCall {
+            retrofitService.fetchRandomUsers(page = page, results = results).results
+        }
+    }
+
+    private suspend fun <T : Any> safeApiCall(call: suspend () -> T) : HttpResult<T> {
+        return try {
+            val response = call.invoke()
+            HttpResult.Success(
+                response
+            )
+        } catch (exception: Exception) {
+            HttpResult.Error(ResourceErrorType.UNKNOWN)
+        }
+    }
 
 }

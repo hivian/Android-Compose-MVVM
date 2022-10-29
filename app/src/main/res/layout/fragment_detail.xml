@@ -13,15 +13,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/toolbar_details"
-            layout="@layout/app_bar_layout"
-            app:title="@{viewModel.title}" />
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/Theme.Lydiatest.AppBarOverlay">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:title="@{viewModel.name}"
+                app:onToolbarNavigateUp="@{() -> viewModel.navigateBack()}"
+                app:navigationIcon="?attr/homeAsUpIndicator"
+                app:popupTheme="@style/Theme.Lydiatest.PopupOverlay" />
+
+        </com.google.android.material.appbar.AppBarLayout>
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/toolbar_details"
+            android:layout_below="@id/toolbar_layout"
             android:fillViewport="true">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -55,28 +68,15 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="8dp" >
-
-                        <TextView
-                            android:id="@+id/tv_name"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:includeFontPadding="false"
-                            android:textStyle="bold"
-                            android:textSize="18sp"
-                            android:textColor="#22282b"
-                            android:ellipsize="end"
-                            android:text="@{viewModel.name}" />
+                        android:padding="16dp" >
 
                         <TextView
                             android:id="@+id/tv_email"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/tv_name"
-                            android:layout_marginTop="16dp"
                             android:gravity="center_vertical"
                             android:drawableStart="@drawable/ic_email_24dp"
-                            android:drawablePadding="6dp"
+                            android:drawablePadding="8dp"
                             android:text="@{viewModel.email}"
                             android:textStyle="bold"
                             android:textSize="14sp"
@@ -87,9 +87,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:drawableStart="@drawable/ic_local_phone_24dp"
-                            android:drawablePadding="6dp"
+                            android:drawablePadding="8dp"
                             android:layout_below="@id/tv_email"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginTop="16dp"
                             android:textStyle="bold"
                             android:gravity="center_vertical"
                             android:text="@{viewModel.phone}"
@@ -100,9 +100,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:drawableStart="@drawable/ic_cell_24dp"
-                            android:drawablePadding="6dp"
+                            android:drawablePadding="8dp"
                             android:layout_below="@id/tv_phone"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginTop="16dp"
                             android:textStyle="bold"
                             android:gravity="center_vertical"
                             android:text="@{viewModel.cell}" />

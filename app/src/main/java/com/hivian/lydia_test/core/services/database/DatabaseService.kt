@@ -2,8 +2,8 @@ package com.hivian.lydia_test.core.services.database
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import com.hivian.lydia_test.business.db.RandomUsersDatabase
-import com.hivian.lydia_test.business.model.dto.RandomUserDTO
+import com.hivian.lydia_test.core.database.RandomUsersDatabase
+import com.hivian.lydia_test.core.models.dto.RandomUserDTO
 
 
 class DatabaseService(applicationContext: Context): IDatabaseService {

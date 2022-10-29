@@ -1,4 +1,4 @@
-package com.hivian.lydia_test.core
+package com.hivian.lydia_test.core.application
 
 import androidx.recyclerview.widget.RecyclerView
 

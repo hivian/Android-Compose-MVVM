@@ -1,11 +1,11 @@
-package com.hivian.lydia_test.business.db
+package com.hivian.lydia_test.core.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.hivian.lydia_test.business.model.dto.RandomUserDTO
+import com.hivian.lydia_test.core.models.dto.RandomUserDTO
 
 @Database(entities = [RandomUserDTO::class], version = RandomUsersDatabase.DB_VERSION, exportSchema = false)
 @TypeConverters(StringListConverter::class, NameConverter::class, LocationConverter::class, PictureConverter::class)

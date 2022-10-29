@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.hivian.lydia_test.business.model.domain.RandomUserDomain
+import com.hivian.lydia_test.core.models.domain.RandomUserDomain
 import com.hivian.lydia_test.databinding.RandomUserItemBinding
 import com.hivian.lydia_test.presentation.home.HomeViewModel
 

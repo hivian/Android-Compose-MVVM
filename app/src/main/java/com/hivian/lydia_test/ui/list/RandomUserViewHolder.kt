@@ -1,7 +1,7 @@
 package com.hivian.lydia_test.ui.list
 
 import androidx.recyclerview.widget.RecyclerView
-import com.hivian.lydia_test.business.model.domain.RandomUserDomain
+import com.hivian.lydia_test.core.models.domain.RandomUserDomain
 import com.hivian.lydia_test.databinding.RandomUserItemBinding
 import com.hivian.lydia_test.presentation.home.HomeViewModel
 

@@ -1,7 +1,7 @@
-package com.hivian.lydia_test.business
+package com.hivian.lydia_test.core.models
 
-import com.hivian.lydia_test.business.model.dto.RandomUserDTO
-import com.hivian.lydia_test.business.model.domain.RandomUserDomain
+import com.hivian.lydia_test.core.models.dto.RandomUserDTO
+import com.hivian.lydia_test.core.models.domain.RandomUserDomain
 
 object Mapper {
 
