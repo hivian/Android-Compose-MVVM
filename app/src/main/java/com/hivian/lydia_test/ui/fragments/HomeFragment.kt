@@ -27,8 +27,9 @@ class HomeFragment : FragmentBase<FragmentHomeBinding>(
 
     override fun onInitDataBinding() {
         viewBinding.viewModel = homeViewModel
+        homeViewModel.initialize()
 
-        observe(homeViewModel.data, ::submitList)
+        observe(homeViewModel.items, ::submitList)
 
         with(viewBinding.randomUsersList) {
             adapter = viewAdapter

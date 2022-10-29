@@ -37,10 +37,10 @@ class HomeViewModel: ViewModelBase(), IScrollMoreDelegate {
 
     var title : String = localizationService.localizedString(R.string.home_fragment_title)
 
-    var data = MutableLiveData<List<RandomUserDomain>>()
+    var items = MutableLiveData<List<RandomUserDomain>>()
 
     var displayErrorMessage: LiveData<Boolean> = Transformations.map(viewModelVisualState) {
-        data.value.isNullOrEmpty() && viewModelVisualState.value is ViewModelVisualState.Error
+        items.value.isNullOrEmpty() && viewModelVisualState.value is ViewModelVisualState.Error
     }
 
     val errorMessage : LiveData<String> = Transformations.map(viewModelVisualState) {
@@ -52,8 +52,12 @@ class HomeViewModel: ViewModelBase(), IScrollMoreDelegate {
 
     val retryMessage: String = localizationService.localizedString(R.string.retry_message)
 
-    init {
+    override fun initialize() {
+        if (isInitialized.value == true) return
+
         fetchRandomUsers()
+
+        isInitialized.value = true
     }
 
     fun openRandomUserDetail(randomUser: RandomUserDomain) {
@@ -81,14 +85,9 @@ class HomeViewModel: ViewModelBase(), IScrollMoreDelegate {
 
         isLoadingMore = true
         viewModelScope.launch(Dispatchers.Main) {
-            val resultList = randomUsersService.fetchRandomUsers(++pageCount, RESULT_COUNT)
-
-            if (resultList is ServiceResult.Error) {
-                pageCount--
-            }
-
-            if (resultList is ServiceResult.Success) {
-                updateData(resultList.data)
+            when (val resultList = randomUsersService.fetchRandomUsers(++pageCount, RESULT_COUNT)) {
+                is ServiceResult.Error -> pageCount--
+                is ServiceResult.Success -> updateData(resultList.data)
             }
 
             isLoadingMore = false
@@ -100,7 +99,7 @@ class HomeViewModel: ViewModelBase(), IScrollMoreDelegate {
             pageCount = users.count() / RESULT_COUNT
         }
 
-        data.value = Mapper.mapDTOToDomain(users)
+        items.value = Mapper.mapDTOToDomain(users)
     }
 
 }
