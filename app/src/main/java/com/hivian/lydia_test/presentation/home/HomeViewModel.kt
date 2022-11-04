@@ -1,18 +1,21 @@
 package com.hivian.lydia_test.presentation.home
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
+import androidx.lifecycle.viewModelScope
 import com.hivian.lydia_test.R
-import com.hivian.lydia_test.core.models.Mapper
-import com.hivian.lydia_test.presentation.ViewModelVisualState
-import com.hivian.lydia_test.core.models.domain.RandomUserDomain
-import com.hivian.lydia_test.core.services.localization.ILocalizationService
 import com.hivian.lydia_test.core.application.IScrollMoreDelegate
 import com.hivian.lydia_test.core.base.ViewModelBase
+import com.hivian.lydia_test.core.models.Mapper
+import com.hivian.lydia_test.core.models.domain.RandomUserDomain
 import com.hivian.lydia_test.core.models.dto.RandomUserDTO
+import com.hivian.lydia_test.core.servicelocator.IoC
 import com.hivian.lydia_test.core.services.application.IRandomUsersService
-import com.hivian.lydia_test.core.services.networking.ServiceResult
+import com.hivian.lydia_test.core.services.localization.ILocalizationService
 import com.hivian.lydia_test.core.services.navigation.INavigationService
-import com.talentsoft.android.toolkit.core.IoC
+import com.hivian.lydia_test.core.services.networking.ServiceResult
+import com.hivian.lydia_test.presentation.ViewModelVisualState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
