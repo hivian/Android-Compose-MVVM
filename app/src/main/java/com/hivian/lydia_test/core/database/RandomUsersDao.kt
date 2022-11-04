@@ -1,6 +1,5 @@
 package com.hivian.lydia_test.core.database
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.hivian.lydia_test.core.models.dto.Name
 import com.hivian.lydia_test.core.models.dto.RandomUserDTO

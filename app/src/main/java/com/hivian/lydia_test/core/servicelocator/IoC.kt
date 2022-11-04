@@ -1,7 +1,4 @@
-package com.talentsoft.android.toolkit.core
-
-import com.hivian.lydia_test.core.servicelocator.Identifier
-import com.hivian.lydia_test.core.servicelocator.IoCContainer
+package com.hivian.lydia_test.core.servicelocator
 
 object IoC {
 

@@ -8,7 +8,7 @@ import androidx.room.TypeConverters
 import com.hivian.lydia_test.core.models.dto.RandomUserDTO
 
 @Database(entities = [RandomUserDTO::class], version = RandomUsersDatabase.DB_VERSION, exportSchema = false)
-@TypeConverters(StringListConverter::class, NameConverter::class, LocationConverter::class, PictureConverter::class)
+@TypeConverters(NameConverter::class, LocationConverter::class, PictureConverter::class)
 abstract class RandomUsersDatabase : RoomDatabase() {
 
     abstract fun randomUsersDao() : RandomUsersDao

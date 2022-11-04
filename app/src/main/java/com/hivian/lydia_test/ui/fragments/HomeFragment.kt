@@ -4,10 +4,10 @@ import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.hivian.lydia_test.R
-import com.hivian.lydia_test.core.models.domain.RandomUserDomain
-import com.hivian.lydia_test.core.extensions.observe
 import com.hivian.lydia_test.core.application.InfiniteScrollListener
 import com.hivian.lydia_test.core.base.FragmentBase
+import com.hivian.lydia_test.core.extensions.observe
+import com.hivian.lydia_test.core.models.domain.RandomUserDomain
 import com.hivian.lydia_test.databinding.FragmentHomeBinding
 import com.hivian.lydia_test.presentation.home.HomeViewModel
 import com.hivian.lydia_test.ui.list.RandomUsersListAdapter
