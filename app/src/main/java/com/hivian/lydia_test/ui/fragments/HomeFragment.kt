@@ -29,7 +29,7 @@ class HomeFragment : FragmentBase<FragmentHomeBinding>(
         viewBinding.viewModel = homeViewModel
         homeViewModel.initialize()
 
-        observe(homeViewModel.items, ::submitList)
+
 
         with(viewBinding.randomUsersList) {
             adapter = viewAdapter

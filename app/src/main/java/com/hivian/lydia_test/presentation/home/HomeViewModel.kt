@@ -1,5 +1,7 @@
 package com.hivian.lydia_test.presentation.home
 
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -40,10 +42,10 @@ class HomeViewModel: ViewModelBase(), IScrollMoreDelegate {
 
     var title : String = localizationService.localizedString(R.string.home_fragment_title)
 
-    var items = MutableLiveData<List<RandomUserDomain>>()
+    var items = mutableStateListOf<RandomUserDomain>()
 
     var displayErrorMessage: LiveData<Boolean> = Transformations.map(viewModelVisualState) {
-        items.value.isNullOrEmpty() && viewModelVisualState.value is ViewModelVisualState.Error
+        items.isEmpty() && viewModelVisualState.value is ViewModelVisualState.Error
     }
 
     val errorMessage : LiveData<String> = Transformations.map(viewModelVisualState) {
@@ -102,7 +104,7 @@ class HomeViewModel: ViewModelBase(), IScrollMoreDelegate {
             pageCount = users.count() / RESULT_COUNT
         }
 
-        items.value = Mapper.mapDTOToDomain(users)
+        items.addAll(Mapper.mapDTOToDomain(users))
     }
 
 }

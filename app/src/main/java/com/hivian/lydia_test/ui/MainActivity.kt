@@ -11,11 +11,15 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.hivian.lydia_test.core.servicelocator.IoC
+import com.hivian.lydia_test.core.services.navigation.INavigationService
+import com.hivian.lydia_test.core.services.navigation.NavRoutes
 import com.hivian.lydia_test.ui.composables.Detail
 import com.hivian.lydia_test.ui.composables.Home
 import com.hivian.lydia_test.ui.themes.ComposetestTheme
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -35,19 +39,19 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainScreen() {
-
-    val navController = rememberNavController()
+    val navigationService = IoC.resolve<INavigationService>()
+    navigationService.mainNavController = rememberNavController()
 
     NavHost(
-        navController = navController,
+        navController = navigationService.mainNavController!!,
         startDestination = NavRoutes.Home.route,
     ) {
         composable(NavRoutes.Home.route) {
-            Home(navController = navController)
+            Home()
         }
 
         composable(NavRoutes.Detail.route) {
-            Detail(navController = navController)
+            Detail()
         }
     }
 }
