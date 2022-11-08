@@ -65,8 +65,8 @@ class HomeViewModel: ViewModelBase(), IScrollMoreDelegate {
         isInitialized.value = true
     }
 
-    fun openRandomUserDetail(randomUser: RandomUserDomain) {
-        navigationService.openRandomUserDetail(randomUser)
+    fun openRandomUserDetail(userId: Int) {
+        navigationService.openRandomUserDetail(userId)
     }
 
     fun refresh() {

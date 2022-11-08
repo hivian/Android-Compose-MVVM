@@ -13,19 +13,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
 import com.hivian.lydia_test.core.models.domain.RandomUserDomain
 import com.hivian.lydia_test.presentation.home.HomeViewModel
 
 @Preview
 @Composable
-fun Home(
+fun HomeScreen(
     viewModel: HomeViewModel = viewModel()
 ) {
     val randomUsers = viewModel.items
@@ -35,14 +32,14 @@ fun Home(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        InitUserList(randomUsers) {
-            viewModel.openRandomUserDetail(it)
+        InitUserList(randomUsers) { userId ->
+            viewModel.openRandomUserDetail(userId)
         }
     }
 }
 
 @Composable
-fun InitUserList(randomUsers: List<RandomUserDomain>, onItemClick : (RandomUserDomain) -> Unit) {
+fun InitUserList(randomUsers: List<RandomUserDomain>, onItemClick : (Int) -> Unit) {
     LazyColumn(
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -54,11 +51,11 @@ fun InitUserList(randomUsers: List<RandomUserDomain>, onItemClick : (RandomUserD
 }
 
 @Composable
-fun UserListItem(user: RandomUserDomain, onItemClick : (RandomUserDomain) -> Unit) {
+fun UserListItem(user: RandomUserDomain, onItemClick : (Int) -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { onItemClick(user) },
+            .clickable { onItemClick(user.id) },
         elevation = CardDefaults.elevatedCardElevation(),
         shape = RoundedCornerShape(8.dp)
     ) {
