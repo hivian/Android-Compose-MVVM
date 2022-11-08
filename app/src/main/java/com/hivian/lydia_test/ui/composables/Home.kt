@@ -18,6 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
 import com.hivian.lydia_test.R
 import com.hivian.lydia_test.core.models.domain.RandomUserDomain
@@ -25,7 +26,6 @@ import com.hivian.lydia_test.presentation.ViewModelVisualState
 import com.hivian.lydia_test.presentation.home.HomeViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = viewModel()
@@ -117,10 +117,10 @@ fun UserListItem(user: RandomUserDomain, onItemClick : (Int) -> Unit) {
 
 @Composable
 private fun UserImage(imageUrl : String) {
-    Image(
-        painter = rememberAsyncImagePainter(imageUrl),
+    AsyncImage(
+        model = imageUrl,
         contentDescription = null,
-        contentScale = ContentScale.Crop,
+        contentScale = ContentScale.Fit,
         modifier = Modifier
             .size(66.dp)
             .clip(
