@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.hivian.lydia_test.R
 import com.hivian.lydia_test.core.application.IScrollMoreDelegate
 import com.hivian.lydia_test.core.base.ViewModelBase
+import com.hivian.lydia_test.core.models.ImageSize
 import com.hivian.lydia_test.core.models.Mapper
 import com.hivian.lydia_test.core.models.domain.RandomUserDomain
 import com.hivian.lydia_test.core.models.dto.RandomUserDTO
@@ -95,7 +96,7 @@ class HomeViewModel: ViewModelBase(), IScrollMoreDelegate {
             pageCount = users.count() / RESULT_COUNT
         }
 
-        items.addAll(Mapper.mapDTOToDomain(users))
+        items.addAll(Mapper.mapDTOToDomain(users, ImageSize.MEDIUM))
     }
 
 }

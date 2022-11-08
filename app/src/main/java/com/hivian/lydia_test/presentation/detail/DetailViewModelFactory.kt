@@ -4,11 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.hivian.lydia_test.core.models.domain.RandomUserDomain
 
-class DetailViewModelFactory(private val randomUser: RandomUserDomain) : ViewModelProvider.Factory {
+class DetailViewModelFactory(private val userId: Int) : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return DetailViewModel(randomUser) as T
+        return DetailViewModel(userId) as T
     }
 
 }

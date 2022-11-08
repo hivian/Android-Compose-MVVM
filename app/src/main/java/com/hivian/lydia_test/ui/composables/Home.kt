@@ -12,15 +12,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberAsyncImagePainter
+import com.hivian.lydia_test.R
 import com.hivian.lydia_test.core.models.domain.RandomUserDomain
 import com.hivian.lydia_test.presentation.ViewModelVisualState
 import com.hivian.lydia_test.presentation.home.HomeViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
 fun HomeScreen(
@@ -29,25 +33,40 @@ fun HomeScreen(
     val randomUsers = viewModel.items
     viewModel.initialize()
 
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        when (viewModel.viewModelVisualState.value) {
-            is ViewModelVisualState.Loading -> CircularProgressIndicator()
-            is ViewModelVisualState.Success -> {
-                InitUserList(randomUsers) { userId ->
-                    viewModel.openRandomUserDetail(userId)
-                }
-            }
-            is ViewModelVisualState.Error -> InitErrorView(
-                errorMessage = viewModel.errorMessage,
-                retryMessage = viewModel.retryMessage,
-                onRetry = { viewModel.refresh() }
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text(text = stringResource(id = R.string.app_name)) },
+                colors = TopAppBarDefaults.smallTopAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    titleContentColor = Color.White,
+                )
             )
-            else -> Unit
+        }
+    ) { contentPadding ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(contentPadding),
+            contentAlignment = Alignment.Center
+        ) {
+            when (viewModel.viewModelVisualState.value) {
+                is ViewModelVisualState.Loading -> CircularProgressIndicator()
+                is ViewModelVisualState.Success -> {
+                    InitUserList(randomUsers) { userId ->
+                        viewModel.openRandomUserDetail(userId)
+                    }
+                }
+                is ViewModelVisualState.Error -> InitErrorView(
+                    errorMessage = viewModel.errorMessage,
+                    retryMessage = viewModel.retryMessage,
+                    onRetry = { viewModel.refresh() }
+                )
+                else -> Unit
+            }
         }
     }
+
 }
 
 @Composable

@@ -13,7 +13,7 @@ internal class NavigationService: INavigationService {
 
     override var navigationActivity: AppCompatActivity? = null
 
-    override fun navigateBack(): Boolean = mainNavController.navigateUp()
+    override fun navigateBack(): Boolean = mainNavController.popBackStack()
 
     override fun openRandomUserDetail(userId: Int) {
         mainNavController.navigate(NavScreen.Detail.createRouteWithArgs(userId))
