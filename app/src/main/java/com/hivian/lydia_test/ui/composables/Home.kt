@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberAsyncImagePainter
 import com.hivian.lydia_test.core.models.domain.RandomUserDomain
+import com.hivian.lydia_test.presentation.ViewModelVisualState
 import com.hivian.lydia_test.presentation.home.HomeViewModel
 
 @Preview
@@ -32,8 +33,29 @@ fun HomeScreen(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        InitUserList(randomUsers) { userId ->
-            viewModel.openRandomUserDetail(userId)
+        when (viewModel.viewModelVisualState.value) {
+            is ViewModelVisualState.Loading -> CircularProgressIndicator()
+            is ViewModelVisualState.Success -> {
+                InitUserList(randomUsers) { userId ->
+                    viewModel.openRandomUserDetail(userId)
+                }
+            }
+            is ViewModelVisualState.Error -> InitErrorView(
+                errorMessage = viewModel.errorMessage,
+                retryMessage = viewModel.retryMessage,
+                onRetry = { viewModel.refresh() }
+            )
+            else -> Unit
+        }
+    }
+}
+
+@Composable
+fun InitErrorView(errorMessage: String, retryMessage: String, onRetry : () -> Unit) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(text = errorMessage, style = MaterialTheme.typography.bodyMedium)
+        Button(onClick = { onRetry() }) {
+            Text(text = retryMessage)
         }
     }
 }
@@ -82,11 +104,13 @@ private fun UserImage(imageUrl : String) {
         contentScale = ContentScale.Crop,
         modifier = Modifier
             .size(66.dp)
-            .clip(RoundedCornerShape(
-                topStart = CornerSize(8.dp),
-                topEnd = CornerSize(0.dp),
-                bottomStart = CornerSize(8.dp),
-                bottomEnd = CornerSize(0.dp))
+            .clip(
+                RoundedCornerShape(
+                    topStart = CornerSize(8.dp),
+                    topEnd = CornerSize(0.dp),
+                    bottomStart = CornerSize(8.dp),
+                    bottomEnd = CornerSize(0.dp)
+                )
             )
     )
 }

@@ -8,17 +8,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavType
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import com.hivian.lydia_test.core.servicelocator.IoC
 import com.hivian.lydia_test.core.services.navigation.INavigationService
-import com.hivian.lydia_test.core.services.navigation.IScreenRoute
-import com.hivian.lydia_test.core.services.navigation.NavScreen
-import com.hivian.lydia_test.ui.composables.DetailScreen
-import com.hivian.lydia_test.ui.composables.HomeScreen
 import com.hivian.lydia_test.ui.themes.ComposetestTheme
 
 class MainActivity : ComponentActivity() {

@@ -1,10 +1,6 @@
 package com.hivian.lydia_test.presentation.home
 
 import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.toMutableStateList
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.viewModelScope
 import com.hivian.lydia_test.R
 import com.hivian.lydia_test.core.application.IScrollMoreDelegate
@@ -44,16 +40,11 @@ class HomeViewModel: ViewModelBase(), IScrollMoreDelegate {
 
     var items = mutableStateListOf<RandomUserDomain>()
 
-    var displayErrorMessage: LiveData<Boolean> = Transformations.map(viewModelVisualState) {
-        items.isEmpty() && viewModelVisualState.value is ViewModelVisualState.Error
-    }
-
-    val errorMessage : LiveData<String> = Transformations.map(viewModelVisualState) {
-        when (it) {
+    val errorMessage : String
+        get() = when (viewModelVisualState.value) {
             is ViewModelVisualState.Error -> localizationService.localizedString(R.string.error_message)
-            else -> null
+            else -> ""
         }
-    }
 
     val retryMessage: String = localizationService.localizedString(R.string.retry_message)
 

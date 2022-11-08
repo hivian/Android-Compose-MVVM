@@ -10,5 +10,5 @@ import androidx.navigation.compose.rememberNavController
 @Preview
 @Composable
 fun DetailScreen(userId: Int = 0) {
-    Text("Detail Screen $userId", style = MaterialTheme.typography.headlineSmall)
+    Text(text = "Detail Screen $userId", style = MaterialTheme.typography.headlineSmall)
 }
