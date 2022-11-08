@@ -1,6 +1,7 @@
 package com.hivian.lydia_test.ui.composables
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -95,18 +96,18 @@ fun InitUserList(randomUsers: List<RandomUserDomain>, onItemClick : (Int) -> Uni
 fun UserListItem(user: RandomUserDomain, onItemClick : (Int) -> Unit) {
     Card(
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxSize()
             .clickable { onItemClick(user.id) },
         elevation = CardDefaults.elevatedCardElevation(),
         shape = RoundedCornerShape(8.dp)
     ) {
-        Row {
+        Row(
+            Modifier.height(IntrinsicSize.Min)
+        ) {
             UserImage(imageUrl = user.picture)
             Column(
-                Modifier
-                    .padding(8.dp)
-                    .fillMaxWidth()
-                    .align(Alignment.CenterVertically),
+                Modifier.fillMaxSize().padding(start = 8.dp),
+                verticalArrangement = Arrangement.SpaceEvenly,
             ) {
                 Text(text = user.fullName, style = MaterialTheme.typography.headlineSmall)
                 Text(text = user.email, style = MaterialTheme.typography.bodySmall)
