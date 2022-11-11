@@ -13,6 +13,7 @@ import com.hivian.lydia_test.core.servicelocator.IoC
 import com.hivian.lydia_test.core.services.application.IRandomUsersService
 import com.hivian.lydia_test.core.services.localization.ILocalizationService
 import com.hivian.lydia_test.core.services.navigation.INavigationService
+import com.hivian.lydia_test.core.services.networking.ResourceErrorType
 import com.hivian.lydia_test.core.services.networking.ServiceResult
 import com.hivian.lydia_test.presentation.ViewModelVisualState
 import kotlinx.coroutines.Dispatchers
@@ -42,8 +43,15 @@ class HomeViewModel: ViewModelBase(), IScrollMoreDelegate {
     var items = mutableStateListOf<RandomUserDomain>()
 
     val errorMessage : String
-        get() = when (viewModelVisualState.value) {
-            is ViewModelVisualState.Error -> localizationService.localizedString(R.string.error_message)
+        get() = when (val state = viewModelVisualState.value) {
+            is ViewModelVisualState.Error -> when(state.errorType) {
+                ResourceErrorType.ACCESS_DENIED -> localizationService.localizedString(R.string.error_access_denied)
+                ResourceErrorType.CANCELLED -> localizationService.localizedString(R.string.error_cancelled)
+                ResourceErrorType.HOST_UNREACHABLE -> localizationService.localizedString(R.string.error_no_connection)
+                ResourceErrorType.TIMED_OUT -> localizationService.localizedString(R.string.error_timeout)
+                ResourceErrorType.NO_RESULT -> localizationService.localizedString(R.string.error_not_found)
+                ResourceErrorType.UNKNOWN -> localizationService.localizedString(R.string.error_unknown)
+            }
             else -> ""
         }
 
