@@ -1,12 +1,11 @@
 package com.hivian.lydia_test.presentation.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
+import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.viewModelScope
 import com.hivian.lydia_test.R
 import com.hivian.lydia_test.core.application.IScrollMoreDelegate
 import com.hivian.lydia_test.core.base.ViewModelBase
+import com.hivian.lydia_test.core.models.ImageSize
 import com.hivian.lydia_test.core.models.Mapper
 import com.hivian.lydia_test.core.models.domain.RandomUserDomain
 import com.hivian.lydia_test.core.models.dto.RandomUserDTO
@@ -14,6 +13,7 @@ import com.hivian.lydia_test.core.servicelocator.IoC
 import com.hivian.lydia_test.core.services.application.IRandomUsersService
 import com.hivian.lydia_test.core.services.localization.ILocalizationService
 import com.hivian.lydia_test.core.services.navigation.INavigationService
+import com.hivian.lydia_test.core.services.networking.ResourceErrorType
 import com.hivian.lydia_test.core.services.networking.ServiceResult
 import com.hivian.lydia_test.presentation.ViewModelVisualState
 import kotlinx.coroutines.Dispatchers
@@ -40,18 +40,20 @@ class HomeViewModel: ViewModelBase(), IScrollMoreDelegate {
 
     var title : String = localizationService.localizedString(R.string.home_fragment_title)
 
-    var items = MutableLiveData<List<RandomUserDomain>>()
+    var items = mutableStateListOf<RandomUserDomain>()
 
-    var displayErrorMessage: LiveData<Boolean> = Transformations.map(viewModelVisualState) {
-        items.value.isNullOrEmpty() && viewModelVisualState.value is ViewModelVisualState.Error
-    }
-
-    val errorMessage : LiveData<String> = Transformations.map(viewModelVisualState) {
-        when (it) {
-            is ViewModelVisualState.Error -> localizationService.localizedString(R.string.error_message)
-            else -> null
+    val errorMessage : String
+        get() = when (val state = viewModelVisualState.value) {
+            is ViewModelVisualState.Error -> when(state.errorType) {
+                ResourceErrorType.ACCESS_DENIED -> localizationService.localizedString(R.string.error_access_denied)
+                ResourceErrorType.CANCELLED -> localizationService.localizedString(R.string.error_cancelled)
+                ResourceErrorType.HOST_UNREACHABLE -> localizationService.localizedString(R.string.error_no_connection)
+                ResourceErrorType.TIMED_OUT -> localizationService.localizedString(R.string.error_timeout)
+                ResourceErrorType.NO_RESULT -> localizationService.localizedString(R.string.error_not_found)
+                ResourceErrorType.UNKNOWN -> localizationService.localizedString(R.string.error_unknown)
+            }
+            else -> ""
         }
-    }
 
     val retryMessage: String = localizationService.localizedString(R.string.retry_message)
 
@@ -63,8 +65,8 @@ class HomeViewModel: ViewModelBase(), IScrollMoreDelegate {
         isInitialized.value = true
     }
 
-    fun openRandomUserDetail(randomUser: RandomUserDomain) {
-        navigationService.openRandomUserDetail(randomUser)
+    fun openRandomUserDetail(userId: Int) {
+        navigationService.openRandomUserDetail(userId)
     }
 
     fun refresh() {
@@ -79,7 +81,7 @@ class HomeViewModel: ViewModelBase(), IScrollMoreDelegate {
                 updateData(result.data)
                 viewModelVisualState.value = ViewModelVisualState.Success
             }
-            is ServiceResult.Error -> viewModelVisualState.value = ViewModelVisualState.Error(result.toVisualStateError())
+            is ServiceResult.Error -> viewModelVisualState.value = ViewModelVisualState.Error(result.errorType)
         }
     }
 
@@ -102,7 +104,7 @@ class HomeViewModel: ViewModelBase(), IScrollMoreDelegate {
             pageCount = users.count() / RESULT_COUNT
         }
 
-        items.value = Mapper.mapDTOToDomain(users)
+        items.addAll(Mapper.mapDTOToDomain(users, ImageSize.MEDIUM))
     }
 
 }

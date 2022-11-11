@@ -1,21 +1,18 @@
 package com.hivian.lydia_test.core.services.networking
 
-import com.hivian.lydia_test.presentation.VisualStateErrorType
-
 sealed class ServiceResult<out T: Any> {
 
     data class Success<out T : Any>(val data: T) : ServiceResult<T>()
 
-    data class Error(val errorType: ResourceErrorType) : ServiceResult<Nothing>() {
-
-        fun toVisualStateError() = when (errorType) {
-            ResourceErrorType.UNKNOWN -> VisualStateErrorType.UNKNOWN
-        }
-
-    }
+    data class Error(val errorType: ResourceErrorType) : ServiceResult<Nothing>()
 
 }
 
 enum class ResourceErrorType {
-    UNKNOWN
+    ACCESS_DENIED,
+    CANCELLED,
+    HOST_UNREACHABLE,
+    TIMED_OUT,
+    NO_RESULT,
+    UNKNOWN,
 }

@@ -7,7 +7,7 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 
 interface IToolbarNavigationListener {
-    fun navigateUp()
+    fun onNavigateUp()
 }
 
 @set:BindingAdapter("visible")
@@ -27,6 +27,6 @@ fun ImageView.setImageUrl(url: String) {
 @BindingAdapter("onToolbarNavigateUp")
 fun Toolbar.onNavigateUp(toolbarNavigationListener: IToolbarNavigationListener) {
     setNavigationOnClickListener {
-        toolbarNavigationListener.navigateUp()
+        toolbarNavigationListener.onNavigateUp()
     }
 }

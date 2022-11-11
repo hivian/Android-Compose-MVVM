@@ -16,18 +16,15 @@
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/Theme.Lydiatest.AppBarOverlay">
+            android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
-                app:title="@{viewModel.name}"
                 app:onToolbarNavigateUp="@{() -> viewModel.navigateBack()}"
-                app:navigationIcon="?attr/homeAsUpIndicator"
-                app:popupTheme="@style/Theme.Lydiatest.PopupOverlay" />
+                app:navigationIcon="?attr/homeAsUpIndicator" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -48,7 +45,6 @@
                     android:contentDescription="User image"
                     android:adjustViewBounds="true"
                     android:scaleType="fitCenter"
-                    app:imageUrl="@{viewModel.picture}"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -77,7 +73,6 @@
                             android:gravity="center_vertical"
                             android:drawableStart="@drawable/ic_email_24dp"
                             android:drawablePadding="8dp"
-                            android:text="@{viewModel.email}"
                             android:textStyle="bold"
                             android:textSize="14sp"
                             android:ellipsize="end" />
@@ -92,7 +87,6 @@
                             android:layout_marginTop="16dp"
                             android:textStyle="bold"
                             android:gravity="center_vertical"
-                            android:text="@{viewModel.phone}"
                             tools:text="toto"/>
 
                         <TextView
@@ -104,8 +98,7 @@
                             android:layout_below="@id/tv_phone"
                             android:layout_marginTop="16dp"
                             android:textStyle="bold"
-                            android:gravity="center_vertical"
-                            android:text="@{viewModel.cell}" />
+                            android:gravity="center_vertical" />
 
                     </RelativeLayout>
 

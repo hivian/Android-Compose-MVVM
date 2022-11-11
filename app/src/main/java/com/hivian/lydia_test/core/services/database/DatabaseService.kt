@@ -9,12 +9,18 @@ class DatabaseService(applicationContext: Context): IDatabaseService {
 
     private var database = RandomUsersDatabase.getInstance(applicationContext)
 
+    private val dao = database.randomUsersDao()
+
+    override suspend fun getUserById(userId: Int): RandomUserDTO {
+        return dao.getRandomUserById(userId)
+    }
+
     override suspend fun fetchUsers(): List<RandomUserDTO> {
-        return database.randomUsersDao().getAllRandomUsers()
+        return dao.getAllRandomUsers()
     }
 
     override suspend fun upsertUsers(users: List<RandomUserDTO>) {
-        database.randomUsersDao().upsert(users)
+        dao.upsert(users)
     }
 
 }

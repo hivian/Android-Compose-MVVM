@@ -1,27 +1,45 @@
 package com.hivian.lydia_test.core.services.navigation
 
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavController
-import androidx.navigation.NavDirections
-import androidx.navigation.findNavController
-import com.hivian.lydia_test.core.models.domain.RandomUserDomain
-import com.hivian.lydia_test.ui.fragments.HomeFragmentDirections
+import androidx.compose.runtime.Composable
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 
 internal class NavigationService: INavigationService {
 
+    private lateinit var mainNavController: NavHostController
+
     override var navigationActivity: AppCompatActivity? = null
 
-    private val mainNavController: NavController?
-        get() = navigationActivity?.supportFragmentManager?.primaryNavigationFragment?.view?.findNavController()
+    override fun navigateBack(): Boolean = mainNavController.popBackStack()
 
-    override fun navigateBack(): Boolean = mainNavController?.navigateUp() ?: false
-
-    override fun openRandomUserDetail(randomUser: RandomUserDomain) {
-        navigateTo(HomeFragmentDirections.actionHomeFragmentToDetailFragment(randomUser))
+    override fun openRandomUserDetail(userId: Int) {
+        mainNavController.navigate(NavScreen.Detail.createRouteWithArgs(userId))
     }
 
-    private fun navigateTo(directions: NavDirections) {
-        mainNavController?.navigate(directions)
+    @Composable
+    override fun InitNavController() {
+        mainNavController = rememberNavController()
+
+        NavHost(
+            navController = mainNavController,
+            startDestination = NavScreen.Home.route,
+        ) {
+            IScreenRoute.allScreens.forEach { screen ->
+                composable(
+                    screen.route,
+                    screen.arguments,
+                    screen.deepLinks
+                ) {
+                    screen.Content(
+                        navController = mainNavController,
+                        navBackStackEntry = it
+                    )
+                }
+            }
+        }
     }
 
 }
