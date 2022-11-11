@@ -58,7 +58,8 @@ fun DetailScreen(userId: Int = 0, viewModel: DetailViewModel = viewModel(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             ImageDetail(
-                modifier = Modifier.fillMaxWidth(fraction = 0.5f),
+                modifier = Modifier
+                    .fillMaxWidth(fraction = 0.5f),
                 urlPath = viewModel.picture.value
             )
             UserInfo(
@@ -76,7 +77,9 @@ fun ImageDetail(modifier: Modifier = Modifier, urlPath : String) {
         model = urlPath,
         contentDescription = null,
         contentScale = ContentScale.FillWidth,
-        modifier = modifier.clip(CircleShape)
+        modifier = modifier
+            .fillMaxHeight()
+            .clip(CircleShape)
     )
 }
 

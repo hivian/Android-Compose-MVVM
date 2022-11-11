@@ -2,6 +2,7 @@ package com.hivian.lydia_test.presentation.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.hivian.lydia_test.core.models.domain.RandomUserDomain
 
 class DetailViewModelFactory(private val userId: Int) : ViewModelProvider.Factory {
 
