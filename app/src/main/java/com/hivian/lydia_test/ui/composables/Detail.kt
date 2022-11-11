@@ -1,23 +1,30 @@
 package com.hivian.lydia_test.ui.composables
 
+import androidx.annotation.DrawableRes
+import androidx.compose.foundation.*
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
+import com.hivian.lydia_test.R
 import com.hivian.lydia_test.presentation.detail.DetailViewModel
 import com.hivian.lydia_test.presentation.detail.DetailViewModelFactory
 
@@ -27,13 +34,12 @@ import com.hivian.lydia_test.presentation.detail.DetailViewModelFactory
 fun DetailScreen(userId: Int = 0, viewModel: DetailViewModel = viewModel(
     factory = DetailViewModelFactory(userId)
 )) {
-    val picture = viewModel.picture
     viewModel.initialize()
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(text = "Detail Screen $userId") },
+                title = { Text(text = viewModel.name.value) },
                 navigationIcon = {
                     IconButton(
                         onClick = {
@@ -41,39 +47,29 @@ fun DetailScreen(userId: Int = 0, viewModel: DetailViewModel = viewModel(
                         }) {
                         Icon(
                             imageVector = Icons.Filled.ArrowBack,
-                            contentDescription = "backIcon",
-                            tint = Color.White
+                            contentDescription = "backIcon"
                         )
                     }
                 },
-                colors = TopAppBarDefaults.smallTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    titleContentColor = Color.White,
-                )
             )
         }
     ) { contentPadding ->
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState())
+            Modifier
                 .padding(contentPadding)
-
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState()),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            ConstraintLayout(
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                val (userImage) = createRefs()
-
-                ImageDetail(
-                    modifier = Modifier.constrainAs(userImage) {
-                        top.linkTo(parent.top, margin = 16.dp)
-                        start.linkTo(parent.start)
-                        end.linkTo(parent.end)
-                    },
-                    urlPath = picture.value
-                )
-            }
+            ImageDetail(
+                modifier = Modifier.fillMaxWidth(fraction = 0.5f),
+                urlPath = viewModel.picture.value
+            )
+            UserInfo(
+                email = viewModel.email.value,
+                phone = viewModel.phone.value,
+                cell = viewModel.cell.value
+            )
         }
     }
 }
@@ -84,8 +80,40 @@ fun ImageDetail(modifier: Modifier = Modifier, urlPath : String) {
         model = urlPath,
         contentDescription = null,
         contentScale = ContentScale.FillWidth,
-        modifier = modifier
-            .fillMaxWidth(fraction = 0.5f)
-            .clip(CircleShape)
+        modifier = modifier.clip(CircleShape)
     )
+}
+
+@Composable
+fun UserInfo(email: String, phone: String, cell: String) {
+    Card(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        elevation = CardDefaults.elevatedCardElevation(),
+        shape = RoundedCornerShape(8.dp)
+    ) {
+        Column(
+            Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            UserInfoItem(drawableStart = R.drawable.ic_email_24dp, text = email)
+            UserInfoItem(drawableStart = R.drawable.ic_local_phone_24dp, text = phone)
+            UserInfoItem(drawableStart = R.drawable.ic_cell_24dp, text = cell)
+        }
+    }
+}
+
+@Composable
+fun UserInfoItem(@DrawableRes drawableStart: Int, text: String) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Image(painter = painterResource(id = drawableStart), contentDescription = null)
+        Text(
+            modifier = Modifier.padding(start = 8.dp),
+            text = text,
+            style = MaterialTheme.typography.titleMedium,
+        )
+    }
 }

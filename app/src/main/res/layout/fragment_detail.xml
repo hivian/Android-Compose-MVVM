@@ -16,8 +16,7 @@
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/Theme.Lydiatest.AppBarOverlay">
+            android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -25,8 +24,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
                 app:onToolbarNavigateUp="@{() -> viewModel.navigateBack()}"
-                app:navigationIcon="?attr/homeAsUpIndicator"
-                app:popupTheme="@style/Theme.Lydiatest.PopupOverlay" />
+                app:navigationIcon="?attr/homeAsUpIndicator" />
 
         </com.google.android.material.appbar.AppBarLayout>
 

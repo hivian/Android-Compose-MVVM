@@ -38,10 +38,6 @@ fun HomeScreen(
         topBar = {
             TopAppBar(
                 title = { Text(text = stringResource(id = R.string.app_name)) },
-                colors = TopAppBarDefaults.smallTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    titleContentColor = Color.White,
-                )
             )
         }
     ) { contentPadding ->
@@ -106,7 +102,9 @@ fun UserListItem(user: RandomUserDomain, onItemClick : (Int) -> Unit) {
         ) {
             UserImage(imageUrl = user.picture)
             Column(
-                Modifier.fillMaxSize().padding(start = 8.dp),
+                Modifier
+                    .fillMaxSize()
+                    .padding(start = 8.dp),
                 verticalArrangement = Arrangement.SpaceEvenly,
             ) {
                 Text(text = user.fullName, style = MaterialTheme.typography.headlineSmall)
