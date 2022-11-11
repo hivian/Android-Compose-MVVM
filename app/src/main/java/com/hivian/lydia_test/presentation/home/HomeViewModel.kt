@@ -73,7 +73,7 @@ class HomeViewModel: ViewModelBase(), IScrollMoreDelegate {
                 updateData(result.data)
                 viewModelVisualState.value = ViewModelVisualState.Success
             }
-            is ServiceResult.Error -> viewModelVisualState.value = ViewModelVisualState.Error(result.toVisualStateError())
+            is ServiceResult.Error -> viewModelVisualState.value = ViewModelVisualState.Error(result.errorType)
         }
     }
 
