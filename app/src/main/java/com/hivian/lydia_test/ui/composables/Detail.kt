@@ -2,6 +2,7 @@ package com.hivian.lydia_test.ui.composables
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -96,6 +97,7 @@ fun ImageDetail(imageUrlPath : String) {
             modifier = Modifier
                 .fillMaxSize()
                 .clip(CircleShape)
+                .border(1.dp, MaterialTheme.colorScheme.primary, CircleShape)
         )
     }
 }
