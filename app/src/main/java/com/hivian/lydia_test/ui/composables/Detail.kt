@@ -14,12 +14,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import coil.compose.AsyncImage
+import coil.compose.AsyncImagePainter
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
 import com.hivian.lydia_test.R
 import com.hivian.lydia_test.presentation.detail.DetailViewModel
 import com.hivian.lydia_test.presentation.detail.DetailViewModelFactory
@@ -58,9 +60,7 @@ fun DetailScreen(userId: Int = 0, viewModel: DetailViewModel = viewModel(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             ImageDetail(
-                modifier = Modifier
-                    .fillMaxWidth(fraction = 0.5f),
-                urlPath = viewModel.picture.value
+                imageUrlPath = viewModel.picture.value
             )
             UserInfo(
                 email = viewModel.email.value,
@@ -72,15 +72,32 @@ fun DetailScreen(userId: Int = 0, viewModel: DetailViewModel = viewModel(
 }
 
 @Composable
-fun ImageDetail(modifier: Modifier = Modifier, urlPath : String) {
-    AsyncImage(
-        model = urlPath,
-        contentDescription = null,
-        contentScale = ContentScale.FillWidth,
-        modifier = modifier
-            .fillMaxHeight()
-            .clip(CircleShape)
+fun ImageDetail(imageUrlPath : String) {
+    val painter = rememberAsyncImagePainter(
+        model = ImageRequest.Builder(LocalContext.current)
+            .data(imageUrlPath)
+            .crossfade(true)
+            .build()
     )
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth(0.5f)
+            .aspectRatio(1f),
+        contentAlignment = Alignment.Center,
+    ) {
+        if (painter.state is AsyncImagePainter.State.Loading) {
+            CircularProgressIndicator()
+        }
+
+        Image(
+            painter = painter,
+            contentDescription = null,
+            modifier = Modifier
+                .fillMaxSize()
+                .clip(CircleShape)
+        )
+    }
 }
 
 @Composable

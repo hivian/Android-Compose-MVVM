@@ -1,5 +1,6 @@
 package com.hivian.lydia_test.ui.composables
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -13,11 +14,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import coil.compose.AsyncImage
-import com.hivian.lydia_test.R
+import coil.compose.AsyncImagePainter
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
 import com.hivian.lydia_test.core.models.domain.RandomUserDomain
 import com.hivian.lydia_test.presentation.ViewModelVisualState
 import com.hivian.lydia_test.presentation.home.HomeViewModel
@@ -33,7 +35,7 @@ fun HomeScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(text = stringResource(id = R.string.app_name)) },
+                title = { Text(text = viewModel.title) },
             )
         }
     ) { contentPadding ->
@@ -110,7 +112,7 @@ fun UserListItem(user: RandomUserDomain, onItemClick : (Int) -> Unit) {
         Row(
             Modifier.height(IntrinsicSize.Min)
         ) {
-            UserImage(imageUrl = user.picture)
+            UserImage(imageUrlPath = user.picture)
             Column(
                 Modifier
                     .fillMaxSize()
@@ -125,20 +127,40 @@ fun UserListItem(user: RandomUserDomain, onItemClick : (Int) -> Unit) {
 }
 
 @Composable
-private fun UserImage(imageUrl : String) {
-    AsyncImage(
-        model = imageUrl,
-        contentDescription = null,
-        contentScale = ContentScale.Fit,
-        modifier = Modifier
-            .size(66.dp)
-            .clip(
-                RoundedCornerShape(
-                    topStart = CornerSize(8.dp),
-                    topEnd = CornerSize(0.dp),
-                    bottomStart = CornerSize(8.dp),
-                    bottomEnd = CornerSize(0.dp)
-                )
-            )
+private fun UserImage(imageUrlPath : String) {
+    val painter = rememberAsyncImagePainter(
+        model = ImageRequest.Builder(LocalContext.current)
+            .data(imageUrlPath)
+            .crossfade(true)
+            .build()
     )
+
+    Box(
+        modifier = Modifier.size(66.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        if (painter.state is AsyncImagePainter.State.Loading) {
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .fillMaxSize(0.5f),
+                strokeWidth = 2.dp
+            )
+        }
+
+        Image(
+            painter = painter,
+            contentDescription = null,
+            contentScale = ContentScale.Fit,
+            modifier = Modifier
+                .fillMaxSize()
+                .clip(
+                    RoundedCornerShape(
+                        topStart = CornerSize(8.dp),
+                        topEnd = CornerSize(0.dp),
+                        bottomStart = CornerSize(8.dp),
+                        bottomEnd = CornerSize(0.dp)
+                    )
+                )
+        )
+    }
 }
