@@ -1,12 +1,10 @@
 package com.hivian.lydia_test.presentation.detail
 
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.hivian.lydia_test.core.base.ViewModelBase
 import com.hivian.lydia_test.core.models.ImageSize
 import com.hivian.lydia_test.core.models.Mapper
-import com.hivian.lydia_test.core.models.domain.RandomUserDomain
 import com.hivian.lydia_test.core.servicelocator.IoC
 import com.hivian.lydia_test.core.services.database.IDatabaseService
 import com.hivian.lydia_test.core.services.navigation.INavigationService

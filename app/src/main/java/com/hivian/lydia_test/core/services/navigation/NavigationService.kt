@@ -1,6 +1,6 @@
 package com.hivian.lydia_test.core.services.navigation
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Activity
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -11,7 +11,7 @@ internal class NavigationService: INavigationService {
 
     private lateinit var mainNavController: NavHostController
 
-    override var navigationActivity: AppCompatActivity? = null
+    override var navigationActivity: Activity? = null
 
     override fun navigateBack(): Boolean = mainNavController.popBackStack()
 

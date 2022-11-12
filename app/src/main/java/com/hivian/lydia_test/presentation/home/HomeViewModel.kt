@@ -3,7 +3,6 @@ package com.hivian.lydia_test.presentation.home
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.viewModelScope
 import com.hivian.lydia_test.R
-import com.hivian.lydia_test.core.application.IScrollMoreDelegate
 import com.hivian.lydia_test.core.base.ViewModelBase
 import com.hivian.lydia_test.core.models.ImageSize
 import com.hivian.lydia_test.core.models.Mapper
@@ -19,7 +18,7 @@ import com.hivian.lydia_test.presentation.ViewModelVisualState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class HomeViewModel: ViewModelBase(), IScrollMoreDelegate {
+class HomeViewModel: ViewModelBase() {
 
     companion object {
         const val RESULT_COUNT = 20
@@ -85,7 +84,7 @@ class HomeViewModel: ViewModelBase(), IScrollMoreDelegate {
         }
     }
 
-    override fun loadMore() {
+    fun loadMore() {
         if (isLoadingMore) return
 
         isLoadingMore = true
