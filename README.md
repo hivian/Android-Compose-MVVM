@@ -7,6 +7,7 @@
 ## Development tools
 
 - [x] [Compose](https://developer.android.com/jetpack/compose)
+- [x] [Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
 - [x] [Navigation](https://developer.android.com/topic/libraries/architecture/navigation)
 - [x] [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)
 - [x] [Room](https://developer.android.com/topic/libraries/architecture/room)
@@ -23,5 +24,4 @@
 - [x] Offline mode
 - [x] Pagination: infinite scroll
 - [x] Specific error messages with retry action
-- [x] Back button on the detail screen
 - [x] Dark mode
