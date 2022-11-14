@@ -1,4 +1,4 @@
-package com.hivian.lydia_test.core.services.networking
+package com.hivian.lydia_test.core.remote
 
 object HttpStatusCode {
 

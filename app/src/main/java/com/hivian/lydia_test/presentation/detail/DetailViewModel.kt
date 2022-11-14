@@ -1,24 +1,23 @@
 package com.hivian.lydia_test.presentation.detail
 
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.hivian.lydia_test.core.base.ViewModelBase
+import com.hivian.lydia_test.core.di.UserId
 import com.hivian.lydia_test.core.models.ImageSize
 import com.hivian.lydia_test.core.models.Mapper
-import com.hivian.lydia_test.core.models.domain.RandomUserDomain
-import com.hivian.lydia_test.core.servicelocator.IoC
 import com.hivian.lydia_test.core.services.database.IDatabaseService
 import com.hivian.lydia_test.core.services.navigation.INavigationService
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class DetailViewModel(private val userId: Int): ViewModelBase() {
-
-    private val databaseService: IDatabaseService
-        get() = IoC.resolve()
-
+@HiltViewModel
+class DetailViewModel @Inject constructor(
+    @UserId private val userId: Int,
+    private val databaseService: IDatabaseService,
     private val navigationService: INavigationService
-        get() = IoC.resolve()
+): ViewModelBase() {
 
     val picture = mutableStateOf("")
 
@@ -42,7 +41,6 @@ class DetailViewModel(private val userId: Int): ViewModelBase() {
                 cell.value = userDomain.cell
                 phone.value = userDomain.phone
             }
-
         }
 
         isInitialized.value = true
