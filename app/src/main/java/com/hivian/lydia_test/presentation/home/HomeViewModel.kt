@@ -8,30 +8,27 @@ import com.hivian.lydia_test.core.models.ImageSize
 import com.hivian.lydia_test.core.models.Mapper
 import com.hivian.lydia_test.core.models.domain.RandomUserDomain
 import com.hivian.lydia_test.core.models.dto.RandomUserDTO
-import com.hivian.lydia_test.core.servicelocator.IoC
+import com.hivian.lydia_test.core.remote.ResourceErrorType
+import com.hivian.lydia_test.core.remote.ServiceResult
 import com.hivian.lydia_test.core.services.application.IRandomUsersService
 import com.hivian.lydia_test.core.services.localization.ILocalizationService
 import com.hivian.lydia_test.core.services.navigation.INavigationService
-import com.hivian.lydia_test.core.services.networking.ResourceErrorType
-import com.hivian.lydia_test.core.services.networking.ServiceResult
 import com.hivian.lydia_test.presentation.ViewModelVisualState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeViewModel(): ViewModelBase() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    private val localizationService: ILocalizationService,
+    private val navigationService: INavigationService,
+    private val randomUsersService: IRandomUsersService
+): ViewModelBase() {
 
     companion object {
         const val RESULT_COUNT = 20
     }
-
-    private val localizationService: ILocalizationService
-        get() = IoC.resolve()
-
-    private val navigationService: INavigationService
-        get() = IoC.resolve()
-
-    private val randomUsersService: IRandomUsersService
-        get() = IoC.resolve()
 
     private var pageCount = 1
 

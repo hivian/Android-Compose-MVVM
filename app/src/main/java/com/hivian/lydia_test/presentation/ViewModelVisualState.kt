@@ -1,6 +1,6 @@
 package com.hivian.lydia_test.presentation
 
-import com.hivian.lydia_test.core.services.networking.ResourceErrorType
+import com.hivian.lydia_test.core.remote.ResourceErrorType
 
 sealed class ViewModelVisualState {
 

@@ -2,7 +2,6 @@ package com.hivian.lydia_test.core.services.localization
 
 import androidx.annotation.StringRes
 
-
 interface ILocalizationService {
 
     fun localizedString(@StringRes key: Int): String

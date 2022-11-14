@@ -1,6 +1,7 @@
 package com.hivian.lydia_test.core.services.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.*
 import com.hivian.lydia_test.ui.composables.DetailScreen
 import com.hivian.lydia_test.ui.composables.HomeScreen
@@ -12,7 +13,7 @@ sealed class NavScreen {
 
         @Composable
         override fun Content(navController: NavController, navBackStackEntry: NavBackStackEntry) {
-            HomeScreen()
+            HomeScreen(hiltViewModel())
         }
 
     }
@@ -20,7 +21,7 @@ sealed class NavScreen {
 
         private const val baseRoute: String = "detail"
 
-        private const val userIdArgument = "userId"
+        const val userIdArgument = "userId"
 
         override val route: String = "$baseRoute/{$userIdArgument}"
 
@@ -29,7 +30,7 @@ sealed class NavScreen {
 
         @Composable
         override fun Content(navController: NavController, navBackStackEntry: NavBackStackEntry) {
-            DetailScreen(navBackStackEntry.arguments?.getInt(userIdArgument)!!)
+            DetailScreen(hiltViewModel())
         }
 
         fun createRouteWithArgs(userId: Int): String {

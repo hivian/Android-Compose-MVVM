@@ -25,14 +25,11 @@ import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.hivian.lydia_test.R
 import com.hivian.lydia_test.presentation.detail.DetailViewModel
-import com.hivian.lydia_test.presentation.detail.DetailViewModelFactory
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
-fun DetailScreen(userId: Int = 0, viewModel: DetailViewModel = viewModel(
-    factory = DetailViewModelFactory(userId)
-)) {
+fun DetailScreen(viewModel: DetailViewModel = viewModel()) {
     viewModel.initialize()
 
     Scaffold(

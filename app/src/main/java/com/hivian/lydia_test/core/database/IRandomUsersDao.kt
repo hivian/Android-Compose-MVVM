@@ -5,7 +5,7 @@ import com.hivian.lydia_test.core.models.dto.Name
 import com.hivian.lydia_test.core.models.dto.RandomUserDTO
 
 @Dao
-interface RandomUsersDao {
+interface IRandomUsersDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(vararg randomUserEntity: RandomUserDTO)

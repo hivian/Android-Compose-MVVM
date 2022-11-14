@@ -1,15 +1,12 @@
 package com.hivian.lydia_test.core.services.database
 
-import android.content.Context
-import com.hivian.lydia_test.core.database.RandomUsersDatabase
+import com.hivian.lydia_test.core.database.IRandomUsersDao
 import com.hivian.lydia_test.core.models.dto.RandomUserDTO
+import javax.inject.Inject
 
-
-class DatabaseService(applicationContext: Context): IDatabaseService {
-
-    private var database = RandomUsersDatabase.getInstance(applicationContext)
-
-    private val dao = database.randomUsersDao()
+class DatabaseService @Inject constructor(
+    private val dao: IRandomUsersDao
+): IDatabaseService {
 
     override suspend fun getUserById(userId: Int): RandomUserDTO {
         return dao.getRandomUserById(userId)

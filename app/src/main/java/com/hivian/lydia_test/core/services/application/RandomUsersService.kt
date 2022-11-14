@@ -1,19 +1,16 @@
 package com.hivian.lydia_test.core.services.application
 
 import com.hivian.lydia_test.core.models.dto.RandomUserDTO
-import com.hivian.lydia_test.core.servicelocator.IoC
+import com.hivian.lydia_test.core.remote.ResourceErrorType
+import com.hivian.lydia_test.core.remote.ServiceResult
 import com.hivian.lydia_test.core.services.database.IDatabaseService
 import com.hivian.lydia_test.core.services.networking.IHttpClient
-import com.hivian.lydia_test.core.services.networking.ResourceErrorType
-import com.hivian.lydia_test.core.services.networking.ServiceResult
+import javax.inject.Inject
 
-internal class RandomUsersService: IRandomUsersService {
-
-    private val database: IDatabaseService
-        get() = IoC.resolve()
-
+class RandomUsersService @Inject constructor(
+    private val database: IDatabaseService,
     private val httpClient: IHttpClient
-        get() = IoC.resolve()
+): IRandomUsersService {
 
     override suspend fun fetchRandomUsers(page: Int, results: Int): ServiceResult<List<RandomUserDTO>> {
         val httpResult = httpClient.fetchRandomUsers(page, results)
