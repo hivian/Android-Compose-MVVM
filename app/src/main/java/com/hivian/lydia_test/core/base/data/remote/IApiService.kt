@@ -1,4 +1,4 @@
-package com.hivian.lydia_test.core.remote
+package com.hivian.lydia_test.core.base.data.remote
 
 import com.hivian.lydia_test.core.models.dto.Results
 import retrofit2.Response

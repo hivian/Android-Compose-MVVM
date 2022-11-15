@@ -1,6 +1,6 @@
 package com.hivian.lydia_test.core.di
 
-import com.hivian.lydia_test.core.remote.IApiService
+import com.hivian.lydia_test.core.base.data.remote.IApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

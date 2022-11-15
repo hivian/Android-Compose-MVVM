@@ -10,6 +10,8 @@ import com.hivian.lydia_test.core.services.navigation.INavigationService
 import com.hivian.lydia_test.core.services.navigation.NavigationService
 import com.hivian.lydia_test.core.services.networking.HttpClient
 import com.hivian.lydia_test.core.services.networking.IHttpClient
+import com.hivian.lydia_test.core.services.userinteraction.IUserInteractionService
+import com.hivian.lydia_test.core.services.userinteraction.UserInteractionService
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -35,6 +37,10 @@ abstract class AppServiceModule {
     @Binds
     @Singleton
     abstract fun provideRandomUsersService(randomUsersService: RandomUsersService): IRandomUsersService
+
+    @Binds
+    @Singleton
+    abstract fun provideUserInteractionService(userInteractionService: UserInteractionService): IUserInteractionService
 
     @Binds
     @Singleton

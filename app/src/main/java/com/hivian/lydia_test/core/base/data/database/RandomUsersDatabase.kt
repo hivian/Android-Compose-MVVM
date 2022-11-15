@@ -1,4 +1,4 @@
-package com.hivian.lydia_test.core.database
+package com.hivian.lydia_test.core.base.data.database
 
 import android.content.Context
 import androidx.room.Database

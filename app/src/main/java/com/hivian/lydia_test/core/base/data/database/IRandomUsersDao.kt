@@ -1,4 +1,4 @@
-package com.hivian.lydia_test.core.database
+package com.hivian.lydia_test.core.base.data.database
 
 import androidx.room.*
 import com.hivian.lydia_test.core.models.dto.Name
@@ -21,6 +21,9 @@ interface IRandomUsersDao {
 
     @Query("SELECT * FROM random_user_entity")
     suspend fun getAllRandomUsers() : List<RandomUserDTO>
+
+    @Query("SELECT * FROM random_user_entity LIMIT :limit OFFSET :index")
+    suspend fun getAllRandomUsers(index: Int, limit: Int) : List<RandomUserDTO>
 
     @Query("SELECT * FROM random_user_entity WHERE localId = :id")
     suspend fun getRandomUserById(id : Int) : RandomUserDTO

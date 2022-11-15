@@ -1,18 +1,20 @@
 package com.hivian.lydia_test.presentation.home
 
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.viewModelScope
 import com.hivian.lydia_test.R
 import com.hivian.lydia_test.core.base.ViewModelBase
+import com.hivian.lydia_test.core.base.data.ResourceErrorType
+import com.hivian.lydia_test.core.base.data.ServiceResult
 import com.hivian.lydia_test.core.models.ImageSize
 import com.hivian.lydia_test.core.models.Mapper
 import com.hivian.lydia_test.core.models.domain.RandomUserDomain
 import com.hivian.lydia_test.core.models.dto.RandomUserDTO
-import com.hivian.lydia_test.core.remote.ResourceErrorType
-import com.hivian.lydia_test.core.remote.ServiceResult
 import com.hivian.lydia_test.core.services.application.IRandomUsersService
 import com.hivian.lydia_test.core.services.localization.ILocalizationService
 import com.hivian.lydia_test.core.services.navigation.INavigationService
+import com.hivian.lydia_test.core.services.userinteraction.IUserInteractionService
 import com.hivian.lydia_test.presentation.ViewModelVisualState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -23,7 +25,8 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val localizationService: ILocalizationService,
     private val navigationService: INavigationService,
-    private val randomUsersService: IRandomUsersService
+    private val randomUsersService: IRandomUsersService,
+    private val userInteractionService: IUserInteractionService
 ): ViewModelBase() {
 
     companion object {
@@ -40,14 +43,7 @@ class HomeViewModel @Inject constructor(
 
     val errorMessage : String
         get() = when (val state = viewModelVisualState.value) {
-            is ViewModelVisualState.Error -> when(state.errorType) {
-                ResourceErrorType.ACCESS_DENIED -> localizationService.localizedString(R.string.error_access_denied)
-                ResourceErrorType.CANCELLED -> localizationService.localizedString(R.string.error_cancelled)
-                ResourceErrorType.HOST_UNREACHABLE -> localizationService.localizedString(R.string.error_no_connection)
-                ResourceErrorType.TIMED_OUT -> localizationService.localizedString(R.string.error_timeout)
-                ResourceErrorType.NO_RESULT -> localizationService.localizedString(R.string.error_not_found)
-                ResourceErrorType.UNKNOWN -> localizationService.localizedString(R.string.error_unknown)
-            }
+            is ViewModelVisualState.Error -> errorTypeToErrorMessage(state.errorType)
             else -> ""
         }
 
@@ -77,7 +73,21 @@ class HomeViewModel @Inject constructor(
                 updateData(result.data)
                 viewModelVisualState.value = ViewModelVisualState.Success
             }
-            is ServiceResult.Error -> viewModelVisualState.value = ViewModelVisualState.Error(result.errorType)
+            is ServiceResult.Error -> {
+                if (result.data.isNotEmpty()) {
+                    updateData(result.data)
+                    viewModelVisualState.value = ViewModelVisualState.Success
+
+                    userInteractionService.showSnackbar(
+                        SnackbarDuration.Short,
+                        errorTypeToErrorMessage(result.errorType)
+                    )
+
+                    return@launch
+                }
+
+                viewModelVisualState.value = ViewModelVisualState.Error(result.errorType)
+            }
         }
     }
 
@@ -87,7 +97,13 @@ class HomeViewModel @Inject constructor(
         isLoadingMore = true
         viewModelScope.launch(Dispatchers.Main) {
             when (val resultList = randomUsersService.fetchRandomUsers(++pageCount, RESULT_COUNT)) {
-                is ServiceResult.Error -> pageCount--
+                is ServiceResult.Error -> {
+                    userInteractionService.showSnackbar(
+                        SnackbarDuration.Short,
+                        errorTypeToErrorMessage(resultList.errorType)
+                    )
+                    pageCount--
+                }
                 is ServiceResult.Success -> updateData(resultList.data)
             }
 
@@ -96,11 +112,18 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun updateData(users: List<RandomUserDTO>) {
-        if (users.isNotEmpty()) {
-            pageCount = users.count() / RESULT_COUNT
-        }
-
         items.addAll(Mapper.mapDTOToDomain(users, ImageSize.MEDIUM))
+    }
+
+    private fun errorTypeToErrorMessage(errorType: ResourceErrorType): String {
+        return when(errorType) {
+            ResourceErrorType.ACCESS_DENIED -> localizationService.localizedString(R.string.error_access_denied)
+            ResourceErrorType.CANCELLED -> localizationService.localizedString(R.string.error_cancelled)
+            ResourceErrorType.HOST_UNREACHABLE -> localizationService.localizedString(R.string.error_no_connection)
+            ResourceErrorType.TIMED_OUT -> localizationService.localizedString(R.string.error_timeout)
+            ResourceErrorType.NO_RESULT -> localizationService.localizedString(R.string.error_not_found)
+            ResourceErrorType.UNKNOWN -> localizationService.localizedString(R.string.error_unknown)
+        }
     }
 
 }

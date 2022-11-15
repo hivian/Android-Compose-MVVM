@@ -1,19 +1,19 @@
-package com.hivian.lydia_test.core.database
+package com.hivian.lydia_test.core.base.data.database
 
 import androidx.room.TypeConverter
 import com.hivian.lydia_test.core.extensions.fromJson
 import com.hivian.lydia_test.core.extensions.toJson
-import com.hivian.lydia_test.core.models.dto.Picture
+import com.hivian.lydia_test.core.models.dto.Name
 
-class PictureConverter {
+class NameConverter {
 
     @TypeConverter
-    fun pictureToJson(value: Picture): String {
+    fun nameToJson(value: Name): String {
         return value.toJson()
     }
 
     @TypeConverter
-    fun jsonToPicture(value: String): Picture {
+    fun jsonToName(value: String): Name {
         return value.fromJson()
     }
 }
