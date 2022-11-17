@@ -1,8 +1,8 @@
 package com.hivian.lydia_test.core.services.application
 
-import com.hivian.lydia_test.core.base.data.ResourceErrorType
-import com.hivian.lydia_test.core.base.data.ServiceResult
-import com.hivian.lydia_test.core.base.data.remote.HttpResult
+import com.hivian.lydia_test.core.data.ErrorType
+import com.hivian.lydia_test.core.data.ServiceResult
+import com.hivian.lydia_test.core.data.remote.HttpResult
 import com.hivian.lydia_test.core.models.dto.RandomUserDTO
 import com.hivian.lydia_test.core.services.database.IDatabaseService
 import com.hivian.lydia_test.core.services.networking.IHttpClient
@@ -22,7 +22,7 @@ class RandomUsersService @Inject constructor(
                 val users = httpUsersResult.data.results
 
                 if (users.isEmpty()) {
-                    ServiceResult.Error(ResourceErrorType.NO_RESULT, databaseUserResult)
+                    ServiceResult.Error(ErrorType.NO_RESULT, databaseUserResult)
                 } else {
                     database.upsertUsers(users)
                     ServiceResult.Success(database.fetchUsers(pageIndex, pageSize))

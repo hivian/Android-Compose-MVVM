@@ -30,6 +30,7 @@ fun HomeScreen(
     viewModel: HomeViewModel = viewModel()
 ) {
     val randomUsers = viewModel.items
+    val isListLoading = viewModel.isLoadingMore
     viewModel.initialize()
 
     Scaffold(
@@ -50,8 +51,9 @@ fun HomeScreen(
                 is ViewModelVisualState.Success -> {
                     InitUserList(
                         randomUsers,
+                        isLoadingMore = isListLoading.value,
                         onItemClick = { userId -> viewModel.openRandomUserDetail(userId) },
-                        onLoadMore = { viewModel.loadMore() }
+                        onLoadMore = { viewModel.loadNextItem() }
                     )
                 }
                 is ViewModelVisualState.Error -> InitErrorView(
@@ -82,6 +84,7 @@ fun InitErrorView(errorMessage: String, retryMessage: String, onRetry : () -> Un
 @Composable
 fun InitUserList(
     randomUsers: List<RandomUserDomain>,
+    isLoadingMore: Boolean,
     onItemClick : (Int) -> Unit,
     onLoadMore : () -> Unit
 ) {
@@ -93,6 +96,18 @@ fun InitUserList(
     ) {
         items(randomUsers) { user ->
             UserListItem(user = user, onItemClick = onItemClick)
+        }
+        item {
+            if (isLoadingMore) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    CircularProgressIndicator()
+                }
+            }
         }
     }
     listState.OnBottomReached(buffer = 5) {

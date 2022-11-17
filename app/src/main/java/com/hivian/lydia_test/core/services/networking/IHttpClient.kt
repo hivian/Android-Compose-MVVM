@@ -1,6 +1,6 @@
 package com.hivian.lydia_test.core.services.networking
 
-import com.hivian.lydia_test.core.base.data.remote.HttpResult
+import com.hivian.lydia_test.core.data.remote.HttpResult
 import com.hivian.lydia_test.core.models.dto.Results
 
 interface IHttpClient {

@@ -1,4 +1,4 @@
-package com.hivian.lydia_test.core.base.data.database
+package com.hivian.lydia_test.core.data.database
 
 import androidx.room.TypeConverter
 import com.hivian.lydia_test.core.extensions.fromJson

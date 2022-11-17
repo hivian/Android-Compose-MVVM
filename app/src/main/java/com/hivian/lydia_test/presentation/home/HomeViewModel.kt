@@ -2,11 +2,12 @@ package com.hivian.lydia_test.presentation.home
 
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.hivian.lydia_test.R
 import com.hivian.lydia_test.core.base.ViewModelBase
-import com.hivian.lydia_test.core.base.data.ResourceErrorType
-import com.hivian.lydia_test.core.base.data.ServiceResult
+import com.hivian.lydia_test.core.data.ErrorType
+import com.hivian.lydia_test.core.data.paginator.DefaultPaginator
 import com.hivian.lydia_test.core.models.ImageSize
 import com.hivian.lydia_test.core.models.Mapper
 import com.hivian.lydia_test.core.models.domain.RandomUserDomain
@@ -17,7 +18,6 @@ import com.hivian.lydia_test.core.services.navigation.INavigationService
 import com.hivian.lydia_test.core.services.userinteraction.IUserInteractionService
 import com.hivian.lydia_test.presentation.ViewModelVisualState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -33,13 +33,59 @@ class HomeViewModel @Inject constructor(
         const val RESULT_COUNT = 20
     }
 
-    private var pageCount = 1
+    var listEndReached = mutableStateOf(false)
 
-    private var isLoadingMore: Boolean = false
+    var isLoadingMore = mutableStateOf(false)
 
     var title : String = localizationService.localizedString(R.string.home_title)
 
     var items = mutableStateListOf<RandomUserDomain>()
+
+    private val paginator = DefaultPaginator(
+        initialKey = 1,
+        getNextKey = { currentKey -> currentKey + 1 },
+        onRequest = { nextPage -> randomUsersService.fetchRandomUsers(nextPage, RESULT_COUNT) },
+        onLoading = { initialLoad ->
+            if (initialLoad) {
+                viewModelVisualState.value = ViewModelVisualState.Loading
+                return@DefaultPaginator
+            }
+
+            isLoadingMore.value = true
+        },
+        onError = { errorType, users, initialLoad ->
+            if (initialLoad) {
+                if (users.isNotEmpty()) {
+                    updateData(users)
+                    viewModelVisualState.value = ViewModelVisualState.Success
+                } else {
+                    viewModelVisualState.value = ViewModelVisualState.Error(errorType)
+                }
+            } else {
+                isLoadingMore.value = false
+                if (users.isNotEmpty()) {
+                    updateData(users)
+                } else {
+                    userInteractionService.showSnackbar(
+                        SnackbarDuration.Short,
+                        errorTypeToErrorMessage(errorType)
+                    )
+                }
+            }
+        },
+        onSuccess = { users, initialLoad ->
+            updateData(users)
+            listEndReached.value = users.isEmpty()
+
+            if (initialLoad) {
+                viewModelVisualState.value = ViewModelVisualState.Success
+                return@DefaultPaginator
+            }
+
+            isLoadingMore.value = false
+        }
+
+    )
 
     val errorMessage : String
         get() = when (val state = viewModelVisualState.value) {
@@ -52,7 +98,7 @@ class HomeViewModel @Inject constructor(
     override fun initialize() {
         if (isInitialized.value == true) return
 
-        fetchRandomUsers()
+        loadNextItem()
 
         isInitialized.value = true
     }
@@ -62,52 +108,13 @@ class HomeViewModel @Inject constructor(
     }
 
     fun refresh() {
-        fetchRandomUsers()
+        paginator.reset()
+        loadNextItem()
     }
 
-    private fun fetchRandomUsers() = viewModelScope.launch {
-        viewModelVisualState.value = ViewModelVisualState.Loading
-
-        when (val result = randomUsersService.fetchRandomUsers(pageCount, RESULT_COUNT)) {
-            is ServiceResult.Success -> {
-                updateData(result.data)
-                viewModelVisualState.value = ViewModelVisualState.Success
-            }
-            is ServiceResult.Error -> {
-                if (result.data.isNotEmpty()) {
-                    updateData(result.data)
-                    viewModelVisualState.value = ViewModelVisualState.Success
-
-                    userInteractionService.showSnackbar(
-                        SnackbarDuration.Short,
-                        errorTypeToErrorMessage(result.errorType)
-                    )
-
-                    return@launch
-                }
-
-                viewModelVisualState.value = ViewModelVisualState.Error(result.errorType)
-            }
-        }
-    }
-
-    fun loadMore() {
-        if (isLoadingMore) return
-
-        isLoadingMore = true
-        viewModelScope.launch(Dispatchers.Main) {
-            when (val resultList = randomUsersService.fetchRandomUsers(++pageCount, RESULT_COUNT)) {
-                is ServiceResult.Error -> {
-                    userInteractionService.showSnackbar(
-                        SnackbarDuration.Short,
-                        errorTypeToErrorMessage(resultList.errorType)
-                    )
-                    pageCount--
-                }
-                is ServiceResult.Success -> updateData(resultList.data)
-            }
-
-            isLoadingMore = false
+    fun loadNextItem() {
+        viewModelScope.launch {
+            paginator.loadNextItems()
         }
     }
 
@@ -115,14 +122,14 @@ class HomeViewModel @Inject constructor(
         items.addAll(Mapper.mapDTOToDomain(users, ImageSize.MEDIUM))
     }
 
-    private fun errorTypeToErrorMessage(errorType: ResourceErrorType): String {
+    private fun errorTypeToErrorMessage(errorType: ErrorType): String {
         return when(errorType) {
-            ResourceErrorType.ACCESS_DENIED -> localizationService.localizedString(R.string.error_access_denied)
-            ResourceErrorType.CANCELLED -> localizationService.localizedString(R.string.error_cancelled)
-            ResourceErrorType.HOST_UNREACHABLE -> localizationService.localizedString(R.string.error_no_connection)
-            ResourceErrorType.TIMED_OUT -> localizationService.localizedString(R.string.error_timeout)
-            ResourceErrorType.NO_RESULT -> localizationService.localizedString(R.string.error_not_found)
-            ResourceErrorType.UNKNOWN -> localizationService.localizedString(R.string.error_unknown)
+            ErrorType.ACCESS_DENIED -> localizationService.localizedString(R.string.error_access_denied)
+            ErrorType.CANCELLED -> localizationService.localizedString(R.string.error_cancelled)
+            ErrorType.HOST_UNREACHABLE -> localizationService.localizedString(R.string.error_no_connection)
+            ErrorType.TIMED_OUT -> localizationService.localizedString(R.string.error_timeout)
+            ErrorType.NO_RESULT -> localizationService.localizedString(R.string.error_not_found)
+            ErrorType.UNKNOWN -> localizationService.localizedString(R.string.error_unknown)
         }
     }
 

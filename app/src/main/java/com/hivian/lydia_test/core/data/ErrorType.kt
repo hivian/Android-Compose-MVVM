@@ -1,6 +1,6 @@
-package com.hivian.lydia_test.core.base.data
+package com.hivian.lydia_test.core.data
 
-enum class ResourceErrorType {
+enum class ErrorType {
     ACCESS_DENIED,
     CANCELLED,
     HOST_UNREACHABLE,

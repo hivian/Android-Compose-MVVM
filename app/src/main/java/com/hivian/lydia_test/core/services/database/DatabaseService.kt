@@ -1,6 +1,6 @@
 package com.hivian.lydia_test.core.services.database
 
-import com.hivian.lydia_test.core.base.data.database.IRandomUsersDao
+import com.hivian.lydia_test.core.data.database.IRandomUsersDao
 import com.hivian.lydia_test.core.models.dto.RandomUserDTO
 import javax.inject.Inject
 
