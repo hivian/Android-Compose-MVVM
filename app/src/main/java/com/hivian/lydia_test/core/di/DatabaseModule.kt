@@ -1,8 +1,8 @@
 package com.hivian.lydia_test.core.di
 
 import android.content.Context
-import com.hivian.lydia_test.core.database.IRandomUsersDao
-import com.hivian.lydia_test.core.database.RandomUsersDatabase
+import com.hivian.lydia_test.core.data.database.IRandomUsersDao
+import com.hivian.lydia_test.core.data.database.RandomUsersDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -6,7 +6,7 @@ interface IDatabaseService {
 
     suspend fun getUserById(userId: Int): RandomUserDTO
 
-    suspend fun fetchUsers(): List<RandomUserDTO>
+    suspend fun fetchUsers(pageIndex: Int, pageSize: Int): List<RandomUserDTO>
 
     suspend fun upsertUsers(users : List<RandomUserDTO>)
 

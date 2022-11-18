@@ -1,7 +1,6 @@
-package com.hivian.lydia_test.core.remote
+package com.hivian.lydia_test.core.data.remote
 
 import com.hivian.lydia_test.core.models.dto.Results
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -11,6 +10,6 @@ interface IApiService {
     suspend fun fetchRandomUsers(
         @Query("seed") seed: String = "lydia",
         @Query("results") results: Int = 20,
-        @Query("page") page: Int = 1): Response<Results>
+        @Query("page") page: Int = 1): Results
 
 }

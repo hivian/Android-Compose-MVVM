@@ -1,10 +1,10 @@
 package com.hivian.lydia_test.core.services.application
 
+import com.hivian.lydia_test.core.data.ServiceResult
 import com.hivian.lydia_test.core.models.dto.RandomUserDTO
-import com.hivian.lydia_test.core.remote.ServiceResult
 
 interface IRandomUsersService {
 
-    suspend fun fetchRandomUsers(page: Int, results: Int): ServiceResult<List<RandomUserDTO>>
+    suspend fun fetchRandomUsers(pageIndex: Int, pageSize: Int): ServiceResult<List<RandomUserDTO>>
 
 }
