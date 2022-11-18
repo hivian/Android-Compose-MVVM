@@ -5,29 +5,26 @@ import androidx.compose.runtime.*
 
 @Composable
 fun LazyListState.OnBottomReached(
-    // tells how many items before we reach the bottom of the list
-    buffer : Int = 0,
+    buffer: Int = 0,
     loadMore : () -> Unit
 ){
-    require(buffer >= 0) { "buffer cannot be negative, but was $buffer" }
+    var previousIndex = 0
 
-    // state object which tells us if we should load more
     val shouldLoadMore = remember {
         derivedStateOf {
+            val lastVisibleItem = layoutInfo.visibleItemsInfo.lastOrNull() ?: return@derivedStateOf false
 
-            // get last visible item
-            val lastVisibleItem = layoutInfo.visibleItemsInfo.lastOrNull()
-                ?:
-                // return false here if loadMore should not be invoked if the list is empty
-                return@derivedStateOf true
+            val scrolledToBottom = lastVisibleItem.index > previousIndex
+            val isLastItem = lastVisibleItem.index >= layoutInfo.totalItemsCount - 1 - buffer
+            val shouldLoadMore = scrolledToBottom && isLastItem
 
-            // Check if last visible item is the last item in the list
-            lastVisibleItem.index == layoutInfo.totalItemsCount - 1 - buffer
+            previousIndex = lastVisibleItem.index
+
+            shouldLoadMore
         }
     }
 
-    // Convert the state into a cold flow and collect
-    LaunchedEffect(shouldLoadMore){
+    LaunchedEffect(shouldLoadMore) {
         snapshotFlow { shouldLoadMore.value }
             .collect { if (it) loadMore() }
     }

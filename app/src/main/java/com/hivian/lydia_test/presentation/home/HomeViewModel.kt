@@ -33,9 +33,7 @@ class HomeViewModel @Inject constructor(
         const val RESULT_COUNT = 20
     }
 
-    var listEndReached = mutableStateOf(false)
-
-    var isLoadingMore = mutableStateOf(false)
+    var showLoadMoreLoader = mutableStateOf(true)
 
     var title : String = localizationService.localizedString(R.string.home_title)
 
@@ -51,7 +49,7 @@ class HomeViewModel @Inject constructor(
                 return@DefaultPaginator
             }
 
-            isLoadingMore.value = true
+            showLoadMoreLoader.value = true
         },
         onError = { errorType, users, initialLoad ->
             if (initialLoad) {
@@ -62,10 +60,10 @@ class HomeViewModel @Inject constructor(
                     viewModelVisualState.value = ViewModelVisualState.Error(errorType)
                 }
             } else {
-                isLoadingMore.value = false
                 if (users.isNotEmpty()) {
                     updateData(users)
                 } else {
+                    showLoadMoreLoader.value = false
                     userInteractionService.showSnackbar(
                         SnackbarDuration.Short,
                         errorTypeToErrorMessage(errorType)
@@ -75,14 +73,13 @@ class HomeViewModel @Inject constructor(
         },
         onSuccess = { users, initialLoad ->
             updateData(users)
-            listEndReached.value = users.isEmpty()
+            if (users.isEmpty())
+                showLoadMoreLoader.value = false
 
             if (initialLoad) {
                 viewModelVisualState.value = ViewModelVisualState.Success
                 return@DefaultPaginator
             }
-
-            isLoadingMore.value = false
         }
 
     )

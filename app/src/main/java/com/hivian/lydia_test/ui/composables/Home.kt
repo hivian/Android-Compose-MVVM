@@ -30,7 +30,7 @@ fun HomeScreen(
     viewModel: HomeViewModel = viewModel()
 ) {
     val randomUsers = viewModel.items
-    val isListLoading = viewModel.isLoadingMore
+    val isListLoading = viewModel.showLoadMoreLoader
     viewModel.initialize()
 
     Scaffold(
@@ -97,20 +97,13 @@ fun InitUserList(
         items(randomUsers) { user ->
             UserListItem(user = user, onItemClick = onItemClick)
         }
+        if (!isLoadingMore) return@LazyColumn
+
         item {
-            if (isLoadingMore) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp),
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    CircularProgressIndicator()
-                }
-            }
+            UserListLoadingItem()
         }
     }
-    listState.OnBottomReached(buffer = 5) {
+    listState.OnBottomReached(buffer = 3) {
         onLoadMore()
     }
 }
@@ -138,6 +131,18 @@ fun UserListItem(user: RandomUserDomain, onItemClick : (Int) -> Unit) {
                 Text(text = user.email, style = MaterialTheme.typography.bodySmall)
             }
         }
+    }
+}
+
+@Composable
+fun UserListLoadingItem() {
+    Row(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(8.dp),
+        horizontalArrangement = Arrangement.Center
+    ) {
+        CircularProgressIndicator()
     }
 }
 
