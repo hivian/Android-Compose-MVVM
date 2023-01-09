@@ -8,4 +8,10 @@ data class Picture(
 
     val thumbnail: String
 
-)
+) {
+
+    companion object {
+        val EMPTY = Picture(large = "", medium = "", thumbnail = "")
+    }
+
+}

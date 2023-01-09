@@ -2,11 +2,15 @@ package com.hivian.lydia_test.core.models.dto
 
 data class Street(
 
-    val number: Int,
+    val number: Int = 0,
 
-    val name: String
+    val name: String = ""
 
-)
+) {
+    companion object {
+        val EMPTY = Street(0, "")
+    }
+}
 
 data class Location(
 
@@ -20,4 +24,10 @@ data class Location(
 
     val postcode: String
 
-)
+) {
+
+    companion object {
+        val EMPTY = Location(street = Street.EMPTY, city = "", state = "", country = "", postcode = "")
+    }
+
+}

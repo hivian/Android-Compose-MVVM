@@ -30,17 +30,18 @@ class HomeViewModel @Inject constructor(
 ): ViewModelBase() {
 
     companion object {
+        const val PAGINATOR_INITIAL_KEY = 1
         const val RESULT_COUNT = 20
     }
 
-    var showLoadMoreLoader = mutableStateOf(true)
+    var showLoadMoreLoader = mutableStateOf(false)
 
     var title : String = localizationService.localizedString(R.string.home_title)
 
     var items = mutableStateListOf<RandomUserDomain>()
 
     private val paginator = DefaultPaginator(
-        initialKey = 1,
+        initialKey = PAGINATOR_INITIAL_KEY,
         getNextKey = { currentKey -> currentKey + 1 },
         onRequest = { nextPage -> randomUsersService.fetchRandomUsers(nextPage, RESULT_COUNT) },
         onLoading = { initialLoad ->
