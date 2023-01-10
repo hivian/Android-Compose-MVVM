@@ -1,6 +1,7 @@
 package com.hivian.lydia_test.presentation
 
-import com.hivian.lydia_test.TestBase
+import com.hivian.lydia_test.InstantExecutorExtension
+import com.hivian.lydia_test.MainCoroutineExtension
 import com.hivian.lydia_test.core.models.ImageSize
 import com.hivian.lydia_test.core.models.Mapper
 import com.hivian.lydia_test.core.models.dto.Location
@@ -13,20 +14,23 @@ import com.hivian.lydia_test.presentation.detail.DetailViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertAll
+import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.kotlin.*
 
 @ExperimentalCoroutinesApi
-class DetailViewModelTest: TestBase() {
+@ExtendWith(InstantExecutorExtension::class, MainCoroutineExtension::class)
+class DetailViewModelTest {
 
     private val databaseService = mock<IDatabaseService>()
     private val navigationService = mock<INavigationService>()
 
     private lateinit var viewModel: DetailViewModel
 
-    @Before
+    @BeforeEach
     fun setUp() {
         viewModel = DetailViewModel(0, databaseService, navigationService)
     }
@@ -34,12 +38,12 @@ class DetailViewModelTest: TestBase() {
     @Test
     fun `ViewModel is initialized`() {
         viewModel.initialize()
-        Assert.assertEquals(true, viewModel.isInitialized.value)
+        assertEquals(true, viewModel.isInitialized.value)
     }
 
     @Test
     fun `ViewModel is not initialized`() {
-        Assert.assertEquals(false, viewModel.isInitialized.value)
+        assertEquals(false, viewModel.isInitialized.value)
     }
 
     @Test
@@ -61,11 +65,13 @@ class DetailViewModelTest: TestBase() {
         ).thenReturn(userDTO)
         viewModel.initialize()
         advanceUntilIdle()
-        Assert.assertEquals(userDomain.picture, viewModel.picture.value)
-        Assert.assertEquals(userDomain.fullName, viewModel.name.value)
-        Assert.assertEquals(userDomain.email, viewModel.email.value)
-        Assert.assertEquals(userDomain.cell, viewModel.cell.value)
-        Assert.assertEquals(userDomain.phone, viewModel.phone.value)
+        assertAll("Fields",
+            { assertEquals(userDomain.picture, viewModel.picture.value) },
+            { assertEquals(userDomain.fullName, viewModel.name.value) },
+            { assertEquals(userDomain.email, viewModel.email.value) },
+            { assertEquals(userDomain.cell, viewModel.cell.value) },
+            { assertEquals(userDomain.phone, viewModel.phone.value) }
+        )
     }
 
 }

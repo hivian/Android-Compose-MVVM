@@ -1,6 +1,7 @@
 package com.hivian.lydia_test.presentation
 
-import com.hivian.lydia_test.TestBase
+import com.hivian.lydia_test.InstantExecutorExtension
+import com.hivian.lydia_test.MainCoroutineExtension
 import com.hivian.lydia_test.core.data.ErrorType
 import com.hivian.lydia_test.core.data.ServiceResult
 import com.hivian.lydia_test.core.models.ImageSize
@@ -20,13 +21,16 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.withContext
-import org.junit.Assert
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertAll
+import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.kotlin.*
 
 @ExperimentalCoroutinesApi
-class HomeViewModelTest: TestBase() {
+@ExtendWith(InstantExecutorExtension::class, MainCoroutineExtension::class)
+class HomeViewModelTest {
 
     private val localizationService = mock<ILocalizationService>()
     private val navigationService = mock<INavigationService>()
@@ -35,7 +39,7 @@ class HomeViewModelTest: TestBase() {
 
     private lateinit var viewModel: HomeViewModel
 
-    @Before
+    @BeforeEach
     fun setUp() {
         viewModel = HomeViewModel(localizationService, navigationService, randomUsersService, userInteractionService)
     }
@@ -43,12 +47,12 @@ class HomeViewModelTest: TestBase() {
     @Test
     fun `ViewModel is initialized`() {
         viewModel.initialize()
-        Assert.assertEquals(true, viewModel.isInitialized.value)
+        assertEquals(true, viewModel.isInitialized.value)
     }
 
     @Test
     fun `ViewModel is not initialized`() {
-        Assert.assertEquals(false, viewModel.isInitialized.value)
+        assertEquals(false, viewModel.isInitialized.value)
     }
 
     @Test
@@ -60,7 +64,7 @@ class HomeViewModelTest: TestBase() {
         )
         viewModel.initialize()
         advanceUntilIdle()
-        Assert.assertEquals(ViewModelVisualState.Success, viewModel.viewModelVisualState.value)
+        assertEquals(ViewModelVisualState.Success, viewModel.viewModelVisualState.value)
     }
 
     @Test
@@ -72,7 +76,7 @@ class HomeViewModelTest: TestBase() {
         )
         viewModel.initialize()
         advanceUntilIdle()
-        Assert.assertEquals(ViewModelVisualState.Error(ErrorType.UNKNOWN), viewModel.viewModelVisualState.value)
+        assertEquals(ViewModelVisualState.Error(ErrorType.UNKNOWN), viewModel.viewModelVisualState.value)
     }
 
     @Test
@@ -86,8 +90,10 @@ class HomeViewModelTest: TestBase() {
         viewModel.initialize()
 
         advanceUntilIdle()
-        Assert.assertEquals(ViewModelVisualState.Loading, viewModel.viewModelVisualState.value)
-        Assert.assertEquals(false, viewModel.showLoadMoreLoader.value)
+        assertAll("Initial loader is loading",
+            { assertEquals(ViewModelVisualState.Loading, viewModel.viewModelVisualState.value) },
+            { assertEquals(false, viewModel.showLoadMoreLoader.value) }
+        )
     }
 
     @Test
@@ -106,8 +112,10 @@ class HomeViewModelTest: TestBase() {
         viewModel.initialize()
         viewModel.loadNextItem()
         advanceUntilIdle()
-        Assert.assertEquals(ViewModelVisualState.Success, viewModel.viewModelVisualState.value)
-        Assert.assertEquals(true, viewModel.showLoadMoreLoader.value)
+        assertAll("Load more loader is loading",
+            { assertEquals(ViewModelVisualState.Success, viewModel.viewModelVisualState.value) },
+            { assertEquals(true, viewModel.showLoadMoreLoader.value) }
+        )
     }
 
     @Test
@@ -144,7 +152,7 @@ class HomeViewModelTest: TestBase() {
         )
         viewModel.initialize()
         advanceUntilIdle()
-        Assert.assertEquals(usersDomain, viewModel.items.toList())
+        assertEquals(usersDomain, viewModel.items.toList())
     }
 
     @Test
@@ -188,7 +196,7 @@ class HomeViewModelTest: TestBase() {
         viewModel.initialize()
         viewModel.loadNextItem()
         advanceUntilIdle()
-        Assert.assertEquals(usersDomain, viewModel.items.toList())
+        assertEquals(usersDomain, viewModel.items.toList())
     }
 
 }

@@ -39,8 +39,13 @@ android {
         compose true
     }
     testOptions {
-        unitTests.includeAndroidResources  = true
-        unitTests.returnDefaultValues = true
+        unitTests {
+            all {
+                useJUnitPlatform()
+            }
+            includeAndroidResources  = true
+            returnDefaultValues = true
+        }
     }
 
 }
@@ -75,13 +80,12 @@ dependencies {
     implementation 'com.github.ajalt:timberkt:1.5.1'
 
     // TESTS
-    testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.2'
     testImplementation 'org.mockito.kotlin:mockito-kotlin:4.0.0'
     testImplementation "android.arch.core:core-testing:1.1.1"
+    testImplementation('org.junit.jupiter:junit-jupiter:5.8.0')
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
 
 }
