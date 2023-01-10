@@ -1,10 +1,10 @@
 package com.hivian.lydia_test.presentation
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.hivian.lydia_test.MainCoroutineRule
+import com.hivian.lydia_test.TestBase
 import com.hivian.lydia_test.core.data.ErrorType
 import com.hivian.lydia_test.core.data.ServiceResult
-import com.hivian.lydia_test.core.models.domain.RandomUserDomain
+import com.hivian.lydia_test.core.models.ImageSize
+import com.hivian.lydia_test.core.models.Mapper
 import com.hivian.lydia_test.core.models.dto.Location
 import com.hivian.lydia_test.core.models.dto.Name
 import com.hivian.lydia_test.core.models.dto.Picture
@@ -22,18 +22,11 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.withContext
 import org.junit.Assert
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.mockito.kotlin.*
 
 @ExperimentalCoroutinesApi
-class HomeViewModelTest {
-
-    @get:Rule
-    val testRule = InstantTaskExecutorRule()
-
-    @get:Rule
-    var mainCoroutineRule = MainCoroutineRule()
+class HomeViewModelTest: TestBase() {
 
     private val localizationService = mock<ILocalizationService>()
     private val navigationService = mock<INavigationService>()
@@ -130,36 +123,28 @@ class HomeViewModelTest {
         val picture = Picture.EMPTY
         val location = Location.EMPTY
 
+        val usersDto = listOf(
+            RandomUserDTO(
+                localId = id,
+                gender = gender,
+                name = Name(title = title, first = firstName, last = lastName),
+                email = email,
+                cell = cell,
+                phone = phone,
+                picture = picture,
+                location = location
+            )
+        )
+        val usersDomain = Mapper.mapDTOToDomain(usersDto, ImageSize.MEDIUM)
+
         whenever(
             randomUsersService.fetchRandomUsers(HomeViewModel.PAGINATOR_INITIAL_KEY, HomeViewModel.RESULT_COUNT)
         ).thenReturn(
-            ServiceResult.Success(listOf(
-                RandomUserDTO(
-                    localId = id,
-                    gender = gender,
-                    name = Name(title = title, first = firstName, last = lastName),
-                    email = email,
-                    cell = cell,
-                    phone = phone,
-                    picture = picture,
-                    location = location
-                )
-            ))
+            ServiceResult.Success(usersDto)
         )
         viewModel.initialize()
         advanceUntilIdle()
-        Assert.assertEquals(viewModel.items.toList(), listOf(
-            RandomUserDomain(
-                id = id,
-                gender = gender,
-                firstName = firstName,
-                lastName = lastName,
-                email = email,
-                phone = phone,
-                cell = cell,
-                picture = ""
-            )
-        ))
+        Assert.assertEquals(usersDomain, viewModel.items.toList())
     }
 
     @Test
@@ -175,49 +160,35 @@ class HomeViewModelTest {
         val picture = Picture.EMPTY
         val location = Location.EMPTY
 
+        val usersDTO = ArrayList<RandomUserDTO>()
+        repeat(2) { index ->
+            usersDTO.addAll(listOf(
+                RandomUserDTO(
+                    localId = id + index,
+                    gender = gender,
+                    name = Name(title = title, first = firstName, last = lastName),
+                    email = email,
+                    cell = cell,
+                    phone = phone,
+                    picture = picture,
+                    location = location
+                )
+            ))
+        }
         repeat(2) { index ->
             whenever(
                 randomUsersService.fetchRandomUsers(HomeViewModel.PAGINATOR_INITIAL_KEY + index, HomeViewModel.RESULT_COUNT)
             ).thenReturn(
-                ServiceResult.Success(listOf(
-                    RandomUserDTO(
-                        localId = id + index,
-                        gender = gender,
-                        name = Name(title = title, first = firstName, last = lastName),
-                        email = email,
-                        cell = cell,
-                        phone = phone,
-                        picture = picture,
-                        location = location
-                    )
-                ))
+                ServiceResult.Success(listOf(usersDTO[index]))
             )
         }
+
+        val usersDomain = Mapper.mapDTOToDomain(usersDTO, ImageSize.MEDIUM)
+
         viewModel.initialize()
         viewModel.loadNextItem()
         advanceUntilIdle()
-        Assert.assertEquals(viewModel.items.toList(), listOf(
-            RandomUserDomain(
-                id = id,
-                gender = gender,
-                firstName = firstName,
-                lastName = lastName,
-                email = email,
-                phone = phone,
-                cell = cell,
-                picture = ""
-            ),
-            RandomUserDomain(
-                id = id + 1,
-                gender = gender,
-                firstName = firstName,
-                lastName = lastName,
-                email = email,
-                phone = phone,
-                cell = cell,
-                picture = ""
-            )
-        ))
+        Assert.assertEquals(usersDomain, viewModel.items.toList())
     }
 
 }
