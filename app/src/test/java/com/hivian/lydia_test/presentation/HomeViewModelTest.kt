@@ -2,18 +2,18 @@ package com.hivian.lydia_test.presentation
 
 import com.hivian.lydia_test.InstantExecutorExtension
 import com.hivian.lydia_test.MainCoroutineExtension
-import com.hivian.lydia_test.core.data.ErrorType
+import com.hivian.lydia_test.core.data.network.ErrorType
 import com.hivian.lydia_test.core.data.ServiceResult
-import com.hivian.lydia_test.core.models.ImageSize
-import com.hivian.lydia_test.core.models.Mapper
-import com.hivian.lydia_test.core.models.dto.Location
-import com.hivian.lydia_test.core.models.dto.Name
-import com.hivian.lydia_test.core.models.dto.Picture
-import com.hivian.lydia_test.core.models.dto.RandomUserDTO
-import com.hivian.lydia_test.core.services.application.IRandomUsersService
+import com.hivian.lydia_test.data.mappers.ImageSize
+import com.hivian.lydia_test.data.models.dto.Location
+import com.hivian.lydia_test.data.models.dto.Name
+import com.hivian.lydia_test.data.models.dto.Picture
+import com.hivian.lydia_test.data.models.dto.RandomUserDTO
+import com.hivian.lydia_test.data.services.application.IRandomUsersService
 import com.hivian.lydia_test.core.services.localization.ILocalizationService
-import com.hivian.lydia_test.core.services.navigation.INavigationService
+import com.hivian.lydia_test.ui.services.navigation.INavigationService
 import com.hivian.lydia_test.core.services.userinteraction.IUserInteractionService
+import com.hivian.lydia_test.data.mappers.mapToRandomUsers
 import com.hivian.lydia_test.presentation.home.HomeViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -131,7 +131,7 @@ class HomeViewModelTest {
         val picture = Picture.EMPTY
         val location = Location.EMPTY
 
-        val usersDto = listOf(
+        val usersDTO = listOf(
             RandomUserDTO(
                 localId = id,
                 gender = gender,
@@ -143,12 +143,12 @@ class HomeViewModelTest {
                 location = location
             )
         )
-        val usersDomain = Mapper.mapDTOToDomain(usersDto, ImageSize.MEDIUM)
+        val usersDomain = usersDTO.mapToRandomUsers(ImageSize.MEDIUM)
 
         whenever(
             randomUsersService.fetchRandomUsers(HomeViewModel.PAGINATOR_INITIAL_KEY, HomeViewModel.RESULT_COUNT)
         ).thenReturn(
-            ServiceResult.Success(usersDto)
+            ServiceResult.Success(usersDTO)
         )
         viewModel.initialize()
         advanceUntilIdle()
@@ -191,7 +191,7 @@ class HomeViewModelTest {
             )
         }
 
-        val usersDomain = Mapper.mapDTOToDomain(usersDTO, ImageSize.MEDIUM)
+        val usersDomain = usersDTO.mapToRandomUsers(ImageSize.MEDIUM)
 
         viewModel.initialize()
         viewModel.loadNextItem()

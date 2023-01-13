@@ -1,7 +1,7 @@
 package com.hivian.lydia_test.core.data.paginator
 
-import com.hivian.lydia_test.core.data.ErrorType
 import com.hivian.lydia_test.core.data.ServiceResult
+import com.hivian.lydia_test.core.data.network.ErrorType
 
 class DefaultPaginator<Key, Item>(
 

@@ -1,6 +1,6 @@
 package com.hivian.lydia_test.presentation
 
-import com.hivian.lydia_test.core.data.ErrorType
+import com.hivian.lydia_test.core.data.network.ErrorType
 
 sealed class ViewModelVisualState {
 

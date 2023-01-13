@@ -5,7 +5,7 @@ import androidx.annotation.StringRes
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class LocalizationService @Inject constructor(
+internal class LocalizationService @Inject constructor(
     @ApplicationContext private val context: Context
 ): ILocalizationService {
 

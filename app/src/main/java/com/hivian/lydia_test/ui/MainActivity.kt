@@ -8,8 +8,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import com.hivian.lydia_test.core.services.navigation.INavigationService
 import com.hivian.lydia_test.core.services.userinteraction.IUserInteractionService
+import com.hivian.lydia_test.ui.services.navigation.INavigationService
 import com.hivian.lydia_test.ui.themes.ComposetestTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

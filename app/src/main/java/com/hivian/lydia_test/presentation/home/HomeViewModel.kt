@@ -6,17 +6,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.hivian.lydia_test.R
 import com.hivian.lydia_test.core.base.ViewModelBase
-import com.hivian.lydia_test.core.data.ErrorType
+import com.hivian.lydia_test.core.data.network.ErrorType
 import com.hivian.lydia_test.core.data.paginator.DefaultPaginator
-import com.hivian.lydia_test.core.models.ImageSize
-import com.hivian.lydia_test.core.models.Mapper
-import com.hivian.lydia_test.core.models.domain.RandomUserDomain
-import com.hivian.lydia_test.core.models.dto.RandomUserDTO
-import com.hivian.lydia_test.core.services.application.IRandomUsersService
 import com.hivian.lydia_test.core.services.localization.ILocalizationService
-import com.hivian.lydia_test.core.services.navigation.INavigationService
 import com.hivian.lydia_test.core.services.userinteraction.IUserInteractionService
+import com.hivian.lydia_test.data.mappers.ImageSize
+import com.hivian.lydia_test.data.mappers.mapToRandomUsers
+import com.hivian.lydia_test.data.models.domain.RandomUser
+import com.hivian.lydia_test.data.models.dto.RandomUserDTO
+import com.hivian.lydia_test.data.services.application.IRandomUsersService
 import com.hivian.lydia_test.presentation.ViewModelVisualState
+import com.hivian.lydia_test.ui.services.navigation.INavigationService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -38,7 +38,7 @@ class HomeViewModel @Inject constructor(
 
     var title : String = localizationService.localizedString(R.string.home_title)
 
-    var items = mutableStateListOf<RandomUserDomain>()
+    var items = mutableStateListOf<RandomUser>()
 
     private val paginator = DefaultPaginator(
         initialKey = PAGINATOR_INITIAL_KEY,
@@ -117,7 +117,7 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun updateData(users: List<RandomUserDTO>) {
-        items.addAll(Mapper.mapDTOToDomain(users, ImageSize.MEDIUM))
+        items.addAll(users.mapToRandomUsers(ImageSize.MEDIUM))
     }
 
     private fun errorTypeToErrorMessage(errorType: ErrorType): String {

@@ -2,14 +2,14 @@ package com.hivian.lydia_test.presentation
 
 import com.hivian.lydia_test.InstantExecutorExtension
 import com.hivian.lydia_test.MainCoroutineExtension
-import com.hivian.lydia_test.core.models.ImageSize
-import com.hivian.lydia_test.core.models.Mapper
-import com.hivian.lydia_test.core.models.dto.Location
-import com.hivian.lydia_test.core.models.dto.Name
-import com.hivian.lydia_test.core.models.dto.Picture
-import com.hivian.lydia_test.core.models.dto.RandomUserDTO
-import com.hivian.lydia_test.core.services.database.IDatabaseService
-import com.hivian.lydia_test.core.services.navigation.INavigationService
+import com.hivian.lydia_test.data.mappers.ImageSize
+import com.hivian.lydia_test.data.mappers.mapToRandomUser
+import com.hivian.lydia_test.data.models.dto.Location
+import com.hivian.lydia_test.data.models.dto.Name
+import com.hivian.lydia_test.data.models.dto.Picture
+import com.hivian.lydia_test.data.models.dto.RandomUserDTO
+import com.hivian.lydia_test.data.services.application.IRandomUsersService
+import com.hivian.lydia_test.ui.services.navigation.INavigationService
 import com.hivian.lydia_test.presentation.detail.DetailViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceUntilIdle
@@ -25,14 +25,14 @@ import org.mockito.kotlin.*
 @ExtendWith(InstantExecutorExtension::class, MainCoroutineExtension::class)
 class DetailViewModelTest {
 
-    private val databaseService = mock<IDatabaseService>()
+    private val randomUsersService = mock<IRandomUsersService>()
     private val navigationService = mock<INavigationService>()
 
     private lateinit var viewModel: DetailViewModel
 
     @BeforeEach
     fun setUp() {
-        viewModel = DetailViewModel(0, databaseService, navigationService)
+        viewModel = DetailViewModel(0, randomUsersService, navigationService)
     }
 
     @Test
@@ -58,11 +58,11 @@ class DetailViewModelTest {
             picture = Picture.EMPTY,
             location = Location.EMPTY
         )
-        val userDomain = Mapper.mapDTOToDomain(userDTO, ImageSize.LARGE)
+        val userDomain = userDTO.mapToRandomUser(ImageSize.LARGE)
 
         whenever(
-            databaseService.getUserById(0)
-        ).thenReturn(userDTO)
+            randomUsersService.getUserById(0, ImageSize.LARGE)
+        ).thenReturn(userDomain)
         viewModel.initialize()
         advanceUntilIdle()
         assertAll("Fields",

@@ -5,7 +5,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import javax.inject.Inject
 
-class UserInteractionService @Inject constructor(): IUserInteractionService {
+internal class UserInteractionService @Inject constructor(): IUserInteractionService {
 
     private lateinit var snackbarHostState: SnackbarHostState
 

@@ -20,7 +20,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
-import com.hivian.lydia_test.core.models.domain.RandomUserDomain
+import com.hivian.lydia_test.data.models.domain.RandomUser
 import com.hivian.lydia_test.presentation.ViewModelVisualState
 import com.hivian.lydia_test.presentation.home.HomeViewModel
 
@@ -83,7 +83,7 @@ fun InitErrorView(errorMessage: String, retryMessage: String, onRetry : () -> Un
 
 @Composable
 fun InitUserList(
-    randomUsers: List<RandomUserDomain>,
+    randomUsers: List<RandomUser>,
     isLoadingMore: Boolean,
     onItemClick : (Int) -> Unit,
     onLoadMore : () -> Unit
@@ -109,7 +109,7 @@ fun InitUserList(
 }
 
 @Composable
-fun UserListItem(user: RandomUserDomain, onItemClick : (Int) -> Unit) {
+fun UserListItem(user: RandomUser, onItemClick : (Int) -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxSize()
