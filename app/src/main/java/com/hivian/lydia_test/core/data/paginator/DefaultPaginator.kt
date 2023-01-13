@@ -19,7 +19,8 @@ class DefaultPaginator<Key, Item>(
 
 ): IPaginator<Key, Item> {
 
-    private var currentKey = initialKey
+    override var currentKey: Key = initialKey
+        private set
 
     private var initialLoad: Boolean = true
 
@@ -48,13 +49,13 @@ class DefaultPaginator<Key, Item>(
             }
         }
 
-        initialLoad = false
+        initialLoad = currentKey == initialKey
         isLoading = false
     }
 
     override fun reset() {
-        initialLoad = true
         currentKey = initialKey
+        initialLoad = true
     }
 
 
