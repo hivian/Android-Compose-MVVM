@@ -34,8 +34,8 @@ internal class HttpClient @Inject constructor(
                 is HttpException -> {
                     HttpResult.Error(when (exception.code()) {
                         HttpStatusCode.unauthorized, HttpStatusCode.forbidden -> ErrorType.ACCESS_DENIED
-                        HttpStatusCode.timedOut -> ErrorType.TIMED_OUT
                         HttpStatusCode.notFound -> ErrorType.NO_RESULT
+                        HttpStatusCode.timedOut -> ErrorType.TIMED_OUT
                         else -> ErrorType.UNKNOWN
                     })
                 }

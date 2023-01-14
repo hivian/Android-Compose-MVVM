@@ -9,8 +9,8 @@ import com.hivian.lydia_test.data.models.dto.Name
 import com.hivian.lydia_test.data.models.dto.Picture
 import com.hivian.lydia_test.data.models.dto.RandomUserDTO
 import com.hivian.lydia_test.data.services.application.IRandomUsersService
-import com.hivian.lydia_test.ui.services.navigation.INavigationService
 import com.hivian.lydia_test.presentation.detail.DetailViewModel
+import com.hivian.lydia_test.ui.services.navigation.INavigationService
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
@@ -19,7 +19,8 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
 import org.junit.jupiter.api.extension.ExtendWith
-import org.mockito.kotlin.*
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.whenever
 
 @ExperimentalCoroutinesApi
 @ExtendWith(InstantExecutorExtension::class, MainCoroutineExtension::class)

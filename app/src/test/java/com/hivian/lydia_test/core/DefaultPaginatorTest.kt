@@ -7,7 +7,6 @@ import com.hivian.lydia_test.core.data.paginator.DefaultPaginator
 import com.hivian.lydia_test.data.models.domain.RandomUser
 import com.hivian.lydia_test.data.models.dto.Picture
 import com.hivian.lydia_test.presentation.home.HomeViewModel
-import com.hivian.lydia_test.ui.services.navigation.routes.NavScreen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.*

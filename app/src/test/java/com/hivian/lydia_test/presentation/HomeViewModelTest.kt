@@ -2,19 +2,19 @@ package com.hivian.lydia_test.presentation
 
 import com.hivian.lydia_test.InstantExecutorExtension
 import com.hivian.lydia_test.MainCoroutineExtension
-import com.hivian.lydia_test.core.data.network.ErrorType
 import com.hivian.lydia_test.core.data.ServiceResult
+import com.hivian.lydia_test.core.data.network.ErrorType
+import com.hivian.lydia_test.core.services.localization.ILocalizationService
+import com.hivian.lydia_test.core.services.userinteraction.IUserInteractionService
 import com.hivian.lydia_test.data.mappers.ImageSize
+import com.hivian.lydia_test.data.mappers.mapToRandomUsers
 import com.hivian.lydia_test.data.models.dto.Location
 import com.hivian.lydia_test.data.models.dto.Name
 import com.hivian.lydia_test.data.models.dto.Picture
 import com.hivian.lydia_test.data.models.dto.RandomUserDTO
 import com.hivian.lydia_test.data.services.application.IRandomUsersService
-import com.hivian.lydia_test.core.services.localization.ILocalizationService
-import com.hivian.lydia_test.ui.services.navigation.INavigationService
-import com.hivian.lydia_test.core.services.userinteraction.IUserInteractionService
-import com.hivian.lydia_test.data.mappers.mapToRandomUsers
 import com.hivian.lydia_test.presentation.home.HomeViewModel
+import com.hivian.lydia_test.ui.services.navigation.INavigationService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
@@ -26,7 +26,9 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
 import org.junit.jupiter.api.extension.ExtendWith
-import org.mockito.kotlin.*
+import org.mockito.kotlin.doSuspendableAnswer
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.whenever
 
 @ExperimentalCoroutinesApi
 @ExtendWith(InstantExecutorExtension::class, MainCoroutineExtension::class)
