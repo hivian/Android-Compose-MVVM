@@ -1,7 +1,7 @@
 package com.hivian.lydia_test.data.di
 
-import com.hivian.lydia_test.data.services.networking.HttpClient
-import com.hivian.lydia_test.data.services.networking.IHttpClient
+import com.hivian.lydia_test.domain.services.networking.HttpClient
+import com.hivian.lydia_test.domain.services.networking.IHttpClient
 import com.hivian.lydia_test.data.sources.remote.IApiService
 import dagger.Module
 import dagger.Provides

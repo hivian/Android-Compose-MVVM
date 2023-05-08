@@ -5,9 +5,9 @@ import com.hivian.lydia_test.MainCoroutineExtension
 import com.hivian.lydia_test.core.data.network.ErrorType
 import com.hivian.lydia_test.core.data.network.HttpResult
 import com.hivian.lydia_test.core.data.network.HttpStatusCode
-import com.hivian.lydia_test.data.models.dto.Results
-import com.hivian.lydia_test.data.services.networking.HttpClient
-import com.hivian.lydia_test.data.services.networking.IHttpClient
+import com.hivian.lydia_test.data.models.Results
+import com.hivian.lydia_test.domain.services.networking.HttpClient
+import com.hivian.lydia_test.domain.services.networking.IHttpClient
 import com.hivian.lydia_test.data.sources.remote.IApiService
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.ExperimentalCoroutinesApi

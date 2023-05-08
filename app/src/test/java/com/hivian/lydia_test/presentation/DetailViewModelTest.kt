@@ -2,13 +2,13 @@ package com.hivian.lydia_test.presentation
 
 import com.hivian.lydia_test.InstantExecutorExtension
 import com.hivian.lydia_test.MainCoroutineExtension
-import com.hivian.lydia_test.data.mappers.ImageSize
-import com.hivian.lydia_test.data.mappers.mapToRandomUser
-import com.hivian.lydia_test.data.models.dto.Location
-import com.hivian.lydia_test.data.models.dto.Name
-import com.hivian.lydia_test.data.models.dto.Picture
-import com.hivian.lydia_test.data.models.dto.RandomUserDTO
-import com.hivian.lydia_test.data.services.application.IRandomUsersService
+import com.hivian.lydia_test.domain.mappers.ImageSize
+import com.hivian.lydia_test.domain.mappers.mapToRandomUser
+import com.hivian.lydia_test.data.models.Location
+import com.hivian.lydia_test.data.models.Name
+import com.hivian.lydia_test.data.models.Picture
+import com.hivian.lydia_test.data.models.RandomUserDTO
+import com.hivian.lydia_test.domain.services.application.IRandomUsersService
 import com.hivian.lydia_test.presentation.detail.DetailViewModel
 import com.hivian.lydia_test.ui.services.navigation.INavigationService
 import kotlinx.coroutines.ExperimentalCoroutinesApi

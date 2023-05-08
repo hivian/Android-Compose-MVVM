@@ -1,9 +1,9 @@
-package com.hivian.lydia_test.data.services.networking
+package com.hivian.lydia_test.domain.services.networking
 
 import com.hivian.lydia_test.core.data.network.ErrorType
 import com.hivian.lydia_test.core.data.network.HttpResult
 import com.hivian.lydia_test.core.data.network.HttpStatusCode
-import com.hivian.lydia_test.data.models.dto.Results
+import com.hivian.lydia_test.data.models.Results
 import com.hivian.lydia_test.data.sources.remote.IApiService
 import retrofit2.HttpException
 import java.net.SocketTimeoutException

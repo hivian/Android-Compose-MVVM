@@ -10,11 +10,11 @@ import com.hivian.lydia_test.core.data.network.ErrorType
 import com.hivian.lydia_test.core.data.paginator.DefaultPaginator
 import com.hivian.lydia_test.core.services.localization.ILocalizationService
 import com.hivian.lydia_test.core.services.userinteraction.IUserInteractionService
-import com.hivian.lydia_test.data.mappers.ImageSize
-import com.hivian.lydia_test.data.mappers.mapToRandomUsers
-import com.hivian.lydia_test.data.models.domain.RandomUser
-import com.hivian.lydia_test.data.models.dto.RandomUserDTO
-import com.hivian.lydia_test.data.services.application.IRandomUsersService
+import com.hivian.lydia_test.domain.mappers.ImageSize
+import com.hivian.lydia_test.domain.mappers.mapToRandomUsers
+import com.hivian.lydia_test.domain.models.RandomUser
+import com.hivian.lydia_test.data.models.RandomUserDTO
+import com.hivian.lydia_test.domain.services.application.IRandomUsersService
 import com.hivian.lydia_test.presentation.ViewModelVisualState
 import com.hivian.lydia_test.ui.services.navigation.INavigationService
 import dagger.hilt.android.lifecycle.HiltViewModel

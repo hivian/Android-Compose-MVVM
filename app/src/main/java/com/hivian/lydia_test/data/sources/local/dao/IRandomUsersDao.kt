@@ -1,8 +1,8 @@
 package com.hivian.lydia_test.data.sources.local.dao
 
 import androidx.room.*
-import com.hivian.lydia_test.data.models.dto.Name
-import com.hivian.lydia_test.data.models.dto.RandomUserDTO
+import com.hivian.lydia_test.data.models.Name
+import com.hivian.lydia_test.data.models.RandomUserDTO
 
 @Dao
 interface IRandomUsersDao {

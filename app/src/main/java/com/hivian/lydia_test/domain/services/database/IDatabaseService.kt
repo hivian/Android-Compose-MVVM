@@ -1,6 +1,6 @@
-package com.hivian.lydia_test.data.services.database
+package com.hivian.lydia_test.domain.services.database
 
-import com.hivian.lydia_test.data.models.dto.RandomUserDTO
+import com.hivian.lydia_test.data.models.RandomUserDTO
 
 interface IDatabaseService {
 

@@ -3,8 +3,8 @@ package com.hivian.lydia_test.presentation.detail
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.hivian.lydia_test.core.base.ViewModelBase
-import com.hivian.lydia_test.data.mappers.ImageSize
-import com.hivian.lydia_test.data.services.application.IRandomUsersService
+import com.hivian.lydia_test.domain.mappers.ImageSize
+import com.hivian.lydia_test.domain.services.application.IRandomUsersService
 import com.hivian.lydia_test.presentation.di.UserId
 import com.hivian.lydia_test.ui.services.navigation.INavigationService
 import dagger.hilt.android.lifecycle.HiltViewModel

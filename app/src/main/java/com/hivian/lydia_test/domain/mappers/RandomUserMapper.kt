@@ -1,7 +1,7 @@
-package com.hivian.lydia_test.data.mappers
+package com.hivian.lydia_test.domain.mappers
 
-import com.hivian.lydia_test.data.models.domain.RandomUser
-import com.hivian.lydia_test.data.models.dto.RandomUserDTO
+import com.hivian.lydia_test.domain.models.RandomUser
+import com.hivian.lydia_test.data.models.RandomUserDTO
 
 enum class ImageSize {
     THUMBNAIL,

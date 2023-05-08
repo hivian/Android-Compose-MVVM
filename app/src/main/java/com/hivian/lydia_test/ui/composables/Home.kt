@@ -20,7 +20,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
-import com.hivian.lydia_test.data.models.domain.RandomUser
+import com.hivian.lydia_test.domain.models.RandomUser
 import com.hivian.lydia_test.presentation.ViewModelVisualState
 import com.hivian.lydia_test.presentation.home.HomeViewModel
 

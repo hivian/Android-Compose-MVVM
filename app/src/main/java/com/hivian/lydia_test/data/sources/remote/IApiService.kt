@@ -1,6 +1,6 @@
 package com.hivian.lydia_test.data.sources.remote
 
-import com.hivian.lydia_test.data.models.dto.Results
+import com.hivian.lydia_test.data.models.Results
 import retrofit2.http.GET
 import retrofit2.http.Query
 

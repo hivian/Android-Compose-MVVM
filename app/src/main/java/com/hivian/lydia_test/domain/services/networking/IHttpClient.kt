@@ -1,7 +1,7 @@
-package com.hivian.lydia_test.data.services.networking
+package com.hivian.lydia_test.domain.services.networking
 
 import com.hivian.lydia_test.core.data.network.HttpResult
-import com.hivian.lydia_test.data.models.dto.Results
+import com.hivian.lydia_test.data.models.Results
 
 interface IHttpClient {
 

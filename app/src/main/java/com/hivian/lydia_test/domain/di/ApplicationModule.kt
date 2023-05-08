@@ -1,9 +1,9 @@
-package com.hivian.lydia_test.data.di
+package com.hivian.lydia_test.domain.di
 
-import com.hivian.lydia_test.data.services.application.IRandomUsersService
-import com.hivian.lydia_test.data.services.application.RandomUsersService
-import com.hivian.lydia_test.data.services.database.IDatabaseService
-import com.hivian.lydia_test.data.services.networking.IHttpClient
+import com.hivian.lydia_test.domain.services.application.IRandomUsersService
+import com.hivian.lydia_test.domain.services.application.RandomUsersService
+import com.hivian.lydia_test.domain.services.database.IDatabaseService
+import com.hivian.lydia_test.domain.services.networking.IHttpClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

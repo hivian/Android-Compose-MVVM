@@ -3,7 +3,7 @@ package com.hivian.lydia_test.data.sources.local.converters
 import androidx.room.TypeConverter
 import com.hivian.lydia_test.core.extensions.fromJson
 import com.hivian.lydia_test.core.extensions.toJson
-import com.hivian.lydia_test.data.models.dto.Location
+import com.hivian.lydia_test.data.models.Location
 
 class LocationConverter {
 

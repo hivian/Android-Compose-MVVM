@@ -1,9 +1,9 @@
-package com.hivian.lydia_test.data.services.application
+package com.hivian.lydia_test.domain.services.application
 
 import com.hivian.lydia_test.core.data.ServiceResult
-import com.hivian.lydia_test.data.mappers.ImageSize
-import com.hivian.lydia_test.data.models.domain.RandomUser
-import com.hivian.lydia_test.data.models.dto.RandomUserDTO
+import com.hivian.lydia_test.domain.mappers.ImageSize
+import com.hivian.lydia_test.domain.models.RandomUser
+import com.hivian.lydia_test.data.models.RandomUserDTO
 
 interface IRandomUsersService {
 
