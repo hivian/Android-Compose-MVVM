@@ -3,11 +3,10 @@ package com.hivian.lydia_test.presentation.detail
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.hivian.lydia_test.core.base.ViewModelBase
-import com.hivian.lydia_test.core.di.UserId
-import com.hivian.lydia_test.core.models.ImageSize
-import com.hivian.lydia_test.core.models.Mapper
-import com.hivian.lydia_test.core.services.database.IDatabaseService
-import com.hivian.lydia_test.core.services.navigation.INavigationService
+import com.hivian.lydia_test.domain.mappers.ImageSize
+import com.hivian.lydia_test.domain.services.application.IRandomUsersService
+import com.hivian.lydia_test.presentation.di.UserId
+import com.hivian.lydia_test.ui.services.navigation.INavigationService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -15,7 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailViewModel @Inject constructor(
     @UserId private val userId: Int,
-    private val databaseService: IDatabaseService,
+    private val randomUsersService: IRandomUsersService,
     private val navigationService: INavigationService
 ): ViewModelBase() {
 
@@ -33,8 +32,7 @@ class DetailViewModel @Inject constructor(
         if (isInitialized.value == true) return
 
         viewModelScope.launch {
-            databaseService.getUserById(userId).let {
-                val userDomain = Mapper.mapDTOToDomain(it, ImageSize.LARGE)
+            randomUsersService.getUserById(userId, ImageSize.LARGE).let { userDomain ->
                 picture.value = userDomain.picture
                 name.value = userDomain.fullName
                 email.value = userDomain.email

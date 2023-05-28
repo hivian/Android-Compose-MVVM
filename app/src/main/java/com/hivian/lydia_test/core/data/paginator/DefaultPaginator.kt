@@ -1,7 +1,7 @@
 package com.hivian.lydia_test.core.data.paginator
 
-import com.hivian.lydia_test.core.data.ErrorType
 import com.hivian.lydia_test.core.data.ServiceResult
+import com.hivian.lydia_test.core.data.network.ErrorType
 
 class DefaultPaginator<Key, Item>(
 
@@ -19,7 +19,8 @@ class DefaultPaginator<Key, Item>(
 
 ): IPaginator<Key, Item> {
 
-    private var currentKey = initialKey
+    override var currentKey: Key = initialKey
+        private set
 
     private var initialLoad: Boolean = true
 
@@ -48,13 +49,13 @@ class DefaultPaginator<Key, Item>(
             }
         }
 
-        initialLoad = false
+        initialLoad = currentKey == initialKey
         isLoading = false
     }
 
     override fun reset() {
-        initialLoad = true
         currentKey = initialKey
+        initialLoad = true
     }
 
 

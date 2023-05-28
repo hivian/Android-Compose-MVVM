@@ -6,17 +6,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.hivian.lydia_test.R
 import com.hivian.lydia_test.core.base.ViewModelBase
-import com.hivian.lydia_test.core.data.ErrorType
+import com.hivian.lydia_test.core.base.ViewModelVisualState
+import com.hivian.lydia_test.core.data.network.ErrorType
 import com.hivian.lydia_test.core.data.paginator.DefaultPaginator
-import com.hivian.lydia_test.core.models.ImageSize
-import com.hivian.lydia_test.core.models.Mapper
-import com.hivian.lydia_test.core.models.domain.RandomUserDomain
-import com.hivian.lydia_test.core.models.dto.RandomUserDTO
-import com.hivian.lydia_test.core.services.application.IRandomUsersService
 import com.hivian.lydia_test.core.services.localization.ILocalizationService
-import com.hivian.lydia_test.core.services.navigation.INavigationService
 import com.hivian.lydia_test.core.services.userinteraction.IUserInteractionService
-import com.hivian.lydia_test.presentation.ViewModelVisualState
+import com.hivian.lydia_test.data.models.RandomUserDTO
+import com.hivian.lydia_test.domain.mappers.ImageSize
+import com.hivian.lydia_test.domain.mappers.mapToRandomUsers
+import com.hivian.lydia_test.domain.models.RandomUser
+import com.hivian.lydia_test.domain.services.application.IRandomUsersService
+import com.hivian.lydia_test.ui.services.navigation.INavigationService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -30,17 +30,18 @@ class HomeViewModel @Inject constructor(
 ): ViewModelBase() {
 
     companion object {
+        const val PAGINATOR_INITIAL_KEY = 1
         const val RESULT_COUNT = 20
     }
 
-    var showLoadMoreLoader = mutableStateOf(true)
+    var showLoadMoreLoader = mutableStateOf(false)
 
     var title : String = localizationService.localizedString(R.string.home_title)
 
-    var items = mutableStateListOf<RandomUserDomain>()
+    var items = mutableStateListOf<RandomUser>()
 
     private val paginator = DefaultPaginator(
-        initialKey = 1,
+        initialKey = PAGINATOR_INITIAL_KEY,
         getNextKey = { currentKey -> currentKey + 1 },
         onRequest = { nextPage -> randomUsersService.fetchRandomUsers(nextPage, RESULT_COUNT) },
         onLoading = { initialLoad ->
@@ -116,7 +117,7 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun updateData(users: List<RandomUserDTO>) {
-        items.addAll(Mapper.mapDTOToDomain(users, ImageSize.MEDIUM))
+        items.addAll(users.mapToRandomUsers(ImageSize.MEDIUM))
     }
 
     private fun errorTypeToErrorMessage(errorType: ErrorType): String {
