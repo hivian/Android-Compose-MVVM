@@ -2,6 +2,7 @@ package com.hivian.lydia_test.presentation
 
 import com.hivian.lydia_test.InstantExecutorExtension
 import com.hivian.lydia_test.MainCoroutineExtension
+import com.hivian.lydia_test.core.base.ViewModelVisualState
 import com.hivian.lydia_test.core.data.ServiceResult
 import com.hivian.lydia_test.core.data.network.ErrorType
 import com.hivian.lydia_test.core.services.localization.ILocalizationService

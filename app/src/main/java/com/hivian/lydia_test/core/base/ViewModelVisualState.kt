@@ -1,4 +1,4 @@
-package com.hivian.lydia_test.presentation
+package com.hivian.lydia_test.core.base
 
 import com.hivian.lydia_test.core.data.network.ErrorType
 

@@ -15,7 +15,7 @@ import com.hivian.lydia_test.domain.mappers.mapToRandomUsers
 import com.hivian.lydia_test.domain.models.RandomUser
 import com.hivian.lydia_test.data.models.RandomUserDTO
 import com.hivian.lydia_test.domain.services.application.IRandomUsersService
-import com.hivian.lydia_test.presentation.ViewModelVisualState
+import com.hivian.lydia_test.core.base.ViewModelVisualState
 import com.hivian.lydia_test.ui.services.navigation.INavigationService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
