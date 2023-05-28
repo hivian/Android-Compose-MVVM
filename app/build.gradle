@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    namespace 'com.hivian.mvvm_compose'
+    namespace 'com.hivian.compose_mvvm'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.hivian.mvvm_compose"
+        applicationId "com.hivian.compose_mvvm"
         minSdk 27
         targetSdk 33
         versionCode 100
