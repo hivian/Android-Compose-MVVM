@@ -12,6 +12,6 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "android-mvvm-compose"
+rootProject.name = "compose-mvvm"
 include ':app'
 
