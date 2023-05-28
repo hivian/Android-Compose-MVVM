@@ -1,10 +1,10 @@
 package com.hivian.lydia_test.data.di
 
 import android.content.Context
-import com.hivian.lydia_test.domain.services.database.DatabaseService
-import com.hivian.lydia_test.domain.services.database.IDatabaseService
 import com.hivian.lydia_test.data.sources.local.RandomUsersDatabase
 import com.hivian.lydia_test.data.sources.local.dao.IRandomUsersDao
+import com.hivian.lydia_test.domain.services.database.DatabaseService
+import com.hivian.lydia_test.domain.services.database.IDatabaseService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

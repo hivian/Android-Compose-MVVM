@@ -2,7 +2,11 @@ package com.hivian.lydia_test.ui.services.navigation.routes
 
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.*
+import androidx.navigation.NamedNavArgument
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavController
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 import com.hivian.lydia_test.ui.composables.DetailScreen
 import com.hivian.lydia_test.ui.composables.HomeScreen
 

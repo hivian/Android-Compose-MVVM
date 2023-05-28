@@ -3,10 +3,10 @@ package com.hivian.lydia_test.domain.services.application
 import com.hivian.lydia_test.core.data.ServiceResult
 import com.hivian.lydia_test.core.data.network.ErrorType
 import com.hivian.lydia_test.core.data.network.HttpResult
+import com.hivian.lydia_test.data.models.RandomUserDTO
 import com.hivian.lydia_test.domain.mappers.ImageSize
 import com.hivian.lydia_test.domain.mappers.mapToRandomUser
 import com.hivian.lydia_test.domain.models.RandomUser
-import com.hivian.lydia_test.data.models.RandomUserDTO
 import com.hivian.lydia_test.domain.services.database.IDatabaseService
 import com.hivian.lydia_test.domain.services.networking.IHttpClient
 import javax.inject.Inject
