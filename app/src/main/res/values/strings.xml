@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">lydia-test</string>
+    <string name="app_name">Android-MVVM-Compose</string>
 
     <string name="home_title">Random Users</string>
 

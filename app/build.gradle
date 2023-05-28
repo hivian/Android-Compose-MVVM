@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    namespace 'com.hivian.lydia_test'
+    namespace 'com.hivian.android_mvvm_compose'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.hivian.lydia_test"
+        applicationId "com.hivian.android_mvvm_compose"
         minSdk 27
         targetSdk 33
         versionCode 11
