@@ -1,4 +1,4 @@
-# Android-MVVM-Compose-Demo
+# Android-Compose-MVVM
 
 ## Language
 

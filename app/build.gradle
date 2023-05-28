@@ -8,15 +8,15 @@ plugins {
 }
 
 android {
-    namespace 'com.hivian.android_mvvm_compose'
+    namespace 'com.hivian.mvvm_compose'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.hivian.android_mvvm_compose"
+        applicationId "com.hivian.mvvm_compose"
         minSdk 27
         targetSdk 33
-        versionCode 11
-        versionName "1.1"
+        versionCode 100
+        versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
