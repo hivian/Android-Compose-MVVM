@@ -19,7 +19,7 @@
 </p>
 
 <p align="center">
-  A simple demo app built with Kotlin, using Jetpack Compose and based on MVVM architecture. <br/>
+  A simple demo app built with Kotlin, using Jetpack Compose, based on clean architecture and MVVM pattern. <br/>
   Data fetched from https://randomuser.me api and saved to Android database
 </p>
 
@@ -46,7 +46,7 @@
 ## Design patterns
 
 - [x] SOLID principles
-- [x] MVVM architecture
+- [x] MVVM clean architecture
 
 ## Features
 
