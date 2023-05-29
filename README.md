@@ -23,6 +23,11 @@
   Data fetched from https://randomuser.me api and saved to Android database
 </p>
 
+## Preview
+<p>
+  <img src="preview1.gif" width="270"/>
+  <img src="preview2.gif" width="270"/>
+</p>
 
 ## Language
 
