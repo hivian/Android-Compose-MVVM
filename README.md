@@ -19,10 +19,15 @@
 </p>
 
 <p align="center">
-  A simple demo app built with Kotlin, using Jetpack Compose and based on clean architecture and MVVM pattern. <br/>
+  A simple demo app built with Kotlin, using Jetpack Compose, based on clean architecture and MVVM pattern. <br/>
   Data fetched from https://randomuser.me api and saved to Android database
 </p>
 
+## Preview
+<p>
+  <img src="preview1.gif" width="270"/>
+  <img src="preview2.gif" width="270"/>
+</p>
 
 ## Language
 
