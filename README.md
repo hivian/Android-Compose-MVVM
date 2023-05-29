@@ -19,7 +19,7 @@
 </p>
 
 <p align="center">
-  A demo app built with Kotlin, using Jetpack Compose and based on MVVM architecture. <br/>
+  A simple demo app built with Kotlin, using Jetpack Compose and based on MVVM architecture. <br/>
   Data fetched from https://randomuser.me api and saved to Android database
 </p>
 
