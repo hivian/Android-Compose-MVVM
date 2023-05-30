@@ -51,6 +51,55 @@
 * SOLID principles
 * MVVM clean architecture
 
+## Package Structures
+
+```
+com.hivian.compose_mvvm       # Root Package
+├── core                      # Common base components
+│   ├── di                    # Dependency injection module
+│   ├── data                  # Data wrappers
+|   │   ├── network           # Http result wrappers
+|   |   └── paginator         # Default pager
+│   ├── extensions            # Kotlin extensions
+|   └── services              # Base services with interfaces
+|       ├── localization      # Internationalization
+|       └── userinteraction   # Pop-up messages
+|
+├── data                      # Data layer
+│   ├── di                    # Dependency injection module
+│   ├── models                # Entities & DTO Models
+│   └── sources               # Data sources
+|       ├── local             # Local database client
+|       │   ├── converters    # Complex data serializer
+|       |   └── dao           # Data Access Object for Room
+|       └── remote            # Remote data client
+│
+├── domain                    # Domain layer
+│   ├── di                    # Dependency injection module
+│   ├── mappers               # DTO to domain models mapper
+│   ├── models                # Domain models
+|   └── services              # Services with interfaces
+|       ├── randomusers       # Fetch random users data
+|       ├── database          # Interact with database
+|       └── networking        # Interact with network
+|
+├── presentation              # Presentation layer
+│   ├── di                    # Dependency injection module
+│   ├── detail                # Detail screen viewModel
+│   └── home                  # Main screen viewModel
+|
+├── ui                        # User Interface layer
+│   ├── di                    # Dependency injection module
+│   ├── composables           # Composables functions for building UI
+│   ├── services              # Services with interfaces
+|   │   └── navigation        # Navigation controller
+│   └── themes                # Design system
+|
+└── App                       # Application entry point
+
+```
+
+
 ## Download
 
 Go to the [releases page](https://github.com/hivian/Android-Compose-MVVM/releases) to download the latest available apk.
