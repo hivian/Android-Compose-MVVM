@@ -2,8 +2,8 @@ package com.hivian.compose_mvvm.core
 
 import com.hivian.compose_mvvm.InstantExecutorExtension
 import com.hivian.compose_mvvm.MainCoroutineExtension
-import com.hivian.compose_mvvm.core.data.ServiceResult
-import com.hivian.compose_mvvm.core.data.paginator.DefaultPaginator
+import com.hivian.compose_mvvm.domain.repository.ServiceResult
+import com.hivian.compose_mvvm.presentation.home.paginator.DefaultPaginator
 import com.hivian.compose_mvvm.domain.models.RandomUser
 import com.hivian.compose_mvvm.data.models.Picture
 import com.hivian.compose_mvvm.presentation.home.HomeViewModel

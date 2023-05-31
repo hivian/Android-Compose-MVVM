@@ -1,8 +1,8 @@
 package com.hivian.compose_mvvm.data.di
 
 import com.hivian.compose_mvvm.data.sources.remote.IApiService
-import com.hivian.compose_mvvm.domain.services.networking.HttpClient
-import com.hivian.compose_mvvm.domain.services.networking.IHttpClient
+import com.hivian.compose_mvvm.data.services.networking.HttpClient
+import com.hivian.compose_mvvm.data.services.networking.IHttpClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

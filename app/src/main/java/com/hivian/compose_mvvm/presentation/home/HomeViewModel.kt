@@ -7,16 +7,13 @@ import androidx.lifecycle.viewModelScope
 import com.hivian.compose_mvvm.R
 import com.hivian.compose_mvvm.core.base.ViewModelBase
 import com.hivian.compose_mvvm.core.base.ViewModelVisualState
-import com.hivian.compose_mvvm.core.data.network.ErrorType
-import com.hivian.compose_mvvm.core.data.paginator.DefaultPaginator
+import com.hivian.compose_mvvm.data.sources.remote.ErrorType
+import com.hivian.compose_mvvm.presentation.home.paginator.DefaultPaginator
 import com.hivian.compose_mvvm.core.services.localization.ILocalizationService
 import com.hivian.compose_mvvm.core.services.userinteraction.IUserInteractionService
-import com.hivian.compose_mvvm.data.models.RandomUserDTO
-import com.hivian.compose_mvvm.domain.mappers.ImageSize
-import com.hivian.compose_mvvm.domain.mappers.mapToRandomUsers
 import com.hivian.compose_mvvm.domain.models.RandomUser
-import com.hivian.compose_mvvm.domain.services.application.IRandomUsersService
-import com.hivian.compose_mvvm.ui.services.navigation.INavigationService
+import com.hivian.compose_mvvm.domain.usecases.GetRandomUsersUseCase
+import com.hivian.compose_mvvm.presentation.services.navigation.INavigationService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -25,7 +22,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val localizationService: ILocalizationService,
     private val navigationService: INavigationService,
-    private val randomUsersService: IRandomUsersService,
+    private val getRandomUsersUseCase: GetRandomUsersUseCase,
     private val userInteractionService: IUserInteractionService
 ): ViewModelBase() {
 
@@ -43,7 +40,7 @@ class HomeViewModel @Inject constructor(
     private val paginator = DefaultPaginator(
         initialKey = PAGINATOR_INITIAL_KEY,
         getNextKey = { currentKey -> currentKey + 1 },
-        onRequest = { nextPage -> randomUsersService.fetchRandomUsers(nextPage, RESULT_COUNT) },
+        onRequest = { nextPage -> getRandomUsersUseCase(nextPage, RESULT_COUNT) },
         onLoading = { initialLoad ->
             if (initialLoad) {
                 viewModelVisualState.value = ViewModelVisualState.Loading
@@ -116,8 +113,8 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun updateData(users: List<RandomUserDTO>) {
-        items.addAll(users.mapToRandomUsers(ImageSize.MEDIUM))
+    private fun updateData(users: List<RandomUser>) {
+        items.addAll(users)
     }
 
     private fun errorTypeToErrorMessage(errorType: ErrorType): String {
