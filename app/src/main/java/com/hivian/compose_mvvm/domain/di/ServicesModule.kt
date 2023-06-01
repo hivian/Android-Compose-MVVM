@@ -2,9 +2,9 @@ package com.hivian.compose_mvvm.domain.di
 
 import android.content.Context
 import com.hivian.compose_mvvm.domain.repository.IRandomUsersRepository
-import com.hivian.compose_mvvm.data.repository.RandomUsersRepositoryImpl
-import com.hivian.compose_mvvm.data.services.LocalizationServiceImpl
-import com.hivian.compose_mvvm.data.services.UserInteractionServiceImpl
+import com.hivian.compose_mvvm.data.repository.RandomUsersRepository
+import com.hivian.compose_mvvm.data.services.LocalizationService
+import com.hivian.compose_mvvm.data.services.UserInteractionService
 import com.hivian.compose_mvvm.domain.services.IDatabaseService
 import com.hivian.compose_mvvm.domain.services.IHttpClient
 import com.hivian.compose_mvvm.domain.services.ILocalizationService
@@ -23,19 +23,19 @@ object ServicesModule {
     @Provides
     @Singleton
     fun provideLocalizationService(@ApplicationContext applicationContext: Context): ILocalizationService {
-        return LocalizationServiceImpl(applicationContext)
+        return LocalizationService(applicationContext)
     }
 
     @Provides
     @Singleton
     fun provideUserInteractionService(): IUserInteractionService {
-        return UserInteractionServiceImpl()
+        return UserInteractionService()
     }
 
     @Provides
     @Singleton
     fun provideRandomUsersRepository(database: IDatabaseService, httpClient: IHttpClient): IRandomUsersRepository {
-        return RandomUsersRepositoryImpl(database, httpClient)
+        return RandomUsersRepository(database, httpClient)
     }
 
 }

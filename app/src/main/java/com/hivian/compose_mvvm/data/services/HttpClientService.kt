@@ -12,7 +12,7 @@ import java.net.UnknownHostException
 import java.util.concurrent.CancellationException
 import javax.inject.Inject
 
-internal class HttpClientServiceImpl @Inject constructor(
+internal class HttpClientService @Inject constructor(
     private val service: IApiService
 ): IHttpClient {
 

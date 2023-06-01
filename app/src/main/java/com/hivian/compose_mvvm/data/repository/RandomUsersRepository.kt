@@ -12,7 +12,7 @@ import com.hivian.compose_mvvm.domain.services.IDatabaseService
 import com.hivian.compose_mvvm.domain.services.IHttpClient
 import javax.inject.Inject
 
-internal class RandomUsersRepositoryImpl @Inject constructor(
+internal class RandomUsersRepository @Inject constructor(
     private val database: IDatabaseService,
     private val httpClient: IHttpClient
 ): IRandomUsersRepository {

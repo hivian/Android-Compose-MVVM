@@ -61,7 +61,7 @@ class HomeViewModelTest {
     @Test
     fun `Success state works`() = runTest {
         whenever(
-            randomUsersUseCase(HomeViewModel.PAGINATOR_INITIAL_KEY, HomeViewModel.RESULT_COUNT)
+            randomUsersUseCase(HomeViewModel.PAGINATION_INITIAL_KEY, HomeViewModel.RESULT_COUNT)
         ).thenReturn(
             ServiceResult.Success(emptyList())
         )
@@ -73,7 +73,7 @@ class HomeViewModelTest {
     @Test
     fun `Failure state works`() = runTest {
         whenever(
-            randomUsersUseCase(HomeViewModel.PAGINATOR_INITIAL_KEY, HomeViewModel.RESULT_COUNT)
+            randomUsersUseCase(HomeViewModel.PAGINATION_INITIAL_KEY, HomeViewModel.RESULT_COUNT)
         ).thenReturn(
             ServiceResult.Error(ErrorType.UNKNOWN, emptyList())
         )
@@ -85,7 +85,7 @@ class HomeViewModelTest {
     @Test
     fun `Initial Loading state works`() = runTest {
         whenever(
-            randomUsersUseCase(HomeViewModel.PAGINATOR_INITIAL_KEY, HomeViewModel.RESULT_COUNT)
+            randomUsersUseCase(HomeViewModel.PAGINATION_INITIAL_KEY, HomeViewModel.RESULT_COUNT)
         ).doSuspendableAnswer {
             withContext(Dispatchers.IO) { delay(1000) }
             ServiceResult.Success(emptyList())
@@ -102,12 +102,12 @@ class HomeViewModelTest {
     @Test
     fun `Load more Loading state works`() = runTest {
         whenever(
-            randomUsersUseCase(HomeViewModel.PAGINATOR_INITIAL_KEY, HomeViewModel.RESULT_COUNT)
+            randomUsersUseCase(HomeViewModel.PAGINATION_INITIAL_KEY, HomeViewModel.RESULT_COUNT)
         ).thenReturn(
             ServiceResult.Success(emptyList())
         )
         whenever(
-            randomUsersUseCase(HomeViewModel.PAGINATOR_INITIAL_KEY + 1, HomeViewModel.RESULT_COUNT)
+            randomUsersUseCase(HomeViewModel.PAGINATION_INITIAL_KEY + 1, HomeViewModel.RESULT_COUNT)
         ).doSuspendableAnswer {
             withContext(Dispatchers.IO) { delay(1000) }
             ServiceResult.Success(emptyList())
@@ -149,7 +149,7 @@ class HomeViewModelTest {
         val usersDomain = usersDTO.mapToRandomUsers(ImageSize.MEDIUM)
 
         whenever(
-            randomUsersUseCase(HomeViewModel.PAGINATOR_INITIAL_KEY, HomeViewModel.RESULT_COUNT)
+            randomUsersUseCase(HomeViewModel.PAGINATION_INITIAL_KEY, HomeViewModel.RESULT_COUNT)
         ).thenReturn(
             ServiceResult.Success(usersDomain)
         )
@@ -188,7 +188,7 @@ class HomeViewModelTest {
         }
         repeat(2) { index ->
             whenever(
-                randomUsersUseCase(HomeViewModel.PAGINATOR_INITIAL_KEY + index, HomeViewModel.RESULT_COUNT)
+                randomUsersUseCase(HomeViewModel.PAGINATION_INITIAL_KEY + index, HomeViewModel.RESULT_COUNT)
             ).thenReturn(
                 ServiceResult.Success(listOf(usersDTO[index]).mapToRandomUsers(ImageSize.MEDIUM))
             )

@@ -24,7 +24,12 @@ class HomeViewModel @Inject constructor(
     private val navigationService: INavigationService,
     private val getRandomUsersUseCase: GetRandomUsersUseCase,
     private val userInteractionService: IUserInteractionService
-): PaginationViewModel<Int, RandomUser>(initialKey = 1, pageSize = 20) {
+): PaginationViewModel<Int, RandomUser>(initialKey = PAGINATION_INITIAL_KEY, pageSize = RESULT_COUNT) {
+
+    companion object {
+        const val PAGINATION_INITIAL_KEY = 1
+        const val RESULT_COUNT = 20
+    }
 
     var showLoadMoreLoader = mutableStateOf(false)
 
@@ -50,6 +55,10 @@ class HomeViewModel @Inject constructor(
 
     override fun getNextKey(currentKey: Int): Int {
         return currentKey + 1
+    }
+
+    override suspend fun onRequest(nextKey: Int, pageSize: Int): ServiceResult<List<RandomUser>> {
+        return getRandomUsersUseCase(nextKey, pageSize)
     }
 
     override fun onLoading(initialLoad: Boolean) {
@@ -93,10 +102,6 @@ class HomeViewModel @Inject constructor(
                 )
             }
         }
-    }
-
-    override suspend fun onRequest(nextKey: Int, pageSize: Int): ServiceResult<List<RandomUser>> {
-        return getRandomUsersUseCase(nextKey, pageSize)
     }
 
     fun openRandomUserDetail(userId: Int) {

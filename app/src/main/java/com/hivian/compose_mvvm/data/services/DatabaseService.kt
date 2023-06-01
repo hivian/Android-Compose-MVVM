@@ -5,7 +5,7 @@ import com.hivian.compose_mvvm.data.sources.local.dao.IRandomUsersDao
 import com.hivian.compose_mvvm.domain.services.IDatabaseService
 import javax.inject.Inject
 
-internal class DatabaseServiceImpl @Inject constructor(
+internal class DatabaseService @Inject constructor(
     private val dao: IRandomUsersDao
 ): IDatabaseService {
 

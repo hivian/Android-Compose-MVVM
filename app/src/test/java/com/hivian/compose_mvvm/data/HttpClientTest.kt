@@ -6,7 +6,7 @@ import com.hivian.compose_mvvm.data.sources.remote.ErrorType
 import com.hivian.compose_mvvm.data.sources.remote.HttpResult
 import com.hivian.compose_mvvm.data.sources.remote.HttpStatusCode
 import com.hivian.compose_mvvm.data.models.Results
-import com.hivian.compose_mvvm.data.services.HttpClientServiceImpl
+import com.hivian.compose_mvvm.data.services.HttpClientService
 import com.hivian.compose_mvvm.domain.services.IHttpClient
 import com.hivian.compose_mvvm.data.sources.remote.IApiService
 import kotlinx.coroutines.CancellationException
@@ -37,7 +37,7 @@ class HttpClientTest {
 
     @BeforeEach
     fun setUp() {
-        httpClient = HttpClientServiceImpl(apiService)
+        httpClient = HttpClientService(apiService)
     }
 
     @Test

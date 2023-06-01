@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import com.hivian.compose_mvvm.domain.services.IUserInteractionService
 import javax.inject.Inject
 
-internal class UserInteractionServiceImpl @Inject constructor(): IUserInteractionService {
+internal class UserInteractionService @Inject constructor(): IUserInteractionService {
 
     private lateinit var snackbarHostState: SnackbarHostState
 

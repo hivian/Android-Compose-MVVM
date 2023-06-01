@@ -6,7 +6,7 @@ import com.hivian.compose_mvvm.domain.services.ILocalizationService
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-internal class LocalizationServiceImpl @Inject constructor(
+internal class LocalizationService @Inject constructor(
     @ApplicationContext private val context: Context
 ): ILocalizationService {
 
