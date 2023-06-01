@@ -1,4 +1,4 @@
-package com.hivian.compose_mvvm.core.services.localization
+package com.hivian.compose_mvvm.domain.services
 
 import androidx.annotation.StringRes
 

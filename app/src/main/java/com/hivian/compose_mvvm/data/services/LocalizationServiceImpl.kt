@@ -1,11 +1,12 @@
-package com.hivian.compose_mvvm.core.services.localization
+package com.hivian.compose_mvvm.data.services
 
 import android.content.Context
 import androidx.annotation.StringRes
+import com.hivian.compose_mvvm.domain.services.ILocalizationService
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-internal class LocalizationService @Inject constructor(
+internal class LocalizationServiceImpl @Inject constructor(
     @ApplicationContext private val context: Context
 ): ILocalizationService {
 

@@ -20,7 +20,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
-import com.hivian.compose_mvvm.core.base.ViewModelVisualState
+import com.hivian.compose_mvvm.presentation.base.ViewModelVisualState
 import com.hivian.compose_mvvm.domain.models.RandomUser
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -52,7 +52,7 @@ fun HomeScreen(
                         randomUsers,
                         isLoadingMore = isListLoading.value,
                         onItemClick = { userId -> viewModel.openRandomUserDetail(userId) },
-                        onLoadMore = { viewModel.loadNextItem() }
+                        onLoadMore = { viewModel.loadNext() }
                     )
                 }
                 is ViewModelVisualState.Error -> InitErrorView(

@@ -1,4 +1,4 @@
-package com.hivian.compose_mvvm.core.base
+package com.hivian.compose_mvvm.presentation.base
 
 import com.hivian.compose_mvvm.data.sources.remote.ErrorType
 

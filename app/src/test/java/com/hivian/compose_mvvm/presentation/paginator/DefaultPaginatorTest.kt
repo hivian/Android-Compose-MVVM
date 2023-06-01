@@ -1,4 +1,4 @@
-package com.hivian.compose_mvvm.core
+package com.hivian.compose_mvvm.presentation.paginator
 
 import com.hivian.compose_mvvm.InstantExecutorExtension
 import com.hivian.compose_mvvm.MainCoroutineExtension

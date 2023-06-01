@@ -1,8 +1,8 @@
 package com.hivian.compose_mvvm.data.di
 
 import com.hivian.compose_mvvm.data.sources.remote.IApiService
-import com.hivian.compose_mvvm.data.services.networking.HttpClient
-import com.hivian.compose_mvvm.data.services.networking.IHttpClient
+import com.hivian.compose_mvvm.data.services.HttpClientServiceImpl
+import com.hivian.compose_mvvm.domain.services.IHttpClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -59,7 +59,7 @@ object NetworkingModule {
     @Provides
     @Singleton
     fun provideHttpClient(apiService: IApiService): IHttpClient {
-        return HttpClient(apiService)
+        return HttpClientServiceImpl(apiService)
     }
 
 }

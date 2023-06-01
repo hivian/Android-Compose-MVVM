@@ -3,14 +3,13 @@ package com.hivian.compose_mvvm.data.repository
 import com.hivian.compose_mvvm.domain.repository.ServiceResult
 import com.hivian.compose_mvvm.data.sources.remote.ErrorType
 import com.hivian.compose_mvvm.data.sources.remote.HttpResult
-import com.hivian.compose_mvvm.data.models.RandomUserDTO
 import com.hivian.compose_mvvm.data.mappers.ImageSize
 import com.hivian.compose_mvvm.data.mappers.mapToRandomUser
 import com.hivian.compose_mvvm.data.mappers.mapToRandomUsers
 import com.hivian.compose_mvvm.domain.models.RandomUser
 import com.hivian.compose_mvvm.domain.repository.IRandomUsersRepository
-import com.hivian.compose_mvvm.data.services.database.IDatabaseService
-import com.hivian.compose_mvvm.data.services.networking.IHttpClient
+import com.hivian.compose_mvvm.domain.services.IDatabaseService
+import com.hivian.compose_mvvm.domain.services.IHttpClient
 import javax.inject.Inject
 
 internal class RandomUsersRepositoryImpl @Inject constructor(

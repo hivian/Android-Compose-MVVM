@@ -12,7 +12,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import com.hivian.compose_mvvm.core.services.userinteraction.IUserInteractionService
+import com.hivian.compose_mvvm.domain.services.IUserInteractionService
 import com.hivian.compose_mvvm.presentation.services.navigation.INavigationService
 import com.hivian.compose_mvvm.presentation.themes.ComposetestTheme
 import dagger.hilt.android.AndroidEntryPoint

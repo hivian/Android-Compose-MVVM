@@ -1,4 +1,4 @@
-package com.hivian.compose_mvvm.data.services.networking
+package com.hivian.compose_mvvm.domain.services
 
 import com.hivian.compose_mvvm.data.sources.remote.HttpResult
 import com.hivian.compose_mvvm.data.models.Results

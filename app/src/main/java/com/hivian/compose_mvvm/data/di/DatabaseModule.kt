@@ -3,8 +3,8 @@ package com.hivian.compose_mvvm.data.di
 import android.content.Context
 import com.hivian.compose_mvvm.data.sources.local.RandomUsersDatabase
 import com.hivian.compose_mvvm.data.sources.local.dao.IRandomUsersDao
-import com.hivian.compose_mvvm.data.services.database.DatabaseService
-import com.hivian.compose_mvvm.data.services.database.IDatabaseService
+import com.hivian.compose_mvvm.data.services.DatabaseServiceImpl
+import com.hivian.compose_mvvm.domain.services.IDatabaseService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,7 +31,7 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun provideDatabaseService(randomUsersDao: IRandomUsersDao): IDatabaseService {
-        return DatabaseService(randomUsersDao)
+        return DatabaseServiceImpl(randomUsersDao)
     }
 
 }

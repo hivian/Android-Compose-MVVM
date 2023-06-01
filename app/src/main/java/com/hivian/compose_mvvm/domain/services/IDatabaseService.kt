@@ -1,4 +1,4 @@
-package com.hivian.compose_mvvm.data.services.database
+package com.hivian.compose_mvvm.domain.services
 
 import com.hivian.compose_mvvm.data.models.RandomUserDTO
 

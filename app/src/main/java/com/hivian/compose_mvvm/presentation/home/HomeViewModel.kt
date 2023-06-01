@@ -5,14 +5,14 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.hivian.compose_mvvm.R
-import com.hivian.compose_mvvm.core.base.ViewModelBase
-import com.hivian.compose_mvvm.core.base.ViewModelVisualState
+import com.hivian.compose_mvvm.presentation.base.ViewModelVisualState
 import com.hivian.compose_mvvm.data.sources.remote.ErrorType
-import com.hivian.compose_mvvm.presentation.home.paginator.DefaultPaginator
-import com.hivian.compose_mvvm.core.services.localization.ILocalizationService
-import com.hivian.compose_mvvm.core.services.userinteraction.IUserInteractionService
+import com.hivian.compose_mvvm.domain.services.ILocalizationService
+import com.hivian.compose_mvvm.domain.services.IUserInteractionService
 import com.hivian.compose_mvvm.domain.models.RandomUser
+import com.hivian.compose_mvvm.domain.repository.ServiceResult
 import com.hivian.compose_mvvm.domain.usecases.GetRandomUsersUseCase
+import com.hivian.compose_mvvm.presentation.base.PaginationViewModel
 import com.hivian.compose_mvvm.presentation.services.navigation.INavigationService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -24,63 +24,13 @@ class HomeViewModel @Inject constructor(
     private val navigationService: INavigationService,
     private val getRandomUsersUseCase: GetRandomUsersUseCase,
     private val userInteractionService: IUserInteractionService
-): ViewModelBase() {
-
-    companion object {
-        const val PAGINATOR_INITIAL_KEY = 1
-        const val RESULT_COUNT = 20
-    }
+): PaginationViewModel<Int, RandomUser>(initialKey = 1, pageSize = 20) {
 
     var showLoadMoreLoader = mutableStateOf(false)
 
     var title : String = localizationService.localizedString(R.string.home_title)
 
     var items = mutableStateListOf<RandomUser>()
-
-    private val paginator = DefaultPaginator(
-        initialKey = PAGINATOR_INITIAL_KEY,
-        getNextKey = { currentKey -> currentKey + 1 },
-        onRequest = { nextPage -> getRandomUsersUseCase(nextPage, RESULT_COUNT) },
-        onLoading = { initialLoad ->
-            if (initialLoad) {
-                viewModelVisualState.value = ViewModelVisualState.Loading
-                return@DefaultPaginator
-            }
-
-            showLoadMoreLoader.value = true
-        },
-        onError = { errorType, users, initialLoad ->
-            if (initialLoad) {
-                if (users.isNotEmpty()) {
-                    updateData(users)
-                    viewModelVisualState.value = ViewModelVisualState.Success
-                } else {
-                    viewModelVisualState.value = ViewModelVisualState.Error(errorType)
-                }
-            } else {
-                if (users.isNotEmpty()) {
-                    updateData(users)
-                } else {
-                    showLoadMoreLoader.value = false
-                    userInteractionService.showSnackbar(
-                        SnackbarDuration.Short,
-                        errorTypeToErrorMessage(errorType)
-                    )
-                }
-            }
-        },
-        onSuccess = { users, initialLoad ->
-            updateData(users)
-            if (users.isEmpty())
-                showLoadMoreLoader.value = false
-
-            if (initialLoad) {
-                viewModelVisualState.value = ViewModelVisualState.Success
-                return@DefaultPaginator
-            }
-        }
-
-    )
 
     val errorMessage : String
         get() = when (val state = viewModelVisualState.value) {
@@ -93,9 +43,60 @@ class HomeViewModel @Inject constructor(
     override fun initialize() {
         if (isInitialized.value == true) return
 
-        loadNextItem()
+        loadNext()
 
         isInitialized.value = true
+    }
+
+    override fun getNextKey(currentKey: Int): Int {
+        return currentKey + 1
+    }
+
+    override fun onLoading(initialLoad: Boolean) {
+        if (initialLoad) {
+            viewModelVisualState.value = ViewModelVisualState.Loading
+            return
+        }
+
+        showLoadMoreLoader.value = true
+    }
+
+    override fun onSuccess(users: List<RandomUser>, initialLoad: Boolean) {
+        updateData(users)
+        if (users.isEmpty())
+            showLoadMoreLoader.value = false
+
+        if (initialLoad) {
+            viewModelVisualState.value = ViewModelVisualState.Success
+        }
+    }
+
+    override fun onError(errorType: ErrorType, users: List<RandomUser>, initialLoad: Boolean) {
+        if (initialLoad) {
+            if (users.isNotEmpty()) {
+                updateData(users)
+                viewModelVisualState.value = ViewModelVisualState.Success
+            } else {
+                viewModelVisualState.value = ViewModelVisualState.Error(errorType)
+            }
+            return
+        }
+
+        if (users.isNotEmpty()) {
+            updateData(users)
+        } else {
+            showLoadMoreLoader.value = false
+            viewModelScope.launch {
+                userInteractionService.showSnackbar(
+                    SnackbarDuration.Short,
+                    errorTypeToErrorMessage(errorType)
+                )
+            }
+        }
+    }
+
+    override suspend fun onRequest(nextKey: Int, pageSize: Int): ServiceResult<List<RandomUser>> {
+        return getRandomUsersUseCase(nextKey, pageSize)
     }
 
     fun openRandomUserDetail(userId: Int) {
@@ -103,13 +104,13 @@ class HomeViewModel @Inject constructor(
     }
 
     fun refresh() {
-        paginator.reset()
-        loadNextItem()
+        reset()
+        loadNext()
     }
 
-    fun loadNextItem() {
+    fun loadNext() {
         viewModelScope.launch {
-            paginator.loadNextItems()
+            loadNextItems()
         }
     }
 

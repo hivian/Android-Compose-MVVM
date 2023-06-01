@@ -2,7 +2,7 @@ package com.hivian.compose_mvvm.presentation.detail
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
-import com.hivian.compose_mvvm.core.base.ViewModelBase
+import com.hivian.compose_mvvm.presentation.base.ViewModelBase
 import com.hivian.compose_mvvm.data.mappers.ImageSize
 import com.hivian.compose_mvvm.domain.repository.IRandomUsersRepository
 import com.hivian.compose_mvvm.presentation.di.UserId

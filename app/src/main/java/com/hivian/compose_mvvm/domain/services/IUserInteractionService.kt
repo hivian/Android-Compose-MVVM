@@ -1,4 +1,4 @@
-package com.hivian.compose_mvvm.core.services.userinteraction
+package com.hivian.compose_mvvm.domain.services
 
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState

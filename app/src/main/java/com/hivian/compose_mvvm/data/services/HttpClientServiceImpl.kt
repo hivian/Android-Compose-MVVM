@@ -1,17 +1,18 @@
-package com.hivian.compose_mvvm.data.services.networking
+package com.hivian.compose_mvvm.data.services
 
 import com.hivian.compose_mvvm.data.sources.remote.ErrorType
 import com.hivian.compose_mvvm.data.sources.remote.HttpResult
 import com.hivian.compose_mvvm.data.sources.remote.HttpStatusCode
 import com.hivian.compose_mvvm.data.models.Results
 import com.hivian.compose_mvvm.data.sources.remote.IApiService
+import com.hivian.compose_mvvm.domain.services.IHttpClient
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import java.util.concurrent.CancellationException
 import javax.inject.Inject
 
-internal class HttpClient @Inject constructor(
+internal class HttpClientServiceImpl @Inject constructor(
     private val service: IApiService
 ): IHttpClient {
 

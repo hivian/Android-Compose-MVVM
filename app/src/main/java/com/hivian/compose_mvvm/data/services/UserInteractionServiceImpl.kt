@@ -1,11 +1,12 @@
-package com.hivian.compose_mvvm.core.services.userinteraction
+package com.hivian.compose_mvvm.data.services
 
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import com.hivian.compose_mvvm.domain.services.IUserInteractionService
 import javax.inject.Inject
 
-internal class UserInteractionService @Inject constructor(): IUserInteractionService {
+internal class UserInteractionServiceImpl @Inject constructor(): IUserInteractionService {
 
     private lateinit var snackbarHostState: SnackbarHostState
 

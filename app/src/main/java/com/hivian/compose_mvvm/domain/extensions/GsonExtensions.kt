@@ -1,4 +1,4 @@
-package com.hivian.compose_mvvm.core.extensions
+package com.hivian.compose_mvvm.domain.extensions
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken

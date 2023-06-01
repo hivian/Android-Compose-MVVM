@@ -1,10 +1,11 @@
-package com.hivian.compose_mvvm.data.services.database
+package com.hivian.compose_mvvm.data.services
 
 import com.hivian.compose_mvvm.data.models.RandomUserDTO
 import com.hivian.compose_mvvm.data.sources.local.dao.IRandomUsersDao
+import com.hivian.compose_mvvm.domain.services.IDatabaseService
 import javax.inject.Inject
 
-internal class DatabaseService @Inject constructor(
+internal class DatabaseServiceImpl @Inject constructor(
     private val dao: IRandomUsersDao
 ): IDatabaseService {
 
