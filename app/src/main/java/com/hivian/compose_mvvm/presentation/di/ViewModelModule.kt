@@ -1,7 +1,7 @@
 package com.hivian.compose_mvvm.presentation.di
 
 import androidx.lifecycle.SavedStateHandle
-import com.hivian.compose_mvvm.ui.services.navigation.routes.NavScreen
+import com.hivian.compose_mvvm.presentation.services.navigation.routes.NavScreen
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

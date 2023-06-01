@@ -2,15 +2,15 @@ package com.hivian.compose_mvvm.presentation
 
 import com.hivian.compose_mvvm.InstantExecutorExtension
 import com.hivian.compose_mvvm.MainCoroutineExtension
-import com.hivian.compose_mvvm.domain.mappers.ImageSize
-import com.hivian.compose_mvvm.domain.mappers.mapToRandomUser
+import com.hivian.compose_mvvm.data.mappers.ImageSize
+import com.hivian.compose_mvvm.data.mappers.mapToRandomUser
 import com.hivian.compose_mvvm.data.models.Location
 import com.hivian.compose_mvvm.data.models.Name
 import com.hivian.compose_mvvm.data.models.Picture
 import com.hivian.compose_mvvm.data.models.RandomUserDTO
-import com.hivian.compose_mvvm.domain.services.application.IRandomUsersService
+import com.hivian.compose_mvvm.domain.repository.IRandomUsersRepository
 import com.hivian.compose_mvvm.presentation.detail.DetailViewModel
-import com.hivian.compose_mvvm.ui.services.navigation.INavigationService
+import com.hivian.compose_mvvm.presentation.services.navigation.INavigationService
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
@@ -26,7 +26,7 @@ import org.mockito.kotlin.whenever
 @ExtendWith(InstantExecutorExtension::class, MainCoroutineExtension::class)
 class DetailViewModelTest {
 
-    private val randomUsersService = mock<IRandomUsersService>()
+    private val randomUsersService = mock<IRandomUsersRepository>()
     private val navigationService = mock<INavigationService>()
 
     private lateinit var viewModel: DetailViewModel

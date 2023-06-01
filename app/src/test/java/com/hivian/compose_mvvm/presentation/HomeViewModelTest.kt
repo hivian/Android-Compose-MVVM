@@ -2,20 +2,20 @@ package com.hivian.compose_mvvm.presentation
 
 import com.hivian.compose_mvvm.InstantExecutorExtension
 import com.hivian.compose_mvvm.MainCoroutineExtension
-import com.hivian.compose_mvvm.core.base.ViewModelVisualState
-import com.hivian.compose_mvvm.core.data.ServiceResult
-import com.hivian.compose_mvvm.core.data.network.ErrorType
-import com.hivian.compose_mvvm.core.services.localization.ILocalizationService
-import com.hivian.compose_mvvm.core.services.userinteraction.IUserInteractionService
-import com.hivian.compose_mvvm.domain.mappers.ImageSize
-import com.hivian.compose_mvvm.domain.mappers.mapToRandomUsers
+import com.hivian.compose_mvvm.presentation.base.ViewModelVisualState
+import com.hivian.compose_mvvm.domain.repository.ServiceResult
+import com.hivian.compose_mvvm.data.sources.remote.ErrorType
+import com.hivian.compose_mvvm.domain.services.ILocalizationService
+import com.hivian.compose_mvvm.domain.services.IUserInteractionService
+import com.hivian.compose_mvvm.data.mappers.ImageSize
+import com.hivian.compose_mvvm.data.mappers.mapToRandomUsers
 import com.hivian.compose_mvvm.data.models.Location
 import com.hivian.compose_mvvm.data.models.Name
 import com.hivian.compose_mvvm.data.models.Picture
 import com.hivian.compose_mvvm.data.models.RandomUserDTO
-import com.hivian.compose_mvvm.domain.services.application.IRandomUsersService
+import com.hivian.compose_mvvm.domain.usecases.GetRandomUsersUseCase
 import com.hivian.compose_mvvm.presentation.home.HomeViewModel
-import com.hivian.compose_mvvm.ui.services.navigation.INavigationService
+import com.hivian.compose_mvvm.presentation.services.navigation.INavigationService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
@@ -37,14 +37,14 @@ class HomeViewModelTest {
 
     private val localizationService = mock<ILocalizationService>()
     private val navigationService = mock<INavigationService>()
-    private val randomUsersService = mock<IRandomUsersService>()
+    private val randomUsersUseCase = mock<GetRandomUsersUseCase>()
     private val userInteractionService = mock<IUserInteractionService>()
 
     private lateinit var viewModel: HomeViewModel
 
     @BeforeEach
     fun setUp() {
-        viewModel = HomeViewModel(localizationService, navigationService, randomUsersService, userInteractionService)
+        viewModel = HomeViewModel(localizationService, navigationService, randomUsersUseCase, userInteractionService)
     }
 
     @Test
@@ -61,7 +61,7 @@ class HomeViewModelTest {
     @Test
     fun `Success state works`() = runTest {
         whenever(
-            randomUsersService.fetchRandomUsers(HomeViewModel.PAGINATOR_INITIAL_KEY, HomeViewModel.RESULT_COUNT)
+            randomUsersUseCase(HomeViewModel.PAGINATION_INITIAL_KEY, HomeViewModel.RESULT_COUNT)
         ).thenReturn(
             ServiceResult.Success(emptyList())
         )
@@ -73,7 +73,7 @@ class HomeViewModelTest {
     @Test
     fun `Failure state works`() = runTest {
         whenever(
-            randomUsersService.fetchRandomUsers(HomeViewModel.PAGINATOR_INITIAL_KEY, HomeViewModel.RESULT_COUNT)
+            randomUsersUseCase(HomeViewModel.PAGINATION_INITIAL_KEY, HomeViewModel.RESULT_COUNT)
         ).thenReturn(
             ServiceResult.Error(ErrorType.UNKNOWN, emptyList())
         )
@@ -85,7 +85,7 @@ class HomeViewModelTest {
     @Test
     fun `Initial Loading state works`() = runTest {
         whenever(
-            randomUsersService.fetchRandomUsers(HomeViewModel.PAGINATOR_INITIAL_KEY, HomeViewModel.RESULT_COUNT)
+            randomUsersUseCase(HomeViewModel.PAGINATION_INITIAL_KEY, HomeViewModel.RESULT_COUNT)
         ).doSuspendableAnswer {
             withContext(Dispatchers.IO) { delay(1000) }
             ServiceResult.Success(emptyList())
@@ -102,18 +102,18 @@ class HomeViewModelTest {
     @Test
     fun `Load more Loading state works`() = runTest {
         whenever(
-            randomUsersService.fetchRandomUsers(HomeViewModel.PAGINATOR_INITIAL_KEY, HomeViewModel.RESULT_COUNT)
+            randomUsersUseCase(HomeViewModel.PAGINATION_INITIAL_KEY, HomeViewModel.RESULT_COUNT)
         ).thenReturn(
             ServiceResult.Success(emptyList())
         )
         whenever(
-            randomUsersService.fetchRandomUsers(HomeViewModel.PAGINATOR_INITIAL_KEY + 1, HomeViewModel.RESULT_COUNT)
+            randomUsersUseCase(HomeViewModel.PAGINATION_INITIAL_KEY + 1, HomeViewModel.RESULT_COUNT)
         ).doSuspendableAnswer {
             withContext(Dispatchers.IO) { delay(1000) }
             ServiceResult.Success(emptyList())
         }
         viewModel.initialize()
-        viewModel.loadNextItem()
+        viewModel.loadNext()
         advanceUntilIdle()
         assertAll("Load more loader is loading",
             { assertEquals(ViewModelVisualState.Success, viewModel.viewModelVisualState.value) },
@@ -149,9 +149,9 @@ class HomeViewModelTest {
         val usersDomain = usersDTO.mapToRandomUsers(ImageSize.MEDIUM)
 
         whenever(
-            randomUsersService.fetchRandomUsers(HomeViewModel.PAGINATOR_INITIAL_KEY, HomeViewModel.RESULT_COUNT)
+            randomUsersUseCase(HomeViewModel.PAGINATION_INITIAL_KEY, HomeViewModel.RESULT_COUNT)
         ).thenReturn(
-            ServiceResult.Success(usersDTO)
+            ServiceResult.Success(usersDomain)
         )
         viewModel.initialize()
         advanceUntilIdle()
@@ -188,16 +188,16 @@ class HomeViewModelTest {
         }
         repeat(2) { index ->
             whenever(
-                randomUsersService.fetchRandomUsers(HomeViewModel.PAGINATOR_INITIAL_KEY + index, HomeViewModel.RESULT_COUNT)
+                randomUsersUseCase(HomeViewModel.PAGINATION_INITIAL_KEY + index, HomeViewModel.RESULT_COUNT)
             ).thenReturn(
-                ServiceResult.Success(listOf(usersDTO[index]))
+                ServiceResult.Success(listOf(usersDTO[index]).mapToRandomUsers(ImageSize.MEDIUM))
             )
         }
 
         val usersDomain = usersDTO.mapToRandomUsers(ImageSize.MEDIUM)
 
         viewModel.initialize()
-        viewModel.loadNextItem()
+        viewModel.loadNext()
         advanceUntilIdle()
         assertEquals(usersDomain, viewModel.items.toList())
     }

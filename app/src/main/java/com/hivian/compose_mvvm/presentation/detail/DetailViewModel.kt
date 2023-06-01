@@ -2,11 +2,11 @@ package com.hivian.compose_mvvm.presentation.detail
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
-import com.hivian.compose_mvvm.core.base.ViewModelBase
-import com.hivian.compose_mvvm.domain.mappers.ImageSize
-import com.hivian.compose_mvvm.domain.services.application.IRandomUsersService
+import com.hivian.compose_mvvm.presentation.base.ViewModelBase
+import com.hivian.compose_mvvm.data.mappers.ImageSize
+import com.hivian.compose_mvvm.domain.repository.IRandomUsersRepository
 import com.hivian.compose_mvvm.presentation.di.UserId
-import com.hivian.compose_mvvm.ui.services.navigation.INavigationService
+import com.hivian.compose_mvvm.presentation.services.navigation.INavigationService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -14,7 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailViewModel @Inject constructor(
     @UserId private val userId: Int,
-    private val randomUsersService: IRandomUsersService,
+    private val randomUsersService: IRandomUsersRepository,
     private val navigationService: INavigationService
 ): ViewModelBase() {
 

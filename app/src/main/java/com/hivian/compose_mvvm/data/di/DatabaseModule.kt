@@ -3,8 +3,8 @@ package com.hivian.compose_mvvm.data.di
 import android.content.Context
 import com.hivian.compose_mvvm.data.sources.local.RandomUsersDatabase
 import com.hivian.compose_mvvm.data.sources.local.dao.IRandomUsersDao
-import com.hivian.compose_mvvm.domain.services.database.DatabaseService
-import com.hivian.compose_mvvm.domain.services.database.IDatabaseService
+import com.hivian.compose_mvvm.data.services.DatabaseService
+import com.hivian.compose_mvvm.domain.services.IDatabaseService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
