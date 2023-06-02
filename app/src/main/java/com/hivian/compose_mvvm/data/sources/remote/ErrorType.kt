@@ -6,5 +6,6 @@ enum class ErrorType {
     HOST_UNREACHABLE,
     TIMED_OUT,
     NO_RESULT,
+    DATABASE_ERROR,
     UNKNOWN,
 }

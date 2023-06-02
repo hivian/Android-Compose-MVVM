@@ -7,6 +7,6 @@ interface IRandomUsersRepository {
 
     suspend fun fetchRandomUsers(pageIndex: Int, pageSize: Int): ServiceResult<List<RandomUser>>
 
-    suspend fun getUserById(userId: Int, imageSize: ImageSize): RandomUser
+    suspend fun getUserById(userId: Int, imageSize: ImageSize): ServiceResult<RandomUser>
 
 }

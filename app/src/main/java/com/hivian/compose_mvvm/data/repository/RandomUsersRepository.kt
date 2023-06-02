@@ -1,13 +1,13 @@
 package com.hivian.compose_mvvm.data.repository
 
-import com.hivian.compose_mvvm.domain.repository.ServiceResult
-import com.hivian.compose_mvvm.data.sources.remote.ErrorType
-import com.hivian.compose_mvvm.data.sources.remote.HttpResult
 import com.hivian.compose_mvvm.data.mappers.ImageSize
 import com.hivian.compose_mvvm.data.mappers.mapToRandomUser
 import com.hivian.compose_mvvm.data.mappers.mapToRandomUsers
+import com.hivian.compose_mvvm.data.sources.remote.ErrorType
+import com.hivian.compose_mvvm.data.sources.remote.HttpResult
 import com.hivian.compose_mvvm.domain.models.RandomUser
 import com.hivian.compose_mvvm.domain.repository.IRandomUsersRepository
+import com.hivian.compose_mvvm.domain.repository.ServiceResult
 import com.hivian.compose_mvvm.domain.services.IDatabaseService
 import com.hivian.compose_mvvm.domain.services.IHttpClient
 import javax.inject.Inject
@@ -17,8 +17,12 @@ internal class RandomUsersRepository @Inject constructor(
     private val httpClient: IHttpClient
 ): IRandomUsersRepository {
 
-    override suspend fun getUserById(userId: Int, imageSize: ImageSize): RandomUser {
-        return database.getUserById(userId).mapToRandomUser(imageSize)
+    override suspend fun getUserById(userId: Int, imageSize: ImageSize): ServiceResult<RandomUser> {
+        return runCatching {
+            ServiceResult.Success(database.getUserById(userId).mapToRandomUser(imageSize))
+        }.getOrDefault(
+            ServiceResult.Error(ErrorType.DATABASE_ERROR)
+        )
     }
 
     override suspend fun fetchRandomUsers(pageIndex: Int, pageSize: Int): ServiceResult<List<RandomUser>> {

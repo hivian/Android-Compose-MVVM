@@ -1,19 +1,19 @@
 package com.hivian.compose_mvvm.presentation.home
 
-import androidx.compose.material3.SnackbarDuration
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.hivian.compose_mvvm.R
-import com.hivian.compose_mvvm.presentation.base.ViewModelVisualState
 import com.hivian.compose_mvvm.data.sources.remote.ErrorType
-import com.hivian.compose_mvvm.domain.services.ILocalizationService
-import com.hivian.compose_mvvm.domain.services.IUserInteractionService
 import com.hivian.compose_mvvm.domain.models.RandomUser
 import com.hivian.compose_mvvm.domain.repository.ServiceResult
+import com.hivian.compose_mvvm.domain.services.ILocalizationService
 import com.hivian.compose_mvvm.domain.usecases.GetRandomUsersUseCase
+import com.hivian.compose_mvvm.domain.usecases.NavigateToRandomUserDetailUseCase
+import com.hivian.compose_mvvm.domain.usecases.ShowAppMessageUseCase
 import com.hivian.compose_mvvm.presentation.base.PaginationViewModel
-import com.hivian.compose_mvvm.presentation.services.navigation.INavigationService
+import com.hivian.compose_mvvm.presentation.base.ViewModelVisualState
+import com.hivian.compose_mvvm.presentation.extensions.toErrorMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -21,9 +21,9 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val localizationService: ILocalizationService,
-    private val navigationService: INavigationService,
+    private val navigateToRandomUserDetailUseCase: NavigateToRandomUserDetailUseCase,
     private val getRandomUsersUseCase: GetRandomUsersUseCase,
-    private val userInteractionService: IUserInteractionService
+    private val showAppMessageUseCase: ShowAppMessageUseCase
 ): PaginationViewModel<Int, RandomUser>(initialKey = PAGINATION_INITIAL_KEY, pageSize = RESULT_COUNT) {
 
     companion object {
@@ -39,7 +39,9 @@ class HomeViewModel @Inject constructor(
 
     val errorMessage : String
         get() = when (val state = viewModelVisualState.value) {
-            is ViewModelVisualState.Error -> errorTypeToErrorMessage(state.errorType)
+            is ViewModelVisualState.Error -> {
+                localizationService.localizedString(state.errorType.toErrorMessage())
+            }
             else -> ""
         }
 
@@ -96,16 +98,15 @@ class HomeViewModel @Inject constructor(
         } else {
             showLoadMoreLoader.value = false
             viewModelScope.launch {
-                userInteractionService.showSnackbar(
-                    SnackbarDuration.Short,
-                    errorTypeToErrorMessage(errorType)
+                showAppMessageUseCase(
+                    localizationService.localizedString(errorType.toErrorMessage())
                 )
             }
         }
     }
 
     fun openRandomUserDetail(userId: Int) {
-        navigationService.openRandomUserDetail(userId)
+        navigateToRandomUserDetailUseCase(userId)
     }
 
     fun refresh() {
@@ -121,17 +122,6 @@ class HomeViewModel @Inject constructor(
 
     private fun updateData(users: List<RandomUser>) {
         items.addAll(users)
-    }
-
-    private fun errorTypeToErrorMessage(errorType: ErrorType): String {
-        return when(errorType) {
-            ErrorType.ACCESS_DENIED -> localizationService.localizedString(R.string.error_access_denied)
-            ErrorType.CANCELLED -> localizationService.localizedString(R.string.error_cancelled)
-            ErrorType.HOST_UNREACHABLE -> localizationService.localizedString(R.string.error_no_connection)
-            ErrorType.TIMED_OUT -> localizationService.localizedString(R.string.error_timeout)
-            ErrorType.NO_RESULT -> localizationService.localizedString(R.string.error_not_found)
-            ErrorType.UNKNOWN -> localizationService.localizedString(R.string.error_unknown)
-        }
     }
 
 }
