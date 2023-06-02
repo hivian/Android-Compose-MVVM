@@ -20,8 +20,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
-import com.hivian.compose_mvvm.presentation.base.ViewModelVisualState
 import com.hivian.compose_mvvm.domain.models.RandomUser
+import com.hivian.compose_mvvm.presentation.base.ViewModelVisualState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

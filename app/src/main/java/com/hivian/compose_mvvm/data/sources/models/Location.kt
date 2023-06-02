@@ -1,4 +1,4 @@
-package com.hivian.compose_mvvm.data.models
+package com.hivian.compose_mvvm.data.sources.models
 
 data class Street(
 

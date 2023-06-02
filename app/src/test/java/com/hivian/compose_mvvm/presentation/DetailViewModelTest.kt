@@ -4,13 +4,16 @@ import com.hivian.compose_mvvm.InstantExecutorExtension
 import com.hivian.compose_mvvm.MainCoroutineExtension
 import com.hivian.compose_mvvm.data.mappers.ImageSize
 import com.hivian.compose_mvvm.data.mappers.mapToRandomUser
-import com.hivian.compose_mvvm.data.models.Location
-import com.hivian.compose_mvvm.data.models.Name
-import com.hivian.compose_mvvm.data.models.Picture
-import com.hivian.compose_mvvm.data.models.RandomUserDTO
-import com.hivian.compose_mvvm.domain.repository.IRandomUsersRepository
+import com.hivian.compose_mvvm.data.sources.models.Location
+import com.hivian.compose_mvvm.data.sources.models.Name
+import com.hivian.compose_mvvm.data.sources.models.Picture
+import com.hivian.compose_mvvm.data.sources.models.RandomUserDTO
+import com.hivian.compose_mvvm.domain.repository.ServiceResult
+import com.hivian.compose_mvvm.domain.usecases.GetRandomUserByIdUseCase
+import com.hivian.compose_mvvm.domain.usecases.NavigateBackUseCase
+import com.hivian.compose_mvvm.domain.usecases.ShowAppMessageUseCase
+import com.hivian.compose_mvvm.domain.usecases.TranslateResourceUseCase
 import com.hivian.compose_mvvm.presentation.detail.DetailViewModel
-import com.hivian.compose_mvvm.presentation.services.navigation.INavigationService
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
@@ -26,14 +29,22 @@ import org.mockito.kotlin.whenever
 @ExtendWith(InstantExecutorExtension::class, MainCoroutineExtension::class)
 class DetailViewModelTest {
 
-    private val randomUsersService = mock<IRandomUsersRepository>()
-    private val navigationService = mock<INavigationService>()
+    private val translateResourceUseCase = mock<TranslateResourceUseCase>()
+    private val getRandomUserByIdUseCase = mock<GetRandomUserByIdUseCase>()
+    private val showAppMessageUseCase = mock<ShowAppMessageUseCase>()
+    private val navigateBackUseCase = mock<NavigateBackUseCase>()
 
     private lateinit var viewModel: DetailViewModel
 
     @BeforeEach
     fun setUp() {
-        viewModel = DetailViewModel(0, randomUsersService, navigationService)
+        viewModel = DetailViewModel(
+            0,
+            translateResourceUseCase,
+            getRandomUserByIdUseCase,
+            showAppMessageUseCase,
+            navigateBackUseCase
+        )
     }
 
     @Test
@@ -62,8 +73,8 @@ class DetailViewModelTest {
         val userDomain = userDTO.mapToRandomUser(ImageSize.LARGE)
 
         whenever(
-            randomUsersService.getUserById(0, ImageSize.LARGE)
-        ).thenReturn(userDomain)
+            getRandomUserByIdUseCase(0)
+        ).thenReturn(ServiceResult.Success(userDomain))
         viewModel.initialize()
         advanceUntilIdle()
         assertAll("Fields",

@@ -1,14 +1,12 @@
-package com.hivian.compose_mvvm.domain.di
+package com.hivian.compose_mvvm.presentation.di
 
 import android.content.Context
-import com.hivian.compose_mvvm.domain.repository.IRandomUsersRepository
-import com.hivian.compose_mvvm.data.repository.RandomUsersRepository
-import com.hivian.compose_mvvm.data.services.LocalizationService
-import com.hivian.compose_mvvm.data.services.UserInteractionService
-import com.hivian.compose_mvvm.domain.services.IDatabaseService
-import com.hivian.compose_mvvm.domain.services.IHttpClient
 import com.hivian.compose_mvvm.domain.services.ILocalizationService
+import com.hivian.compose_mvvm.domain.services.INavigationService
 import com.hivian.compose_mvvm.domain.services.IUserInteractionService
+import com.hivian.compose_mvvm.presentation.services.LocalizationService
+import com.hivian.compose_mvvm.presentation.services.UserInteractionService
+import com.hivian.compose_mvvm.presentation.services.navigation.NavigationService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,8 +32,8 @@ object ServicesModule {
 
     @Provides
     @Singleton
-    fun provideRandomUsersRepository(database: IDatabaseService, httpClient: IHttpClient): IRandomUsersRepository {
-        return RandomUsersRepository(database, httpClient)
+    fun provideNavigationService(): INavigationService {
+        return NavigationService()
     }
 
 }

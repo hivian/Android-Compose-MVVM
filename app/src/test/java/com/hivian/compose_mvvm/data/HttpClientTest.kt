@@ -2,13 +2,13 @@ package com.hivian.compose_mvvm.data
 
 import com.hivian.compose_mvvm.InstantExecutorExtension
 import com.hivian.compose_mvvm.MainCoroutineExtension
+import com.hivian.compose_mvvm.data.sources.models.Results
+import com.hivian.compose_mvvm.data.services.HttpClientService
 import com.hivian.compose_mvvm.data.sources.remote.ErrorType
 import com.hivian.compose_mvvm.data.sources.remote.HttpResult
 import com.hivian.compose_mvvm.data.sources.remote.HttpStatusCode
-import com.hivian.compose_mvvm.data.models.Results
-import com.hivian.compose_mvvm.data.services.HttpClientService
-import com.hivian.compose_mvvm.domain.services.IHttpClient
 import com.hivian.compose_mvvm.data.sources.remote.IApiService
+import com.hivian.compose_mvvm.domain.services.IHttpClient
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceUntilIdle

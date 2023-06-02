@@ -1,4 +1,4 @@
-package com.hivian.compose_mvvm.data.services
+package com.hivian.compose_mvvm.presentation.services
 
 import android.content.Context
 import androidx.annotation.StringRes

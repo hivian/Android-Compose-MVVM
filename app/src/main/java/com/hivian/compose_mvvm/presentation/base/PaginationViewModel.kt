@@ -31,20 +31,18 @@ abstract class PaginationViewModel<Key, Item>(
         isLoading = true
         onLoading(initialLoad)
 
-        val result = onRequest(currentKey, pageSize)
-
-        when (result) {
+        when (val result = onRequest(currentKey, pageSize)) {
             is ServiceResult.Success -> {
                 val items = result.data
                 onSuccess(items, initialLoad)
                 currentKey = getNextKey(currentKey)
             }
             is ServiceResult.Error -> {
-                if (result.data.isNotEmpty()) {
+                if (!result.data.isNullOrEmpty()) {
                     currentKey = getNextKey(currentKey)
                 }
 
-                onError(result.errorType, result.data, initialLoad)
+                onError(result.errorType, result.data ?: emptyList(), initialLoad)
             }
         }
 

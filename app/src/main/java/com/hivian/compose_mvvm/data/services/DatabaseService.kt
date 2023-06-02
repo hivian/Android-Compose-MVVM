@@ -1,6 +1,6 @@
 package com.hivian.compose_mvvm.data.services
 
-import com.hivian.compose_mvvm.data.models.RandomUserDTO
+import com.hivian.compose_mvvm.data.sources.models.RandomUserDTO
 import com.hivian.compose_mvvm.data.sources.local.dao.IRandomUsersDao
 import com.hivian.compose_mvvm.domain.services.IDatabaseService
 import javax.inject.Inject

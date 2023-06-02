@@ -55,45 +55,35 @@
 
 ```
 com.hivian.compose_mvvm       # Root Package
-├── core                      # Common base components
-│   ├── di                    # Dependency injection module
-│   ├── data                  # Data wrappers
-|   │   ├── network           # Http result wrappers
-|   |   └── paginator         # Default pager
-│   ├── extensions            # Kotlin extensions
-|   └── services              # Base services with interfaces
-|       ├── localization      # Internationalization
-|       └── userinteraction   # Pop-up messages
-|
 ├── data                      # Data layer
 │   ├── di                    # Dependency injection module
-│   ├── models                # Entities & DTO Models
+│   ├── mappers               # DTO to domain models mapper
+|   ├── repository            # Interact with local & remote data source
+|   ├── services              # Http & database client implementation
 │   └── sources               # Data sources
+│       ├── models            # Entities & DTO Models
 |       ├── local             # Local database client
 |       │   ├── converters    # Complex data serializer
 |       |   └── dao           # Data Access Object for Room
-|       └── remote            # Remote data client
+|       └── remote            # Remote data client & data wrappers
 │
 ├── domain                    # Domain layer
 │   ├── di                    # Dependency injection module
-│   ├── mappers               # DTO to domain models mapper
+│   ├── extensions            # Kotlin extensions
 │   ├── models                # Domain models
-|   └── services              # Services with interfaces
-|       ├── randomusers       # Fetch random users data
-|       ├── database          # Interact with database
-|       └── networking        # Interact with network
+|   ├── repository            # Repository contract
+|   ├── services              # Services contracts
+|   └── usecases              # use cases encapsulation for presentation layer
 |
 ├── presentation              # Presentation layer
+│   ├── base                  # Base classes
 │   ├── di                    # Dependency injection module
-│   ├── detail                # Detail screen viewModel
-│   └── home                  # Main screen viewModel
-|
-├── ui                        # User Interface layer
-│   ├── di                    # Dependency injection module
-│   ├── composables           # Composables functions for building UI
-│   ├── services              # Services with interfaces
-|   │   └── navigation        # Navigation controller
-│   └── themes                # Design system
+│   ├── extensions            # Platform-specific Kotlin extensions
+│   ├── home                  # Main screen & viewModel
+│   ├── detail                # Detail screen & viewModel
+|   ├── services              # Platform-specific services (navigation etc.)
+│   ├── themes                # Design system
+│   └── MainActivity          # Screen entry point
 |
 └── App                       # Application entry point
 

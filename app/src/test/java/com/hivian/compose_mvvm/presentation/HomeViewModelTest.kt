@@ -2,20 +2,20 @@ package com.hivian.compose_mvvm.presentation
 
 import com.hivian.compose_mvvm.InstantExecutorExtension
 import com.hivian.compose_mvvm.MainCoroutineExtension
-import com.hivian.compose_mvvm.presentation.base.ViewModelVisualState
-import com.hivian.compose_mvvm.domain.repository.ServiceResult
-import com.hivian.compose_mvvm.data.sources.remote.ErrorType
-import com.hivian.compose_mvvm.domain.services.ILocalizationService
-import com.hivian.compose_mvvm.domain.services.IUserInteractionService
 import com.hivian.compose_mvvm.data.mappers.ImageSize
 import com.hivian.compose_mvvm.data.mappers.mapToRandomUsers
-import com.hivian.compose_mvvm.data.models.Location
-import com.hivian.compose_mvvm.data.models.Name
-import com.hivian.compose_mvvm.data.models.Picture
-import com.hivian.compose_mvvm.data.models.RandomUserDTO
+import com.hivian.compose_mvvm.data.sources.models.Location
+import com.hivian.compose_mvvm.data.sources.models.Name
+import com.hivian.compose_mvvm.data.sources.models.Picture
+import com.hivian.compose_mvvm.data.sources.models.RandomUserDTO
+import com.hivian.compose_mvvm.data.sources.remote.ErrorType
+import com.hivian.compose_mvvm.domain.repository.ServiceResult
+import com.hivian.compose_mvvm.domain.services.ILocalizationService
 import com.hivian.compose_mvvm.domain.usecases.GetRandomUsersUseCase
+import com.hivian.compose_mvvm.domain.usecases.NavigateToRandomUserDetailUseCase
+import com.hivian.compose_mvvm.domain.usecases.ShowAppMessageUseCase
+import com.hivian.compose_mvvm.presentation.base.ViewModelVisualState
 import com.hivian.compose_mvvm.presentation.home.HomeViewModel
-import com.hivian.compose_mvvm.presentation.services.navigation.INavigationService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
@@ -36,15 +36,19 @@ import org.mockito.kotlin.whenever
 class HomeViewModelTest {
 
     private val localizationService = mock<ILocalizationService>()
-    private val navigationService = mock<INavigationService>()
+    private val navigateToRandomUserDetailUseCase = mock<NavigateToRandomUserDetailUseCase>()
     private val randomUsersUseCase = mock<GetRandomUsersUseCase>()
-    private val userInteractionService = mock<IUserInteractionService>()
+    private val showAppMessageUseCase = mock<ShowAppMessageUseCase>()
 
     private lateinit var viewModel: HomeViewModel
 
     @BeforeEach
     fun setUp() {
-        viewModel = HomeViewModel(localizationService, navigationService, randomUsersUseCase, userInteractionService)
+        viewModel = HomeViewModel(
+            localizationService,
+            navigateToRandomUserDetailUseCase,
+            randomUsersUseCase,
+            showAppMessageUseCase)
     }
 
     @Test
