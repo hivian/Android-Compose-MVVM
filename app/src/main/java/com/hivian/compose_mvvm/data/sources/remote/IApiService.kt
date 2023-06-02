@@ -1,6 +1,6 @@
 package com.hivian.compose_mvvm.data.sources.remote
 
-import com.hivian.compose_mvvm.data.models.Results
+import com.hivian.compose_mvvm.data.sources.models.Results
 import retrofit2.http.GET
 import retrofit2.http.Query
 

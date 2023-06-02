@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.hivian.compose_mvvm.data.models.RandomUserDTO
+import com.hivian.compose_mvvm.data.sources.models.RandomUserDTO
 import com.hivian.compose_mvvm.data.sources.local.converters.LocationConverter
 import com.hivian.compose_mvvm.data.sources.local.converters.NameConverter
 import com.hivian.compose_mvvm.data.sources.local.converters.PictureConverter

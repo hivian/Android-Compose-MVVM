@@ -2,7 +2,7 @@ package com.hivian.compose_mvvm.data
 
 import com.hivian.compose_mvvm.InstantExecutorExtension
 import com.hivian.compose_mvvm.MainCoroutineExtension
-import com.hivian.compose_mvvm.data.models.Results
+import com.hivian.compose_mvvm.data.sources.models.Results
 import com.hivian.compose_mvvm.data.services.HttpClientService
 import com.hivian.compose_mvvm.data.sources.remote.ErrorType
 import com.hivian.compose_mvvm.data.sources.remote.HttpResult

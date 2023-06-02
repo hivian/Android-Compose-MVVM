@@ -1,6 +1,6 @@
 package com.hivian.compose_mvvm.data.services
 
-import com.hivian.compose_mvvm.data.models.Results
+import com.hivian.compose_mvvm.data.sources.models.Results
 import com.hivian.compose_mvvm.data.sources.remote.ErrorType
 import com.hivian.compose_mvvm.data.sources.remote.HttpResult
 import com.hivian.compose_mvvm.data.sources.remote.HttpStatusCode

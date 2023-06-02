@@ -4,10 +4,10 @@ import com.hivian.compose_mvvm.InstantExecutorExtension
 import com.hivian.compose_mvvm.MainCoroutineExtension
 import com.hivian.compose_mvvm.data.mappers.ImageSize
 import com.hivian.compose_mvvm.data.mappers.mapToRandomUsers
-import com.hivian.compose_mvvm.data.models.Location
-import com.hivian.compose_mvvm.data.models.Name
-import com.hivian.compose_mvvm.data.models.Picture
-import com.hivian.compose_mvvm.data.models.RandomUserDTO
+import com.hivian.compose_mvvm.data.sources.models.Location
+import com.hivian.compose_mvvm.data.sources.models.Name
+import com.hivian.compose_mvvm.data.sources.models.Picture
+import com.hivian.compose_mvvm.data.sources.models.RandomUserDTO
 import com.hivian.compose_mvvm.data.sources.remote.ErrorType
 import com.hivian.compose_mvvm.domain.repository.ServiceResult
 import com.hivian.compose_mvvm.domain.services.ILocalizationService
