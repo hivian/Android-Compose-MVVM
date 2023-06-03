@@ -15,3 +15,5 @@ dependencyResolutionManagement {
 rootProject.name = "compose-mvvm"
 include ':app'
 
+include ':core'
+include ':basic-feature'

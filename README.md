@@ -54,39 +54,40 @@
 ## Package Structures
 
 ```
-com.hivian.compose_mvvm       # Root Package
-├── data                      # Data layer
-│   ├── di                    # Dependency injection module
-│   ├── mappers               # DTO to domain models mapper
-|   ├── repository            # Interact with local & remote data source
-|   ├── services              # Http & database client implementation
-│   └── sources               # Data sources
-│       ├── models            # Entities & DTO Models
-|       ├── local             # Local database client
-|       │   ├── converters    # Complex data serializer
-|       |   └── dao           # Data Access Object for Room
-|       └── remote            # Remote data client & data wrappers
-│
-├── domain                    # Domain layer
-│   ├── di                    # Dependency injection module
-│   ├── extensions            # Kotlin extensions
-│   ├── models                # Domain models
-|   ├── repository            # Repository contract
-|   ├── services              # Services contracts
-|   └── usecases              # use cases encapsulation for presentation layer
-|
-├── presentation              # Presentation layer
-│   ├── base                  # Base classes
-│   ├── di                    # Dependency injection module
-│   ├── extensions            # Platform-specific Kotlin extensions
-│   ├── home                  # Main screen & viewModel
-│   ├── detail                # Detail screen & viewModel
-|   ├── services              # Platform-specific services (navigation etc.)
-│   ├── themes                # Design system
-│   └── MainActivity          # Screen entry point
-|
-└── App                       # Application entry point
+com.hivian.compose_mvvm                     # Root Module
+├── App                                     # Application entry point
+└── MainActivity                            # Screen entry point
 
+com.hivian.compose_mvvm.basic-feature       # Main feature Module
+├── data                                    # Data layer
+│   ├── di                                  # Dependency injection module
+│   ├── mappers                             # DTO to domain models mapper
+│   ├── repository                          # Interact with local & remote data source
+│   └── sources                             # Data source services implementations
+├── domain                                  # Domain layer
+│   ├── di                                  # Dependency injection module
+│   ├── models                              # Domain models
+│   ├── repository                          # Repository contract
+│   ├── services                            # Data source services contracts
+│   └── usecases                            # use cases encapsulation for presentation layer
+└── presentation                            # Presentation layer
+    ├── di                                  # Dependency injection module
+    ├── extensions                          # Platform-specific Kotlin extensions
+    ├── home                                # Main screen & viewModel
+    ├── detail                              # Detail screen & viewModel
+    └── themes                              # Design system
+
+com.hivian.compose_mvvm.core                # Core Module
+├── di                                      # Dependency injection module
+├── base                                    # Base classes
+├── datasources                             # Data sources
+│   ├── models                              # Entities & DTO Models
+│   ├── local                               # Local database client
+│   │   ├── converters                      # Complex data serializer
+│   │   └── dao                             # Data Access Object for Room
+│   └── remote                              # Remote data client & data wrappers
+├── extensions                              # Kotlin extensions
+└── services                                # Core services (localization, navigation ...)
 ```
 
 
