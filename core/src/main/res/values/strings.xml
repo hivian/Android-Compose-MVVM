@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="home_title">Random Users</string>
+
+    <string name="error_cancelled">The operation was cancelled</string>
+    <string name="error_access_denied">Access is unauthorized/forbidden</string>
+    <string name="error_no_connection">Network connection was lost</string>
+    <string name="error_timeout">The operation has timed out</string>
+    <string name="error_unknown">An unknown error occurred</string>
+    <string name="error_not_found">No users found</string>
+    <string name="error_database">Can\'t fetch saved data</string>
+    <string name="retry_message">Try again</string>
+
+</resources>

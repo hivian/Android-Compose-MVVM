@@ -1,5 +1,5 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
@@ -8,17 +8,15 @@ plugins {
 }
 
 android {
-    namespace 'com.hivian.compose_mvvm'
+    namespace 'com.hivian.compose_mvvm.core'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.hivian.compose_mvvm"
         minSdk 27
         targetSdk 33
-        versionCode 102
-        versionName "1.0.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -27,7 +25,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -51,15 +48,9 @@ android {
             returnDefaultValues = true
         }
     }
-
 }
 
 dependencies {
-
-    // MODULES
-
-    implementation project(":basic-feature")
-    implementation project(":core")
 
     // UI
     implementation 'androidx.compose.material3:material3:1.1.0'
@@ -68,6 +59,19 @@ dependencies {
     implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
+
+    // ROOM
+    ksp "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+
+    // RETROFIT
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.3'
+
+    // LOGGER
+    api 'com.github.ajalt:timberkt:1.5.1'
 
     // TESTS
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1'

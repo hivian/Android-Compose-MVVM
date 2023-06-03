@@ -1,5 +1,5 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
@@ -8,17 +8,15 @@ plugins {
 }
 
 android {
-    namespace 'com.hivian.compose_mvvm'
+    namespace 'com.hivian_compose_mvvm.basic_feature'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.hivian.compose_mvvm"
         minSdk 27
         targetSdk 33
-        versionCode 102
-        versionName "1.0.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -27,7 +25,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -51,23 +48,35 @@ android {
             returnDefaultValues = true
         }
     }
-
+    sourceSets {
+        test {
+            java.srcDir project(":core").file("src/test/java")
+        }
+    }
 }
 
 dependencies {
 
     // MODULES
-
-    implementation project(":basic-feature")
     implementation project(":core")
+    testImplementation project(':core')
 
     // UI
+    implementation "androidx.compose.ui:ui:$compose_version"
     implementation 'androidx.compose.material3:material3:1.1.0'
+    implementation 'androidx.compose.runtime:runtime-livedata:1.4.3'
+    implementation 'io.coil-kt:coil-compose:2.4.0'
+    implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
+    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
 
     // Android
+    implementation "androidx.navigation:navigation-compose:$navigation_component_version"
     implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
+
+    // RETROFIT
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
 
     // TESTS
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1'

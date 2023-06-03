@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         tools:targetApi="32">
         <activity
-            android:name="com.hivian.compose_mvvm.presentation.MainActivity"
+            android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.ComposeMVVM">
             <intent-filter>
