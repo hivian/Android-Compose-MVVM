@@ -2,7 +2,7 @@ package com.hivian.compose_mvvm.core.extensions
 
 import androidx.annotation.StringRes
 import com.hivian.compose_mvvm.core.R
-import com.hivian.compose_mvvm.core.datasource.ErrorType
+import com.hivian.compose_mvvm.core.datasources.remote.ErrorType
 
 @StringRes
 fun ErrorType.toErrorMessage(): Int {

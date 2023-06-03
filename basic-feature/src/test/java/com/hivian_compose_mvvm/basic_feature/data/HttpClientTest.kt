@@ -2,12 +2,12 @@ package com.hivian_compose_mvvm.basic_feature.data
 
 import com.hivian.compose_mvvm.core.InstantExecutorExtension
 import com.hivian.compose_mvvm.core.MainCoroutineExtension
-import com.hivian.compose_mvvm.core.datasource.ErrorType
-import com.hivian.compose_mvvm.core.datasource.HttpResult
-import com.hivian.compose_mvvm.core.datasource.HttpStatusCode
-import com.hivian.compose_mvvm.core.datasource.models.Results
-import com.hivian.compose_mvvm.core.datasource.remote.IApiService
-import com.hivian_compose_mvvm.basic_feature.data.sources.remote.RandomUsersHttpService
+import com.hivian.compose_mvvm.core.datasources.remote.ErrorType
+import com.hivian.compose_mvvm.core.datasources.remote.HttpResult
+import com.hivian.compose_mvvm.core.datasources.remote.HttpStatusCode
+import com.hivian.compose_mvvm.core.datasources.models.Results
+import com.hivian.compose_mvvm.core.datasources.remote.IApiService
+import com.hivian_compose_mvvm.basic_feature.data.sources.RandomUsersHttpService
 import com.hivian_compose_mvvm.basic_feature.domain.services.IRandomUsersHttpService
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.ExperimentalCoroutinesApi

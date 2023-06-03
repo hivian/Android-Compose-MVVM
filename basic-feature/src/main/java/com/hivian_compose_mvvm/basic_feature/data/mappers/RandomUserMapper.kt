@@ -1,6 +1,6 @@
 package com.hivian_compose_mvvm.basic_feature.data.mappers
 
-import com.hivian.compose_mvvm.core.datasource.models.RandomUserDTO
+import com.hivian.compose_mvvm.core.datasources.models.RandomUserDTO
 import com.hivian_compose_mvvm.basic_feature.domain.models.RandomUser
 
 enum class ImageSize {

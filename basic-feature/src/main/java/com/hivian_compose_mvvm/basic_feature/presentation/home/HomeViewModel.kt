@@ -6,8 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.hivian.compose_mvvm.core.R
 import com.hivian.compose_mvvm.core.base.PaginationViewModel
 import com.hivian.compose_mvvm.core.base.ViewModelVisualState
-import com.hivian.compose_mvvm.core.datasource.ErrorType
-import com.hivian.compose_mvvm.core.datasource.ServiceResult
+import com.hivian.compose_mvvm.core.datasources.remote.ErrorType
+import com.hivian.compose_mvvm.core.datasources.ServiceResult
 import com.hivian.compose_mvvm.core.extensions.toErrorMessage
 import com.hivian.compose_mvvm.core.services.ILocalizationService
 import com.hivian_compose_mvvm.basic_feature.domain.models.RandomUser

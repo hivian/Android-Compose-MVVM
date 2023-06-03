@@ -3,7 +3,7 @@ package com.hivian_compose_mvvm.basic_feature.presentation.detail
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.hivian.compose_mvvm.core.base.ViewModelBase
-import com.hivian.compose_mvvm.core.datasource.ServiceResult
+import com.hivian.compose_mvvm.core.datasources.ServiceResult
 import com.hivian.compose_mvvm.core.extensions.toErrorMessage
 import com.hivian_compose_mvvm.basic_feature.domain.usecases.GetRandomUserByIdUseCase
 import com.hivian_compose_mvvm.basic_feature.domain.usecases.NavigateBackUseCase

@@ -1,8 +1,8 @@
-package com.hivian_compose_mvvm.basic_feature.data.sources.remote
+package com.hivian_compose_mvvm.basic_feature.data.sources
 
-import com.hivian.compose_mvvm.core.datasource.HttpResult
-import com.hivian.compose_mvvm.core.datasource.models.Results
-import com.hivian.compose_mvvm.core.datasource.remote.IApiService
+import com.hivian.compose_mvvm.core.datasources.remote.HttpResult
+import com.hivian.compose_mvvm.core.datasources.models.Results
+import com.hivian.compose_mvvm.core.datasources.remote.IApiService
 import com.hivian_compose_mvvm.basic_feature.domain.services.IRandomUsersHttpService
 import javax.inject.Inject
 

@@ -1,8 +1,8 @@
 package com.hivian_compose_mvvm.basic_feature.data.repository
 
-import com.hivian.compose_mvvm.core.datasource.ErrorType
-import com.hivian.compose_mvvm.core.datasource.HttpResult
-import com.hivian.compose_mvvm.core.datasource.ServiceResult
+import com.hivian.compose_mvvm.core.datasources.remote.ErrorType
+import com.hivian.compose_mvvm.core.datasources.remote.HttpResult
+import com.hivian.compose_mvvm.core.datasources.ServiceResult
 import com.hivian_compose_mvvm.basic_feature.data.mappers.ImageSize
 import com.hivian_compose_mvvm.basic_feature.data.mappers.mapToRandomUser
 import com.hivian_compose_mvvm.basic_feature.data.mappers.mapToRandomUsers

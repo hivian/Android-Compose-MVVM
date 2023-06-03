@@ -1,6 +1,6 @@
-package com.hivian.compose_mvvm.core.datasource.remote
+package com.hivian.compose_mvvm.core.datasources.remote
 
-import com.hivian.compose_mvvm.core.datasource.models.Results
+import com.hivian.compose_mvvm.core.datasources.models.Results
 import retrofit2.http.GET
 import retrofit2.http.Query
 

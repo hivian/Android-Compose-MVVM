@@ -1,4 +1,4 @@
-package com.hivian.compose_mvvm.core.datasource
+package com.hivian.compose_mvvm.core.datasources.remote
 
 sealed class HttpResult<out T: Any> {
 

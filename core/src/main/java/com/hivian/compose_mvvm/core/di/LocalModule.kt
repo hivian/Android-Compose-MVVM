@@ -1,8 +1,8 @@
 package com.hivian.compose_mvvm.core.di
 
 import android.content.Context
-import com.hivian.compose_mvvm.core.datasource.local.AppDatabase
-import com.hivian.compose_mvvm.core.datasource.local.dao.IRandomUsersDao
+import com.hivian.compose_mvvm.core.datasources.local.AppDatabase
+import com.hivian.compose_mvvm.core.datasources.local.dao.IRandomUsersDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

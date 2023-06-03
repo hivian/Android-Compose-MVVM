@@ -1,6 +1,6 @@
 package com.hivian.compose_mvvm.core.base
 
-import com.hivian.compose_mvvm.core.datasource.ErrorType
+import com.hivian.compose_mvvm.core.datasources.remote.ErrorType
 
 sealed class ViewModelVisualState {
 

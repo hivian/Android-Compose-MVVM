@@ -1,8 +1,5 @@
-package com.hivian.compose_mvvm.core.datasource.remote
+package com.hivian.compose_mvvm.core.datasources.remote
 
-import com.hivian.compose_mvvm.core.datasource.ErrorType
-import com.hivian.compose_mvvm.core.datasource.HttpResult
-import com.hivian.compose_mvvm.core.datasource.HttpStatusCode
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException

@@ -1,4 +1,4 @@
-package com.hivian.compose_mvvm.core.datasource.models
+package com.hivian.compose_mvvm.core.datasources.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

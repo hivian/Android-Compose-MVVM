@@ -1,8 +1,8 @@
-package com.hivian.compose_mvvm.core.datasource.local.dao
+package com.hivian.compose_mvvm.core.datasources.local.dao
 
 import androidx.room.*
-import com.hivian.compose_mvvm.core.datasource.models.Name
-import com.hivian.compose_mvvm.core.datasource.models.RandomUserDTO
+import com.hivian.compose_mvvm.core.datasources.models.Name
+import com.hivian.compose_mvvm.core.datasources.models.RandomUserDTO
 
 @Dao
 interface IRandomUsersDao {

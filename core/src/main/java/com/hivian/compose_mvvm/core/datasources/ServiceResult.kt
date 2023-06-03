@@ -1,4 +1,6 @@
-package com.hivian.compose_mvvm.core.datasource
+package com.hivian.compose_mvvm.core.datasources
+
+import com.hivian.compose_mvvm.core.datasources.remote.ErrorType
 
 sealed class ServiceResult<out T: Any> {
 

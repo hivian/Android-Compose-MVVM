@@ -1,11 +1,11 @@
 package com.hivian_compose_mvvm.basic_feature.presentation
 
 import com.hivian.compose_mvvm.core.InstantExecutorExtension
-import com.hivian.compose_mvvm.core.datasource.ServiceResult
-import com.hivian.compose_mvvm.core.datasource.models.Location
-import com.hivian.compose_mvvm.core.datasource.models.Name
-import com.hivian.compose_mvvm.core.datasource.models.Picture
-import com.hivian.compose_mvvm.core.datasource.models.RandomUserDTO
+import com.hivian.compose_mvvm.core.datasources.ServiceResult
+import com.hivian.compose_mvvm.core.datasources.models.Location
+import com.hivian.compose_mvvm.core.datasources.models.Name
+import com.hivian.compose_mvvm.core.datasources.models.Picture
+import com.hivian.compose_mvvm.core.datasources.models.RandomUserDTO
 import com.hivian_compose_mvvm.basic_feature.data.mappers.ImageSize
 import com.hivian_compose_mvvm.basic_feature.data.mappers.mapToRandomUser
 import com.hivian_compose_mvvm.basic_feature.domain.usecases.GetRandomUserByIdUseCase

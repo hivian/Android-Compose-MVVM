@@ -1,6 +1,6 @@
 package com.hivian.compose_mvvm.core.di
 
-import com.hivian.compose_mvvm.core.datasource.remote.IApiService
+import com.hivian.compose_mvvm.core.datasources.remote.IApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
