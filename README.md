@@ -50,6 +50,7 @@
 
 * SOLID principles
 * MVVM clean architecture
+* Modularization by feature and by layer
 
 ## Package Structures
 
@@ -69,7 +70,7 @@ com.hivian.compose_mvvm.basic-feature       # Main feature Module
 │   ├── models                              # Domain models
 │   ├── repository                          # Repository contract
 │   ├── services                            # Data source services contracts
-│   └── usecases                            # use cases encapsulation for presentation layer
+│   └── usecases                            # Use cases encapsulation for presentation layer
 └── presentation                            # Presentation layer
     ├── di                                  # Dependency injection module
     ├── extensions                          # Platform-specific Kotlin extensions
