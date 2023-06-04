@@ -23,6 +23,14 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
+import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.LatLng
+import com.google.maps.android.compose.CameraPositionState
+import com.google.maps.android.compose.GoogleMap
+import com.google.maps.android.compose.MapUiSettings
+import com.google.maps.android.compose.Marker
+import com.google.maps.android.compose.MarkerState
+import com.google.maps.android.compose.rememberCameraPositionState
 import com.hivian_compose_mvvm.basic_feature.R
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -30,6 +38,11 @@ import com.hivian_compose_mvvm.basic_feature.R
 @Composable
 fun DetailScreen(viewModel: DetailViewModel = viewModel()) {
     viewModel.initialize()
+
+    val location = LatLng(viewModel.latitude.value, viewModel.longitude.value)
+    val cameraPositionState = rememberCameraPositionState {
+        position = CameraPosition.fromLatLngZoom(location, 10f)
+    }
 
     Scaffold(
         topBar = {
@@ -53,7 +66,7 @@ fun DetailScreen(viewModel: DetailViewModel = viewModel()) {
             Modifier
                 .padding(contentPadding)
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState()),
+                .verticalScroll(rememberScrollState(), enabled = !cameraPositionState.isMoving),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             ImageDetail(
@@ -63,6 +76,12 @@ fun DetailScreen(viewModel: DetailViewModel = viewModel()) {
                 email = viewModel.email.value,
                 phone = viewModel.phone.value,
                 cell = viewModel.cell.value
+            )
+            GoogleMapAddress(
+                latitude = viewModel.latitude.value,
+                longitude = viewModel.longitude.value,
+                city = viewModel.city.value,
+                country = viewModel.country.value
             )
         }
     }
@@ -103,7 +122,7 @@ fun UserInfo(email: String, phone: String, cell: String) {
     Card(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .padding(16.dp, 16.dp, 16.dp),
         elevation = CardDefaults.elevatedCardElevation(),
         shape = RoundedCornerShape(8.dp)
     ) {
@@ -130,4 +149,39 @@ fun UserInfoItem(@DrawableRes drawableStart: Int, text: String) {
             style = MaterialTheme.typography.titleMedium,
         )
     }
+}
+
+@Composable
+fun GoogleMapAddress(
+    latitude: Double, longitude: Double, city: String, country: String
+) {
+    val location = LatLng(latitude, longitude)
+
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(250.dp)
+            .padding(16.dp),
+        shape = RoundedCornerShape(8.dp)
+    ) {
+        GoogleMap(
+            cameraPositionState = CameraPositionState(
+                position = CameraPosition.fromLatLngZoom(location, 8f)
+            ),
+            modifier = Modifier.fillMaxSize(),
+            uiSettings = MapUiSettings(
+                tiltGesturesEnabled = false,
+                zoomControlsEnabled = false,
+                zoomGesturesEnabled = false,
+                scrollGesturesEnabled = false,
+            )
+        ) {
+            Marker(
+                state = MarkerState(position = location),
+                title = city,
+                snippet = country
+            )
+        }
+    }
+
 }

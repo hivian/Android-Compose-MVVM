@@ -4,6 +4,21 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
+data class Address (
+
+    val city: String,
+
+    val state: String,
+
+    val country: String,
+
+    val latitude: Double,
+
+    val longitude: Double
+
+): Parcelable
+
+@Parcelize
 data class RandomUser(
 
     val id: Int,
@@ -20,7 +35,9 @@ data class RandomUser(
 
     val cell: String,
 
-    val picture: String
+    val picture: String,
+
+    val address: Address
 
 ): Parcelable {
 

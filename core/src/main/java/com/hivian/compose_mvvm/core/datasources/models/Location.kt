@@ -10,6 +10,21 @@ data class Street(
     companion object {
         val EMPTY = Street(0, "")
     }
+
+}
+
+data class Coordinates(
+
+    val latitude: Double,
+
+    val longitude: Double
+
+) {
+
+    companion object {
+        val EMPTY = Coordinates(0.0, 0.0)
+    }
+
 }
 
 data class Location(
@@ -22,12 +37,16 @@ data class Location(
 
     val country: String,
 
-    val postcode: String
+    val postcode: String,
+
+    val coordinates: Coordinates
 
 ) {
 
     companion object {
-        val EMPTY = Location(street = Street.EMPTY, city = "", state = "", country = "", postcode = "")
+        val EMPTY = Location(
+            street = Street.EMPTY, city = "", state = "", country = "", postcode = "", Coordinates.EMPTY
+        )
     }
 
 }
