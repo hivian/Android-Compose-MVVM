@@ -30,7 +30,6 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
-import com.google.maps.android.compose.rememberCameraPositionState
 import com.hivian_compose_mvvm.basic_feature.R
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -38,11 +37,6 @@ import com.hivian_compose_mvvm.basic_feature.R
 @Composable
 fun DetailScreen(viewModel: DetailViewModel = viewModel()) {
     viewModel.initialize()
-
-    val location = LatLng(viewModel.latitude.value, viewModel.longitude.value)
-    val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(location, 10f)
-    }
 
     Scaffold(
         topBar = {
@@ -66,7 +60,7 @@ fun DetailScreen(viewModel: DetailViewModel = viewModel()) {
             Modifier
                 .padding(contentPadding)
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState(), enabled = !cameraPositionState.isMoving),
+                .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             ImageDetail(

@@ -33,12 +33,14 @@
 
 - [x] Offline mode
 - [x] Pagination: infinite scroll
+- [x] Reverse geocoding with Maps SDK
 - [x] Specific error messages with retry action
 - [x] Dark mode
 
 ## Tech stack
 
 * [Compose](https://developer.android.com/jetpack/compose) - Declarative and simplified way for UI development
+* [Maps Compose](https://developers.google.com/maps/documentation/android-sdk/maps-compose) - Compose for the Goggle Maps SDK
 * [Hilt](https://developer.android.com/training/dependency-injection/hilt-android) - Dependency injection
 * [Navigation](https://developer.android.com/topic/libraries/architecture/navigation) - Screen routing handler
 * [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) - UI related data holder, lifecycle aware
@@ -50,6 +52,7 @@
 
 * SOLID principles
 * MVVM clean architecture
+* Modularization by feature and by layer
 
 ## Package Structures
 
@@ -69,7 +72,7 @@ com.hivian.compose_mvvm.basic-feature       # Main feature Module
 │   ├── models                              # Domain models
 │   ├── repository                          # Repository contract
 │   ├── services                            # Data source services contracts
-│   └── usecases                            # use cases encapsulation for presentation layer
+│   └── usecases                            # Use cases encapsulation for presentation layer
 └── presentation                            # Presentation layer
     ├── di                                  # Dependency injection module
     ├── extensions                          # Platform-specific Kotlin extensions
