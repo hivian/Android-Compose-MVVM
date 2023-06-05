@@ -33,6 +33,14 @@ class DetailViewModel @Inject constructor(
 
     val phone = mutableStateOf("")
 
+    val city = mutableStateOf("")
+
+    val country = mutableStateOf("")
+
+    val latitude = mutableStateOf(0.0)
+
+    val longitude = mutableStateOf(0.0)
+
     override fun initialize() {
         if (isInitialized.value == true) return
 
@@ -49,6 +57,10 @@ class DetailViewModel @Inject constructor(
                     email.value = result.data.email
                     cell.value = result.data.cell
                     phone.value = result.data.phone
+                    city.value =result.data.address.city
+                    country.value = result.data.address.country
+                    latitude.value = result.data.address.latitude
+                    longitude.value = result.data.address.longitude
                 }
             }
         }

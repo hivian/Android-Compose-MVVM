@@ -33,12 +33,14 @@
 
 - [x] Offline mode
 - [x] Pagination: infinite scroll
+- [x] Reverse geocoding with Maps SDK
 - [x] Specific error messages with retry action
 - [x] Dark mode
 
 ## Tech stack
 
 * [Compose](https://developer.android.com/jetpack/compose) - Declarative and simplified way for UI development
+* [Maps Compose](https://developers.google.com/maps/documentation/android-sdk/maps-compose) - Compose for the Goggle Maps SDK
 * [Hilt](https://developer.android.com/training/dependency-injection/hilt-android) - Dependency injection
 * [Navigation](https://developer.android.com/topic/libraries/architecture/navigation) - Screen routing handler
 * [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) - UI related data holder, lifecycle aware
