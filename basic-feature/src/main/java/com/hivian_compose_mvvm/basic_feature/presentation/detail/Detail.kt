@@ -1,5 +1,6 @@
 package com.hivian_compose_mvvm.basic_feature.presentation.detail
 
+import android.content.res.Configuration
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -18,6 +19,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImagePainter
@@ -32,20 +34,41 @@ import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import com.hivian_compose_mvvm.basic_feature.R
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Preview
 @Composable
 fun DetailScreen(viewModel: DetailViewModel = viewModel()) {
     viewModel.initialize()
 
+    DetailContent(
+        DetailViewModelArg(
+            picture = viewModel.picture,
+            name = viewModel.name,
+            email = viewModel.email,
+            cell = viewModel.cell,
+            phone = viewModel.phone,
+            city = viewModel.city,
+            country = viewModel.country,
+            latitude = viewModel.latitude,
+            longitude = viewModel.longitude,
+            navigateBack = { viewModel.navigateBack() }
+        )
+    )
+}
+
+@Preview(name = "Light mode")
+@Preview(name = "Dark mode", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DetailContent(
+    @PreviewParameter(DetailViewModelArgProvider::class) viewModelArg: DetailViewModelArg
+) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(text = viewModel.name.value) },
+                title = { Text(text = viewModelArg.name.value) },
                 navigationIcon = {
                     IconButton(
                         onClick = {
-                            viewModel.navigateBack()
+                            viewModelArg.navigateBack()
                         }) {
                         Icon(
                             imageVector = Icons.Filled.ArrowBack,
@@ -64,18 +87,18 @@ fun DetailScreen(viewModel: DetailViewModel = viewModel()) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             ImageDetail(
-                imageUrlPath = viewModel.picture.value
+                imageUrlPath = viewModelArg.picture.value
             )
             UserInfo(
-                email = viewModel.email.value,
-                phone = viewModel.phone.value,
-                cell = viewModel.cell.value
+                email = viewModelArg.email.value,
+                phone = viewModelArg.phone.value,
+                cell = viewModelArg.cell.value
             )
             GoogleMapAddress(
-                latitude = viewModel.latitude.value,
-                longitude = viewModel.longitude.value,
-                city = viewModel.city.value,
-                country = viewModel.country.value
+                latitude = viewModelArg.latitude.value,
+                longitude = viewModelArg.longitude.value,
+                city = viewModelArg.city.value,
+                country = viewModelArg.country.value
             )
         }
     }
