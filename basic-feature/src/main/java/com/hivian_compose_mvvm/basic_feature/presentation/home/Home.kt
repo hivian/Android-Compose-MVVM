@@ -106,7 +106,6 @@ fun InitErrorView(
     }
 }
 
-
 @Composable
 fun InitUserList(
     randomUsers: List<RandomUser>,

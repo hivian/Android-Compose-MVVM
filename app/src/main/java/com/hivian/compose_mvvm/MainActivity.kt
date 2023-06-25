@@ -19,7 +19,7 @@ import androidx.navigation.compose.rememberNavController
 import com.hivian.compose_mvvm.core.services.navigation.INavigationService
 import com.hivian.compose_mvvm.core.services.IUserInteractionService
 import com.hivian_compose_mvvm.basic_feature.presentation.routes.BasicFeatureScreen
-import com.hivian_compose_mvvm.basic_feature.presentation.themes.ComposetestTheme
+import com.hivian_compose_mvvm.basic_feature.presentation.themes.MainTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -36,7 +36,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val snackbarHostState = remember { SnackbarHostState() }
 
-            ComposetestTheme {
+            MainTheme {
                 // A surface container using the 'background' color from the theme
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
@@ -52,7 +52,6 @@ class MainActivity : ComponentActivity() {
                         userInteractionService.snackbarHostState = snackbarHostState
                     }
                 }
-
             }
         }
     }
