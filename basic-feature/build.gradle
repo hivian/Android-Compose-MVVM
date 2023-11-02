@@ -9,11 +9,11 @@ plugins {
 
 android {
     namespace 'com.hivian_compose_mvvm.basic_feature'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         minSdk 27
-        targetSdk 33
+        targetSdk 34
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -64,16 +64,18 @@ dependencies {
     // UI
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.material3:material3:$material_version"
-    implementation 'androidx.compose.runtime:runtime-livedata:1.4.3'
-    implementation 'io.coil-kt:coil-compose:2.4.0'
+    implementation 'androidx.compose.runtime:runtime-livedata:1.5.4'
+    implementation 'io.coil-kt:coil-compose:2.5.0'
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    implementation 'com.google.maps.android:maps-compose:2.11.0'
-    implementation 'com.google.android.gms:play-services-maps:18.1.0'
+    implementation 'com.google.maps.android:maps-compose:4.1.1'
+    implementation 'com.google.android.gms:play-services-maps:18.2.0'
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
+    implementation "com.github.skydoves:landscapist-coil:2.2.11"
+    implementation "com.github.skydoves:landscapist-animation:2.2.8"
 
     // Android
     implementation "androidx.navigation:navigation-compose:$navigation_component_version"
-    implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
+    implementation "androidx.hilt:hilt-navigation-compose:$hilt_navigation_compose_version"
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
 

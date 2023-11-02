@@ -9,11 +9,11 @@ plugins {
 
 android {
     namespace 'com.hivian.compose_mvvm.core'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         minSdk 27
-        targetSdk 33
+        targetSdk 34
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -56,7 +56,7 @@ dependencies {
     implementation "androidx.compose.material3:material3:$material_version"
 
     // Android
-    implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
+    implementation "androidx.hilt:hilt-navigation-compose:$hilt_navigation_compose_version"
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
@@ -74,11 +74,11 @@ dependencies {
     api 'com.github.ajalt:timberkt:1.5.1'
 
     // TESTS
-    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1'
-    testImplementation 'org.mockito.kotlin:mockito-kotlin:4.1.0'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3'
+    testImplementation 'org.mockito.kotlin:mockito-kotlin:5.1.0'
     testImplementation "org.mockito:mockito-inline:5.2.0"
     testImplementation "android.arch.core:core-testing:1.1.1"
-    testImplementation('org.junit.jupiter:junit-jupiter:5.8.0')
+    testImplementation('org.junit.jupiter:junit-jupiter:5.10.0')
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
