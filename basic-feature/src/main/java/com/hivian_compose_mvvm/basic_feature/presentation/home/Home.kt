@@ -1,5 +1,6 @@
 package com.hivian_compose_mvvm.basic_feature.presentation.home
 
+import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -15,6 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImagePainter
@@ -23,19 +26,39 @@ import coil.request.ImageRequest
 import com.hivian.compose_mvvm.core.base.ViewModelVisualState
 import com.hivian_compose_mvvm.basic_feature.domain.models.RandomUser
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = viewModel()
 ) {
-    val randomUsers = viewModel.items
-    val isListLoading = viewModel.showLoadMoreLoader
     viewModel.initialize()
 
+    HomeContent(
+        HomeViewModelArg(
+            randomUsers = viewModel.items,
+            isListLoading = viewModel.showLoadMoreLoader,
+            title = viewModel.title,
+            errorMessage = viewModel.errorMessage,
+            retryMessage = viewModel.retryMessage,
+            refresh = { viewModel.refresh() },
+            loadNext = { viewModel.loadNext() },
+            openDetail = { userId -> viewModel.openRandomUserDetail(userId) },
+            visualState = viewModel.viewModelVisualState
+        )
+    )
+}
+
+
+@Preview(name = "Light mode")
+@Preview(name = "Dark mode", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun HomeContent(
+    @PreviewParameter(HomeViewModelArgProvider::class) viewModelArg: HomeViewModelArg
+) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(text = viewModel.title) },
+                title = { Text(text = viewModelArg.title) },
             )
         }
     ) { contentPadding ->
@@ -45,37 +68,40 @@ fun HomeScreen(
                 .padding(contentPadding),
             contentAlignment = Alignment.Center
         ) {
-            when (viewModel.viewModelVisualState.value) {
+            when (viewModelArg.visualState.value) {
                 is ViewModelVisualState.Loading -> CircularProgressIndicator()
                 is ViewModelVisualState.Success -> {
                     InitUserList(
-                        randomUsers,
-                        isLoadingMore = isListLoading.value,
-                        onItemClick = { userId -> viewModel.openRandomUserDetail(userId) },
-                        onLoadMore = { viewModel.loadNext() }
+                        viewModelArg.randomUsers,
+                        isLoadingMore = viewModelArg.isListLoading.value,
+                        onItemClick = { userId -> viewModelArg.openDetail(userId) },
+                        onLoadMore = { viewModelArg.loadNext() }
                     )
                 }
                 is ViewModelVisualState.Error -> InitErrorView(
-                    errorMessage = viewModel.errorMessage,
-                    retryMessage = viewModel.retryMessage,
-                    onRetry = { viewModel.refresh() }
+                    errorViewArgs = InitErrorViewArg(viewModelArg.errorMessage,viewModelArg.retryMessage),
+                    onRetry = { viewModelArg.refresh() }
                 )
                 else -> Unit
             }
         }
     }
-
 }
 
+@Preview(showBackground = true)
 @Composable
-fun InitErrorView(errorMessage: String, retryMessage: String, onRetry : () -> Unit) {
+fun InitErrorView(
+    @PreviewParameter(InitErrorViewArgProvider::class)
+    errorViewArgs: InitErrorViewArg,
+    onRetry : () -> Unit = {}
+) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = errorMessage, style = MaterialTheme.typography.bodyMedium)
+        Text(text = errorViewArgs.errorMessage, style = MaterialTheme.typography.bodyMedium)
         Button(
             modifier = Modifier.padding(top = 8.dp),
             onClick = { onRetry() }
         ) {
-            Text(text = retryMessage)
+            Text(text = errorViewArgs.retryMessage)
         }
     }
 }
@@ -133,6 +159,7 @@ fun UserListItem(user: RandomUser, onItemClick : (Int) -> Unit) {
     }
 }
 
+@Preview(widthDp = 50, heightDp = 50)
 @Composable
 fun UserListLoadingItem() {
     Row(
@@ -145,8 +172,9 @@ fun UserListLoadingItem() {
     }
 }
 
+@Preview(widthDp = 50, heightDp = 50)
 @Composable
-private fun UserImage(imageUrlPath : String) {
+private fun UserImage(imageUrlPath : String = "") {
     val painter = rememberAsyncImagePainter(
         model = ImageRequest.Builder(LocalContext.current)
             .data(imageUrlPath)
