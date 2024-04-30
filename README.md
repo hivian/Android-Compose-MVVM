@@ -1,4 +1,4 @@
-<h1 align="center">android-compose-mvvm</h1>
+<h1 align="center">Android Compose MVVM</h1>
 
 <p align="center">
   <a href="https://developer.android.com/jetpack/compose">
