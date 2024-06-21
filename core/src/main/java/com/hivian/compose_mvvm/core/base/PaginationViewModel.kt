@@ -1,7 +1,7 @@
 package com.hivian.compose_mvvm.core.base
 
-import com.hivian.compose_mvvm.core.datasources.remote.ErrorType
 import com.hivian.compose_mvvm.core.datasources.ServiceResult
+import com.hivian.compose_mvvm.core.datasources.remote.ErrorType
 
 abstract class PaginationViewModel<Key, Item>(
     private val initialKey: Key,

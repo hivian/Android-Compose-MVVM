@@ -33,7 +33,7 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
-import com.hivian.compose_mvvm.core.services.navigation.NavigationAction
+import com.hivian.compose_mvvm.core.services.NavigationAction
 import com.hivian_compose_mvvm.basic_feature.R
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf

@@ -41,7 +41,7 @@
 
 * [Compose](https://developer.android.com/jetpack/compose) - Declarative and simplified way for UI development
 * [Maps Compose](https://developers.google.com/maps/documentation/android-sdk/maps-compose) - Compose for the Goggle Maps SDK
-* [Hilt](https://developer.android.com/training/dependency-injection/hilt-android) - Dependency injection
+* [Koin](https://insert-koin.io/docs/quickstart/android/) - Dependency injection
 * [Navigation](https://developer.android.com/topic/libraries/architecture/navigation) - Screen routing handler
 * [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) - UI related data holder, lifecycle aware
 * [Room](https://developer.android.com/topic/libraries/architecture/room) - Local database

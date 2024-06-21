@@ -10,7 +10,7 @@ import com.hivian.compose_mvvm.core.datasources.remote.ErrorType
 import com.hivian.compose_mvvm.core.datasources.ServiceResult
 import com.hivian.compose_mvvm.core.extensions.toErrorMessage
 import com.hivian.compose_mvvm.core.services.ILocalizationService
-import com.hivian.compose_mvvm.core.services.navigation.NavigationAction
+import com.hivian.compose_mvvm.core.services.NavigationAction
 import com.hivian_compose_mvvm.basic_feature.domain.models.RandomUser
 import com.hivian_compose_mvvm.basic_feature.domain.usecases.GetRandomUsersUseCase
 import com.hivian_compose_mvvm.basic_feature.domain.usecases.ShowAppMessageUseCase

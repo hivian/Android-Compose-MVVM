@@ -1,6 +1,12 @@
 package com.hivian.compose_mvvm.core.datasources.local.dao
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Transaction
+import androidx.room.Update
 import com.hivian.compose_mvvm.core.datasources.models.Name
 import com.hivian.compose_mvvm.core.datasources.models.RandomUserDTO
 
@@ -18,9 +24,6 @@ interface IRandomUsersDao {
 
     @Query("DELETE FROM random_user_entity")
     suspend fun deleteAll()
-
-    @Query("SELECT * FROM random_user_entity")
-    suspend fun getAllRandomUsers() : List<RandomUserDTO>
 
     @Query("SELECT * FROM random_user_entity LIMIT :limit OFFSET :index")
     suspend fun getAllRandomUsers(index: Int, limit: Int) : List<RandomUserDTO>
