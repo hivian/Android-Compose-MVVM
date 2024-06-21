@@ -72,9 +72,6 @@ dependencies {
 
     // Android
     implementation "androidx.navigation:navigation-compose:$navigation_component_version"
-    implementation("io.insert-koin:koin-core:$koin_version")
-    implementation "io.insert-koin:koin-android:$koin_version"
-    implementation "io.insert-koin:koin-compose:$koin_compose"
 
     // RETROFIT
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"

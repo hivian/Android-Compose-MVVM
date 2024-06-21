@@ -53,9 +53,9 @@ dependencies {
     implementation "androidx.compose.material3:material3:$material_version"
 
     // DI
-    implementation("io.insert-koin:koin-core:$koin_version")
-    implementation "io.insert-koin:koin-android:$koin_version"
-    implementation "io.insert-koin:koin-compose:$koin_compose"
+    api("io.insert-koin:koin-core:$koin_version")
+    api "io.insert-koin:koin-android:$koin_version"
+    api "io.insert-koin:koin-androidx-compose:$koin_version"
 
     // ROOM
     ksp "androidx.room:room-compiler:$room_version"
