@@ -2,13 +2,13 @@
 
 <p align="center">
   <a href="https://developer.android.com/jetpack/compose">
-    <img src="https://img.shields.io/badge/compose-1.4.3-brightgreen" alt="Compose Version">
+    <img src="https://img.shields.io/badge/compose-1.6.8-brightgreen" alt="Compose Version">
   </a>
   <a href="https://kotlinlang.org/docs/whatsnew18.html">
-    <img src="https://img.shields.io/badge/kotlin-1.8.10-blue" alt="Kotlin Version">
+    <img src="https://img.shields.io/badge/kotlin-2.0.0-blue" alt="Kotlin Version">
   </a>
   <a href="https://docs.gradle.org/8.0.2/release-notes.html">
-    <img src="https://img.shields.io/badge/gradle-8.0.2-blue" alt="Gradle">
+    <img src="https://img.shields.io/badge/gradle-8.4.1-blue" alt="Gradle">
   </a>
   <a href="https://android-arsenal.com/api?level=27">
     <img src="https://img.shields.io/badge/API-27%2B-blue" alt="API">
@@ -90,7 +90,7 @@ com.hivian.compose_mvvm.core                # Core Module
 │   │   └── dao                             # Data Access Object for Room
 │   └── remote                              # Remote data client & data wrappers
 ├── extensions                              # Kotlin extensions
-└── services                                # Core services (localization, navigation ...)
+└── services                                # Core services
 ```
 
 
