@@ -10,9 +10,11 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -21,7 +23,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
@@ -32,11 +33,27 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
+import com.hivian.compose_mvvm.core.services.navigation.NavigationAction
 import com.hivian_compose_mvvm.basic_feature.R
+import org.koin.compose.koinInject
+import org.koin.core.parameter.parametersOf
 
 @Composable
-fun DetailScreen(viewModel: DetailViewModel = viewModel()) {
+fun DetailScreen(
+    userId: Int,
+    viewModel: DetailViewModel = koinInject(parameters = { parametersOf(userId) }),
+    onNavigateBack: () -> Unit
+) {
     viewModel.initialize()
+
+    val navigationEventState = viewModel.navigationEvent.collectAsState()
+
+    LaunchedEffect(navigationEventState.value) {
+        when (navigationEventState.value) {
+            is NavigationAction.Back -> onNavigateBack()
+            else -> Unit
+        }
+    }
 
     DetailContent(
         DetailViewModelArg(
@@ -71,7 +88,7 @@ fun DetailContent(
                             viewModelArg.navigateBack()
                         }) {
                         Icon(
-                            imageVector = Icons.Filled.ArrowBack,
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "backIcon"
                         )
                     }

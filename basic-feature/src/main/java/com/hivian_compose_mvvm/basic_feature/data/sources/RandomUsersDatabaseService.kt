@@ -3,9 +3,8 @@ package com.hivian_compose_mvvm.basic_feature.data.sources
 import com.hivian.compose_mvvm.core.datasources.local.dao.IRandomUsersDao
 import com.hivian.compose_mvvm.core.datasources.models.RandomUserDTO
 import com.hivian_compose_mvvm.basic_feature.domain.services.IRandomUsersDatabaseService
-import javax.inject.Inject
 
-internal class RandomUsersDatabaseService @Inject constructor(
+internal class RandomUsersDatabaseService(
     private val dao: IRandomUsersDao
 ): IRandomUsersDatabaseService {
 

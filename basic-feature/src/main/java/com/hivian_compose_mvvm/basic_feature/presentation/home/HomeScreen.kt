@@ -11,6 +11,8 @@ import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -24,13 +26,27 @@ import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.hivian.compose_mvvm.core.base.ViewModelVisualState
+import com.hivian.compose_mvvm.core.services.navigation.NavigationAction
 import com.hivian_compose_mvvm.basic_feature.domain.models.RandomUser
+import org.koin.compose.koinInject
 
 @Composable
 fun HomeScreen(
-    viewModel: HomeViewModel = viewModel()
+    viewModel: HomeViewModel = koinInject(),
+    onNavigateToDetail: (Int) -> Unit
 ) {
     viewModel.initialize()
+
+    val navigationEventState = viewModel.navigationEvent.collectAsState()
+
+    LaunchedEffect(navigationEventState.value) {
+        when (val event = navigationEventState.value) {
+            is NavigationAction.ToDetailScreen -> {
+                onNavigateToDetail(event.userId)
+            }
+            else -> Unit
+        }
+    }
 
     HomeContent(
         HomeViewModelArg(

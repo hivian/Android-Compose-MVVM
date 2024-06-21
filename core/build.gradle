@@ -1,10 +1,10 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.plugin.compose'
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
-    id 'com.google.dagger.hilt.android'
-    id 'com.google.devtools.ksp' version '1.8.10-1.0.9'
+    id 'com.google.devtools.ksp' version "$ksp_version"
 }
 
 android {
@@ -32,9 +32,6 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion "1.4.2"
-    }
     buildFeatures {
         compose true
         buildConfig true
@@ -55,10 +52,10 @@ dependencies {
     // UI
     implementation "androidx.compose.material3:material3:$material_version"
 
-    // Android
-    implementation "androidx.hilt:hilt-navigation-compose:$hilt_navigation_compose_version"
-    implementation "com.google.dagger:hilt-android:$hilt_version"
-    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+    // DI
+    implementation("io.insert-koin:koin-core:$koin_version")
+    implementation "io.insert-koin:koin-android:$koin_version"
+    implementation "io.insert-koin:koin-compose:$koin_compose"
 
     // ROOM
     ksp "androidx.room:room-compiler:$room_version"
@@ -68,7 +65,7 @@ dependencies {
     // RETROFIT
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.3'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.12.0'
 
     // LOGGER
     api 'com.github.ajalt:timberkt:1.5.1'

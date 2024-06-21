@@ -1,9 +1,8 @@
 package com.hivian_compose_mvvm.basic_feature.domain.usecases
 
 import com.hivian.compose_mvvm.core.services.ILocalizationService
-import javax.inject.Inject
 
-class TranslateResourceUseCase @Inject constructor(
+class TranslateResourceUseCase(
     private val localizationService: ILocalizationService
 ) {
 

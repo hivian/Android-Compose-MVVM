@@ -10,9 +10,8 @@ import com.hivian_compose_mvvm.basic_feature.domain.models.RandomUser
 import com.hivian_compose_mvvm.basic_feature.domain.repository.IRandomUsersRepository
 import com.hivian_compose_mvvm.basic_feature.domain.services.IRandomUsersDatabaseService
 import com.hivian_compose_mvvm.basic_feature.domain.services.IRandomUsersHttpService
-import javax.inject.Inject
 
-internal class RandomUsersRepository @Inject constructor(
+internal class RandomUsersRepository(
     private val database: IRandomUsersDatabaseService,
     private val httpClient: IRandomUsersHttpService
 ): IRandomUsersRepository {
