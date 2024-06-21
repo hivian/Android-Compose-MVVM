@@ -10,18 +10,14 @@ import com.hivian.compose_mvvm.core.datasources.remote.ErrorType
 import com.hivian.compose_mvvm.core.datasources.ServiceResult
 import com.hivian.compose_mvvm.core.extensions.toErrorMessage
 import com.hivian.compose_mvvm.core.services.ILocalizationService
+import com.hivian.compose_mvvm.core.services.navigation.NavigationAction
 import com.hivian_compose_mvvm.basic_feature.domain.models.RandomUser
 import com.hivian_compose_mvvm.basic_feature.domain.usecases.GetRandomUsersUseCase
-import com.hivian_compose_mvvm.basic_feature.domain.usecases.NavigateToRandomUserDetailUseCase
 import com.hivian_compose_mvvm.basic_feature.domain.usecases.ShowAppMessageUseCase
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class HomeViewModel @Inject constructor(
+class HomeViewModel(
     private val localizationService: ILocalizationService,
-    private val navigateToRandomUserDetailUseCase: NavigateToRandomUserDetailUseCase,
     private val getRandomUsersUseCase: GetRandomUsersUseCase,
     private val showAppMessageUseCase: ShowAppMessageUseCase
 ): PaginationViewModel<Int, RandomUser>(initialKey = PAGINATION_INITIAL_KEY, pageSize = RESULT_COUNT) {
@@ -48,7 +44,7 @@ class HomeViewModel @Inject constructor(
     val retryMessage: String = localizationService.localizedString(R.string.retry_message)
 
     override fun initialize() {
-        if (isInitialized.value == true) return
+        if (isInitialized.value) return
 
         loadNext()
 
@@ -106,7 +102,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun openRandomUserDetail(userId: Int) {
-        navigateToRandomUserDetailUseCase(userId)
+        _navigationEvent.value = NavigationAction.ToDetailScreen(userId)
     }
 
     fun refresh() {

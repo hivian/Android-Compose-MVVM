@@ -4,9 +4,8 @@ import com.hivian.compose_mvvm.core.datasources.ServiceResult
 import com.hivian_compose_mvvm.basic_feature.data.mappers.ImageSize
 import com.hivian_compose_mvvm.basic_feature.domain.models.RandomUser
 import com.hivian_compose_mvvm.basic_feature.domain.repository.IRandomUsersRepository
-import javax.inject.Inject
 
-class GetRandomUserByIdUseCase @Inject constructor(
+class GetRandomUserByIdUseCase(
     private val randomUsersService: IRandomUsersRepository
 ) {
 

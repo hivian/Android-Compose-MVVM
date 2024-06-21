@@ -9,7 +9,6 @@ import com.hivian.compose_mvvm.core.datasources.models.RandomUserDTO
 import com.hivian_compose_mvvm.basic_feature.data.mappers.ImageSize
 import com.hivian_compose_mvvm.basic_feature.data.mappers.mapToRandomUser
 import com.hivian_compose_mvvm.basic_feature.domain.usecases.GetRandomUserByIdUseCase
-import com.hivian_compose_mvvm.basic_feature.domain.usecases.NavigateBackUseCase
 import com.hivian_compose_mvvm.basic_feature.domain.usecases.ShowAppMessageUseCase
 import com.hivian_compose_mvvm.basic_feature.domain.usecases.TranslateResourceUseCase
 import com.hivian_compose_mvvm.basic_feature.presentation.detail.DetailViewModel
@@ -31,7 +30,6 @@ class DetailViewModelTest {
     private val translateResourceUseCase = mock<TranslateResourceUseCase>()
     private val getRandomUserByIdUseCase = mock<GetRandomUserByIdUseCase>()
     private val showAppMessageUseCase = mock<ShowAppMessageUseCase>()
-    private val navigateBackUseCase = mock<NavigateBackUseCase>()
 
     private lateinit var viewModel: DetailViewModel
 
@@ -42,7 +40,6 @@ class DetailViewModelTest {
             translateResourceUseCase,
             getRandomUserByIdUseCase,
             showAppMessageUseCase,
-            navigateBackUseCase
         )
     }
 

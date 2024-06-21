@@ -5,22 +5,17 @@ import androidx.lifecycle.viewModelScope
 import com.hivian.compose_mvvm.core.base.ViewModelBase
 import com.hivian.compose_mvvm.core.datasources.ServiceResult
 import com.hivian.compose_mvvm.core.extensions.toErrorMessage
+import com.hivian.compose_mvvm.core.services.navigation.NavigationAction
 import com.hivian_compose_mvvm.basic_feature.domain.usecases.GetRandomUserByIdUseCase
-import com.hivian_compose_mvvm.basic_feature.domain.usecases.NavigateBackUseCase
 import com.hivian_compose_mvvm.basic_feature.domain.usecases.ShowAppMessageUseCase
 import com.hivian_compose_mvvm.basic_feature.domain.usecases.TranslateResourceUseCase
-import com.hivian_compose_mvvm.basic_feature.presentation.di.UserId
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class DetailViewModel @Inject constructor(
-    @UserId private val userId: Int,
+class DetailViewModel(
+    private val userId: Int,
     private val translateResourceUseCase: TranslateResourceUseCase,
     private val getRandomUserByIdUseCase: GetRandomUserByIdUseCase,
     private val showAppMessageUseCase: ShowAppMessageUseCase,
-    private val navigateBackUseCase: NavigateBackUseCase
 ): ViewModelBase() {
 
     val picture = mutableStateOf("")
@@ -42,7 +37,7 @@ class DetailViewModel @Inject constructor(
     val longitude = mutableStateOf(0.0)
 
     override fun initialize() {
-        if (isInitialized.value == true) return
+        if (isInitialized.value) return
 
         viewModelScope.launch {
             when (val result = getRandomUserByIdUseCase(userId)) {
@@ -69,7 +64,7 @@ class DetailViewModel @Inject constructor(
     }
 
     fun navigateBack() {
-        navigateBackUseCase()
+        _navigationEvent.value = NavigationAction.Back
     }
 
 }

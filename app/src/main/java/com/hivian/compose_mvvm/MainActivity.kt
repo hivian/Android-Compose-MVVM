@@ -13,22 +13,36 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.hivian.compose_mvvm.core.services.navigation.INavigationService
+import androidx.navigation.navArgument
 import com.hivian.compose_mvvm.core.services.IUserInteractionService
-import com.hivian_compose_mvvm.basic_feature.presentation.routes.BasicFeatureScreen
+import com.hivian_compose_mvvm.basic_feature.presentation.detail.DetailScreen
+import com.hivian_compose_mvvm.basic_feature.presentation.home.HomeScreen
 import com.hivian_compose_mvvm.basic_feature.presentation.themes.MainTheme
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
 
-@AndroidEntryPoint
+sealed class Screen(val route: String) {
+
+    companion object {
+        const val USER_ID_KEY = "user_id"
+    }
+
+    data object Home : Screen("home")
+    data object Detail : Screen("detail/{$USER_ID_KEY}")
+
+    fun loadParameterValue(key: String, userId: Int): String {
+        return route.replace("{$key}", "$userId")
+    }
+}
+
+
 class MainActivity : ComponentActivity() {
 
-    @Inject lateinit var navigationService: INavigationService
-
-    @Inject lateinit var userInteractionService: IUserInteractionService
+    private val userInteractionService: IUserInteractionService by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,24 +71,30 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    fun InitNavController() {
-        navigationService.mainNavController = rememberNavController()
-
+    fun InitNavController(
+        navController: NavHostController = rememberNavController()
+    ) {
         NavHost(
-            navController = navigationService.mainNavController,
-            startDestination = BasicFeatureScreen.Home.route,
+            navController = navController,
+            startDestination = Screen.Home.route,
         ) {
-            BasicFeatureScreen.allScreens.forEach { screen ->
-                composable(
-                    screen.route,
-                    screen.arguments,
-                    screen.deepLinks
-                ) {
-                    screen.Content(
-                        navController = navigationService.mainNavController,
-                        navBackStackEntry = it
-                    )
-                }
+            composable(route = Screen.Home.route) {
+                HomeScreen(
+                    onNavigateToDetail = { userId ->
+                        navController.navigate(Screen.Detail.loadParameterValue(Screen.USER_ID_KEY, userId))
+                    }
+                )
+            }
+            composable(
+                route = Screen.Detail.route,
+                arguments = listOf(
+                    navArgument(Screen.USER_ID_KEY) { type = NavType.IntType }
+                )
+            ) { backStackEntry ->
+                DetailScreen(
+                    userId = backStackEntry.arguments!!.getInt(Screen.USER_ID_KEY),
+                    onNavigateBack = { navController.popBackStack() }
+                )
             }
         }
     }

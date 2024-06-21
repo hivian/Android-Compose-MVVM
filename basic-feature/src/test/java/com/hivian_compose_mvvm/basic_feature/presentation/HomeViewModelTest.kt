@@ -13,7 +13,6 @@ import com.hivian.compose_mvvm.core.services.ILocalizationService
 import com.hivian_compose_mvvm.basic_feature.data.mappers.ImageSize
 import com.hivian_compose_mvvm.basic_feature.data.mappers.mapToRandomUsers
 import com.hivian_compose_mvvm.basic_feature.domain.usecases.GetRandomUsersUseCase
-import com.hivian_compose_mvvm.basic_feature.domain.usecases.NavigateToRandomUserDetailUseCase
 import com.hivian_compose_mvvm.basic_feature.domain.usecases.ShowAppMessageUseCase
 import com.hivian_compose_mvvm.basic_feature.presentation.home.HomeViewModel
 import kotlinx.coroutines.Dispatchers
@@ -36,7 +35,6 @@ import org.mockito.kotlin.whenever
 class HomeViewModelTest {
 
     private val localizationService = mock<ILocalizationService>()
-    private val navigateToRandomUserDetailUseCase = mock<NavigateToRandomUserDetailUseCase>()
     private val randomUsersUseCase = mock<GetRandomUsersUseCase>()
     private val showAppMessageUseCase = mock<ShowAppMessageUseCase>()
 
@@ -46,9 +44,9 @@ class HomeViewModelTest {
     fun setUp() {
         viewModel = HomeViewModel(
             localizationService,
-            navigateToRandomUserDetailUseCase,
             randomUsersUseCase,
-            showAppMessageUseCase)
+            showAppMessageUseCase
+        )
     }
 
     @Test

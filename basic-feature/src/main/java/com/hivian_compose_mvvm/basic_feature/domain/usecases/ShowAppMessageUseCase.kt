@@ -2,9 +2,8 @@ package com.hivian_compose_mvvm.basic_feature.domain.usecases
 
 import androidx.compose.material3.SnackbarDuration
 import com.hivian.compose_mvvm.core.services.IUserInteractionService
-import javax.inject.Inject
 
-class ShowAppMessageUseCase @Inject constructor(
+class ShowAppMessageUseCase(
     private val userInteractionService: IUserInteractionService
 ) {
 
