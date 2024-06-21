@@ -28,16 +28,17 @@ import coil.request.ImageRequest
 import com.hivian.compose_mvvm.core.base.ViewModelVisualState
 import com.hivian.compose_mvvm.core.services.navigation.NavigationAction
 import com.hivian_compose_mvvm.basic_feature.domain.models.RandomUser
+import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
 
 @Composable
 fun HomeScreen(
-    viewModel: HomeViewModel = koinInject(),
+    viewModel: HomeViewModel = koinViewModel<HomeViewModel>(),
     onNavigateToDetail: (Int) -> Unit
 ) {
     viewModel.initialize()
 
-    val navigationEventState = viewModel.navigationEvent.collectAsState()
+    val navigationEventState = viewModel.navigationEvent.collectAsState(initial = null)
 
     LaunchedEffect(navigationEventState.value) {
         when (val event = navigationEventState.value) {

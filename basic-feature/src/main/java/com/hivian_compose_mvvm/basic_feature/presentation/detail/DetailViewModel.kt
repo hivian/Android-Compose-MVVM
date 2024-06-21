@@ -64,7 +64,9 @@ class DetailViewModel(
     }
 
     fun navigateBack() {
-        _navigationEvent.value = NavigationAction.Back
+        viewModelScope.launch {
+            _navigationEvent.emit(NavigationAction.Back)
+        }
     }
 
 }

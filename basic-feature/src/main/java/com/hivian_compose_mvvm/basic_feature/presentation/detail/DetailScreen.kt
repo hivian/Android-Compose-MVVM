@@ -35,18 +35,18 @@ import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import com.hivian.compose_mvvm.core.services.navigation.NavigationAction
 import com.hivian_compose_mvvm.basic_feature.R
-import org.koin.compose.koinInject
+import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
 
 @Composable
 fun DetailScreen(
     userId: Int,
-    viewModel: DetailViewModel = koinInject(parameters = { parametersOf(userId) }),
+    viewModel: DetailViewModel = koinViewModel(parameters = { parametersOf(userId) }),
     onNavigateBack: () -> Unit
 ) {
     viewModel.initialize()
 
-    val navigationEventState = viewModel.navigationEvent.collectAsState()
+    val navigationEventState = viewModel.navigationEvent.collectAsState(initial = null)
 
     LaunchedEffect(navigationEventState.value) {
         when (navigationEventState.value) {

@@ -53,9 +53,9 @@ dependencies {
     implementation "androidx.compose.material3:material3:$material_version"
 
     // DI
-    implementation("io.insert-koin:koin-core:$koin_version")
-    implementation "io.insert-koin:koin-android:$koin_version"
-    implementation "io.insert-koin:koin-compose:$koin_compose"
+    api("io.insert-koin:koin-core:$koin_version")
+    api "io.insert-koin:koin-android:$koin_version"
+    api "io.insert-koin:koin-androidx-compose:$koin_version"
 
     // ROOM
     ksp "androidx.room:room-compiler:$room_version"
@@ -71,13 +71,13 @@ dependencies {
     api 'com.github.ajalt:timberkt:1.5.1'
 
     // TESTS
-    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3'
-    testImplementation 'org.mockito.kotlin:mockito-kotlin:5.1.0'
-    testImplementation "org.mockito:mockito-inline:5.2.0"
-    testImplementation "android.arch.core:core-testing:1.1.1"
-    testImplementation('org.junit.jupiter:junit-jupiter:5.10.0')
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
+    testApi 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3'
+    testApi 'org.mockito.kotlin:mockito-kotlin:5.1.0'
+    testApi "org.mockito:mockito-inline:5.2.0"
+    testApi "android.arch.core:core-testing:1.1.1"
+    testApi('org.junit.jupiter:junit-jupiter:5.10.0')
+    androidTestApi 'androidx.test.ext:junit:1.1.5'
+    androidTestApi 'androidx.test.espresso:espresso-core:3.5.1'
+    debugApi "androidx.compose.ui:ui-test-manifest:$compose_version"
 
 }

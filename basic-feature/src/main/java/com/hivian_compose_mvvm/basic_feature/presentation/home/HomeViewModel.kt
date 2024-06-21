@@ -43,6 +43,7 @@ class HomeViewModel(
 
     val retryMessage: String = localizationService.localizedString(R.string.retry_message)
 
+
     override fun initialize() {
         if (isInitialized.value) return
 
@@ -102,7 +103,9 @@ class HomeViewModel(
     }
 
     fun openRandomUserDetail(userId: Int) {
-        _navigationEvent.value = NavigationAction.ToDetailScreen(userId)
+        viewModelScope.launch {
+            _navigationEvent.emit(NavigationAction.ToDetailScreen(userId))
+        }
     }
 
     fun refresh() {
