@@ -12,8 +12,8 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "compose-mvvm"
+rootProject.name = "RandomUsers"
 include ':app'
 
 include ':core'
-include ':basic-feature'
+include ':homefeature'

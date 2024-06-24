@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    namespace 'com.hivian.compose_mvvm'
+    namespace 'com.hivian.randomusers'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.hivian.compose_mvvm"
+        applicationId "com.hivian.randomusers"
         minSdk 27
         targetSdk 34
         versionCode 110
@@ -54,7 +54,7 @@ android {
 dependencies {
 
     // MODULES
-    implementation project(":basic-feature")
+    implementation project(":homefeature")
     implementation project(":core")
 
     // UI
