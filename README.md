@@ -18,10 +18,10 @@
   </a>
 </p>
 
-<p align="center">
-  A simple demo app built with Kotlin, using Jetpack Compose, based on clean architecture and MVVM pattern. <br/>
-  Data fetched from https://randomuser.me api and saved to Android database
-</p>
+A simple demo app built with Kotlin, using Jetpack Compose, based on clean architecture and MVVM pattern.
+Data fetched from https://randomuser.me api and saved to Android database
+
+This project is the Android copy of that [Kotlin Multiplatform project](https://github.com/hivian/RandomUsersComposeMultiplatform)
 
 ## Preview
 <p>
