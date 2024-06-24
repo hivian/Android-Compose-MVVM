@@ -2,18 +2,18 @@ package com.randomusers.basic_feature.presentation
 
 import com.hivian.randomusers.core.InstantExecutorExtension
 import com.hivian.randomusers.core.MainCoroutineExtension
-import com.hivian.randomusers.core.domain.base.ViewModelVisualState
-import com.hivian.randomusers.core.data.remote.ErrorType
 import com.hivian.randomusers.core.data.ServiceResult
 import com.hivian.randomusers.core.data.models.Location
 import com.hivian.randomusers.core.data.models.Name
 import com.hivian.randomusers.core.data.models.Picture
 import com.hivian.randomusers.core.data.models.RandomUserDTO
+import com.hivian.randomusers.core.data.remote.ErrorType
+import com.hivian.randomusers.core.domain.base.ViewModelVisualState
 import com.hivian.randomusers.core.domain.services.ILocalizationService
+import com.hivian.randomusers.core.domain.usecases.ShowAppMessageUseCase
 import com.hivian.randomusers.homefeature.data.mappers.ImageSize
 import com.hivian.randomusers.homefeature.data.mappers.mapToRandomUsers
 import com.hivian.randomusers.homefeature.domain.usecases.GetRandomUsersUseCase
-import com.hivian.randomusers.core.domain.usecases.ShowAppMessageUseCase
 import com.hivian.randomusers.homefeature.presentation.home.HomeViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

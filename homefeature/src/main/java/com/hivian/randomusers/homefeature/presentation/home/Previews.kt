@@ -5,8 +5,8 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import com.hivian.randomusers.core.domain.base.ViewModelVisualState
 import com.hivian.randomusers.core.data.remote.ErrorType
+import com.hivian.randomusers.core.domain.base.ViewModelVisualState
 import com.hivian.randomusers.homefeature.domain.models.Address
 import com.hivian.randomusers.homefeature.domain.models.RandomUser
 

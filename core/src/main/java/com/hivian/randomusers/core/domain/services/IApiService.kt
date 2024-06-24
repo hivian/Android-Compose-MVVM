@@ -1,8 +1,8 @@
 package com.hivian.randomusers.core.domain.services
 
-import com.hivian.randomusers.core.data.remote.HttpResult
 import com.hivian.randomusers.core.data.models.Results
 import com.hivian.randomusers.core.data.remote.ErrorType
+import com.hivian.randomusers.core.data.remote.HttpResult
 import com.hivian.randomusers.core.data.remote.HttpStatusCode
 import retrofit2.HttpException
 import java.net.SocketTimeoutException

@@ -1,15 +1,15 @@
 package com.hivian.randomusers.homefeature.data.services
 
+import com.hivian.randomusers.core.data.ServiceResult
 import com.hivian.randomusers.core.data.remote.ErrorType
 import com.hivian.randomusers.core.data.remote.HttpResult
-import com.hivian.randomusers.core.data.ServiceResult
+import com.hivian.randomusers.core.domain.services.IApiService
+import com.hivian.randomusers.core.domain.services.IDatabaseService
 import com.hivian.randomusers.homefeature.data.mappers.ImageSize
 import com.hivian.randomusers.homefeature.data.mappers.mapToRandomUser
 import com.hivian.randomusers.homefeature.data.mappers.mapToRandomUsers
 import com.hivian.randomusers.homefeature.domain.models.RandomUser
 import com.hivian.randomusers.homefeature.domain.services.IRandomUsersService
-import com.hivian.randomusers.core.domain.services.IDatabaseService
-import com.hivian.randomusers.core.domain.services.IApiService
 
 internal class RandomUsersService(
     private val database: IDatabaseService,

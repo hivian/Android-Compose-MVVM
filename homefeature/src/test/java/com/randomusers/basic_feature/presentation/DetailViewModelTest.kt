@@ -6,11 +6,11 @@ import com.hivian.randomusers.core.data.models.Location
 import com.hivian.randomusers.core.data.models.Name
 import com.hivian.randomusers.core.data.models.Picture
 import com.hivian.randomusers.core.data.models.RandomUserDTO
+import com.hivian.randomusers.core.domain.usecases.ShowAppMessageUseCase
+import com.hivian.randomusers.core.domain.usecases.TranslateResourceUseCase
 import com.hivian.randomusers.homefeature.data.mappers.ImageSize
 import com.hivian.randomusers.homefeature.data.mappers.mapToRandomUser
 import com.hivian.randomusers.homefeature.domain.usecases.GetRandomUserByIdUseCase
-import com.hivian.randomusers.core.domain.usecases.ShowAppMessageUseCase
-import com.hivian.randomusers.core.domain.usecases.TranslateResourceUseCase
 import com.hivian.randomusers.homefeature.presentation.detail.DetailViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceUntilIdle
