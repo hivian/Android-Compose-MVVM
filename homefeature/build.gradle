@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    namespace 'com.hivian.randomusers.core'
+    namespace 'com.hivian.randomusers.homefeature'
     compileSdk 34
 
     defaultConfig {
@@ -45,30 +45,36 @@ android {
             returnDefaultValues = true
         }
     }
+    sourceSets {
+        test {
+            java.srcDir project(":core").file("src/test/java")
+        }
+    }
 }
 
 dependencies {
 
+    // MODULES
+    implementation project(":core")
+    testImplementation project(':core')
+
     // UI
+    implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.material3:material3:$material_version"
+    implementation 'androidx.compose.runtime:runtime-livedata:1.6.8'
+    implementation 'io.coil-kt:coil-compose:2.6.0'
+    implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
+    implementation 'com.google.maps.android:maps-compose:5.0.3'
+    implementation 'com.google.android.gms:play-services-maps:18.2.0'
+    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
+    implementation "com.github.skydoves:landscapist-coil:2.2.11"
+    implementation "com.github.skydoves:landscapist-animation:2.2.8"
 
-    // DI
-    api("io.insert-koin:koin-core:$koin_version")
-    api "io.insert-koin:koin-android:$koin_version"
-    api "io.insert-koin:koin-androidx-compose:$koin_version"
-
-    // ROOM
-    ksp "androidx.room:room-compiler:$room_version"
-    implementation "androidx.room:room-runtime:$room_version"
-    implementation "androidx.room:room-ktx:$room_version"
+    // Android
+    implementation "androidx.navigation:navigation-compose:$navigation_component_version"
 
     // RETROFIT
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.12.0'
-
-    // LOGGER
-    api 'com.github.ajalt:timberkt:1.5.1'
 
     // TESTS
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3'

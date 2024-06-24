@@ -56,41 +56,53 @@
 
 ## Package Structures
 
+* Modules dependencies:
 ```
-com.hivian.compose_mvvm                     # Root Module
+App → homefeature
+    ↳ core   
+```
+
+* Layers dependencies: 
+* ```
+  presenter → domain ← data
+  ```
+  
+* Global package structure:
+```
+com.hivian.randomusers                      # Root Module
 ├── App                                     # Application entry point
 └── MainActivity                            # Screen entry point
-
-com.hivian.compose_mvvm.basic-feature       # Main feature Module
+                                                   
+com.hivian.randomusers.homefeature          # Main feature Module
+├── di                                      # Dependency injection module
 ├── data                                    # Data layer
-│   ├── di                                  # Dependency injection module
 │   ├── mappers                             # DTO to domain models mapper
-│   ├── repository                          # Interact with local & remote data source
-│   └── sources                             # Data source services implementations
+│   └── services                            # local & remote data source implementation
 ├── domain                                  # Domain layer
-│   ├── di                                  # Dependency injection module
 │   ├── models                              # Domain models
-│   ├── repository                          # Repository contract
-│   ├── services                            # Data source services contracts
+│   ├── services                            # services contracts
 │   └── usecases                            # Use cases encapsulation for presentation layer
 └── presentation                            # Presentation layer
-    ├── di                                  # Dependency injection module
-    ├── extensions                          # Platform-specific Kotlin extensions
     ├── home                                # Main screen & viewModel
     ├── detail                              # Detail screen & viewModel
     └── themes                              # Design system
 
-com.hivian.compose_mvvm.core                # Core Module
+com.hivian.randomusers.core                 # Core Module
 ├── di                                      # Dependency injection module
-├── base                                    # Base classes
-├── datasources                             # Data sources
+├── data                                    # Data sources
 │   ├── models                              # Entities & DTO Models
 │   ├── local                               # Local database client
 │   │   ├── converters                      # Complex data serializer
 │   │   └── dao                             # Data Access Object for Room
 │   └── remote                              # Remote data client & data wrappers
-├── extensions                              # Kotlin extensions
-└── services                                # Core services
+├── domain                                  # Domain layer
+│   ├── base                                # Base classes
+│   ├── extensions                          # Kotlin extensions
+│   ├── services                            # Core services contracts
+│   └── usecases                            # Core usecases
+└── presentation                            # Presentation layer
+    ├── navigation                          # Navigation routes
+    └── services                            # UI services implementation
 ```
 
 
