@@ -53,21 +53,19 @@
 * SOLID principles
 * MVVM clean architecture
 * Modularization by feature and by layer
-
-## Package Structures
-
-* Modules dependencies:
+  
+### Modules dependencies:
 ```
 App → homefeature
     ↳ core   
 ```
 
-* Layers dependencies: 
+### Layers dependencies: 
 ```
 presentation → domain ← data
 ```
   
-* Global package structure:
+### Global package structure:
 ```
 com.hivian.randomusers                      # Root Module
 ├── app                                     # Application entry point
