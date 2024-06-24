@@ -64,7 +64,7 @@ App → homefeature
 
 * Layers dependencies: 
 ```
-presenter → domain ← data
+presentation → domain ← data
 ```
   
 * Global package structure:
