@@ -2,12 +2,12 @@ package com.randomusers.homefeature.data
 
 import com.hivian.randomusers.core.InstantExecutorExtension
 import com.hivian.randomusers.core.MainCoroutineExtension
+import com.hivian.randomusers.core.data.models.Results
+import com.hivian.randomusers.core.data.remote.ApiService
 import com.hivian.randomusers.core.data.remote.ErrorType
 import com.hivian.randomusers.core.data.remote.HttpResult
 import com.hivian.randomusers.core.data.remote.HttpStatusCode
-import com.hivian.randomusers.core.data.models.Results
 import com.hivian.randomusers.core.data.remote.IHttpClient
-import com.hivian.randomusers.core.data.remote.ApiService
 import com.hivian.randomusers.core.domain.services.IApiService
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.ExperimentalCoroutinesApi

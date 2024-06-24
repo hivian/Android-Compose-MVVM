@@ -4,16 +4,16 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.hivian.randomusers.core.R
+import com.hivian.randomusers.core.data.ServiceResult
+import com.hivian.randomusers.core.data.remote.ErrorType
 import com.hivian.randomusers.core.domain.base.PaginationViewModel
 import com.hivian.randomusers.core.domain.base.ViewModelVisualState
-import com.hivian.randomusers.core.data.remote.ErrorType
-import com.hivian.randomusers.core.data.ServiceResult
 import com.hivian.randomusers.core.domain.extensions.toErrorMessage
 import com.hivian.randomusers.core.domain.services.ILocalizationService
+import com.hivian.randomusers.core.domain.usecases.ShowAppMessageUseCase
 import com.hivian.randomusers.core.presentation.navigation.NavigationAction
 import com.hivian.randomusers.homefeature.domain.models.RandomUser
 import com.hivian.randomusers.homefeature.domain.usecases.GetRandomUsersUseCase
-import com.hivian.randomusers.core.domain.usecases.ShowAppMessageUseCase
 import kotlinx.coroutines.launch
 
 class HomeViewModel(

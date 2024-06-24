@@ -2,13 +2,13 @@ package com.hivian.randomusers.homefeature.presentation.detail
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
-import com.hivian.randomusers.core.domain.base.ViewModelBase
 import com.hivian.randomusers.core.data.ServiceResult
+import com.hivian.randomusers.core.domain.base.ViewModelBase
 import com.hivian.randomusers.core.domain.extensions.toErrorMessage
-import com.hivian.randomusers.core.presentation.navigation.NavigationAction
-import com.hivian.randomusers.homefeature.domain.usecases.GetRandomUserByIdUseCase
 import com.hivian.randomusers.core.domain.usecases.ShowAppMessageUseCase
 import com.hivian.randomusers.core.domain.usecases.TranslateResourceUseCase
+import com.hivian.randomusers.core.presentation.navigation.NavigationAction
+import com.hivian.randomusers.homefeature.domain.usecases.GetRandomUserByIdUseCase
 import kotlinx.coroutines.launch
 
 class DetailViewModel(
