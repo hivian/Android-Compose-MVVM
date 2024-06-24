@@ -63,14 +63,14 @@ App → homefeature
 ```
 
 * Layers dependencies: 
-* ```
-  presenter → domain ← data
-  ```
+```
+presenter → domain ← data
+```
   
 * Global package structure:
 ```
 com.hivian.randomusers                      # Root Module
-├── App                                     # Application entry point
+├── app                                     # Application entry point
 └── MainActivity                            # Screen entry point
                                                    
 com.hivian.randomusers.homefeature          # Main feature Module
